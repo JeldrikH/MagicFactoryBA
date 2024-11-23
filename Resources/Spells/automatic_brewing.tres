@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Spell" load_steps=2 format=3 uid="uid://d768nwiof0o6"]
+
+[ext_resource type="Script" path="res://Resources/spell.gd" id="1_eeego"]
+
+[resource]
+script = ExtResource("1_eeego")
+use_amount = 5
+id = "automatic_brewing"
+name = "Automatic Brewing"
+description = "Allows to brew spells in a cauldron"
+stackable = true

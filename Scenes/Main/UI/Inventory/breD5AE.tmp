@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvc8rgdnvnahk"]
+
+[ext_resource type="PackedScene" uid="uid://dir5gb0jhc5o8" path="res://Scenes/Main/UI/Inventory/slot.tscn" id="1_8l4dq"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/brewing_inventory.gd" id="1_37d7f"]
+[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_ovmk7"]
+[ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="4_xf7s2"]
+
+[node name="BrewingInventory" type="PanelContainer"]
+custom_minimum_size = Vector2(1128, 768)
+anchors_preset = -1
+anchor_left = 0.279687
+anchor_top = 0.233333
+anchor_right = 0.720312
+anchor_bottom = 0.766667
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_37d7f")
+metadata/_edit_use_anchors_ = true
+
+[node name="BrewingGrid" type="HBoxContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(1128, 768)
+layout_mode = 2
+
+[node name="BrewingMargin" type="MarginContainer" parent="BrewingGrid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="BrewingInventory" type="Control" parent="BrewingGrid/BrewingMargin"]
+layout_mode = 2
+
+[node name="Slot1" parent="BrewingGrid/BrewingMargin/BrewingInventory" instance=ExtResource("1_8l4dq")]
+layout_mode = 2
+anchor_left = 0.306671
+anchor_top = 0.259115
+anchor_right = 0.633338
+anchor_bottom = 0.386719
+offset_right = -0.000106812
+offset_bottom = 0.00012207
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot2" parent="BrewingGrid/BrewingMargin/BrewingInventory" instance=ExtResource("1_8l4dq")]
+layout_mode = 2
+anchor_left = 0.316671
+anchor_top = 0.598959
+anchor_right = 0.643337
+anchor_bottom = 0.726564
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonLayer" type="Control" parent="BrewingGrid/BrewingMargin"]
+layout_mode = 2
+
+[node name="SelectRecipe" type="Button" parent="BrewingGrid/BrewingMargin/ButtonLayer"]
+layout_mode = 2
+offset_left = 60.0013
+offset_top = 30.0005
+offset_right = 208.001
+offset_bottom = 145.0
+text = "Select Recipe"
+
+[node name="PlayerItems" parent="BrewingGrid" instance=ExtResource("2_ovmk7")]
+layout_mode = 2
+
+[node name="RecipePanel" parent="." instance=ExtResource("4_xf7s2")]
+layout_mode = 2
+
+[connection signal="drag_drop" from="BrewingGrid/BrewingMargin/BrewingInventory/Slot1" to="." method="_on_drag_drop"]
+[connection signal="drag_drop" from="BrewingGrid/BrewingMargin/BrewingInventory/Slot2" to="." method="_on_drag_drop"]

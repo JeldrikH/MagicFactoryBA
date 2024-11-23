@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvoexw45upwqd"]
+
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/container.gd" id="1_b842p"]
+[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_8tm81"]
+
+[node name="ItemContainer" type="PanelContainer" node_paths=PackedStringArray("item_grid")]
+anchors_preset = -1
+anchor_right = 0.522266
+anchor_bottom = 0.65625
+script = ExtResource("1_b842p")
+item_grid = NodePath("ContainerGrid/ContainerMargin/ContainerItems")
+grid_size = 50
+id = &"0"
+metadata/_edit_use_anchors_ = true
+
+[node name="ContainerGrid" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ContainerMargin" type="MarginContainer" parent="ContainerGrid"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ContainerItems" type="GridContainer" parent="ContainerGrid/ContainerMargin"]
+clip_contents = true
+layout_mode = 2
+columns = 12
+
+[node name="InventoryMargin" type="MarginContainer" parent="ContainerGrid"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PlayerItems" parent="ContainerGrid/InventoryMargin" instance=ExtResource("2_8tm81")]
+layout_mode = 2
+id = &""
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

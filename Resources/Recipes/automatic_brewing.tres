@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=3 format=3 uid="uid://b8qqxqsuivx3l"]
+
+[ext_resource type="Script" path="res://Resources/recipe.gd" id="1_yg3sp"]
+[ext_resource type="Texture2D" uid="uid://b1m343pq3f74r" path="res://Sprites/Recipes/automatic_brewing.png" id="1_yohju"]
+
+[resource]
+script = ExtResource("1_yg3sp")
+id = "automatic_brewing"
+name = "Automatic Brewing"
+result_image = ExtResource("1_yohju")
+ingredients = Array[Array]([])
+output = Array[Array]([])
+station_type = "crafting"
+duration = 5

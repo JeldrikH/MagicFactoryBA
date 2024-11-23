@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Recipe" load_steps=5 format=3 uid="uid://ubup1pr8yya3"]
+
+[ext_resource type="Resource" uid="uid://b7msecpuh6qds" path="res://Resources/Items/frog_leg.tres" id="1_41je7"]
+[ext_resource type="Script" path="res://Resources/recipe.gd" id="1_f0c4k"]
+[ext_resource type="Texture2D" uid="uid://vy2yce3qdl88" path="res://Sprites/Items/suspicious_potion.png" id="1_lqufe"]
+[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="2_e5eir"]
+
+[resource]
+script = ExtResource("1_f0c4k")
+id = "suspicious_potion"
+name = "Suspicious Potion"
+result_image = ExtResource("1_lqufe")
+ingredients = Array[Array]([[ExtResource("1_41je7"), 2]])
+output = Array[Array]([[ExtResource("2_e5eir"), 1]])
+station_type = "brewing"
+duration = 5

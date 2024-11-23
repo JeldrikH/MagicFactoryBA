@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1iywwbjrsi3j"]
+
+[ext_resource type="PackedScene" uid="uid://cxwt4kg2qa5ud" path="res://Scenes/Main/UI/Inventory/player_inventory.tscn" id="1_hsctb"]
+[ext_resource type="PackedScene" uid="uid://ci561ngfngar7" path="res://Scenes/Main/UI/Inventory/hotbar.tscn" id="2_hnna8"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/inventories.gd" id="2_vgcqa"]
+[ext_resource type="PackedScene" uid="uid://0pyet321cbxo" path="res://Scenes/Main/UI/Inventory/spell_crafting_inventory.tscn" id="3_nrk63"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/spell_crafting_inventory.gd" id="4_vmbbo"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Hotbar" parent="." instance=ExtResource("2_hnna8")]
+custom_minimum_size = Vector2(1088, 98)
+
+[node name="Inventories" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_vgcqa")
+
+[node name="SpellCraftingInventory" parent="Inventories" groups=["inventory"] instance=ExtResource("3_nrk63")]
+visible = false
+layout_mode = 1
+offset_left = 704.813
+offset_top = 326.667
+offset_right = 1815.19
+offset_bottom = 1073.33
+script = ExtResource("4_vmbbo")
+inventory_size = null
+
+[node name="PlayerInventory" parent="Inventories" groups=["inventory"] instance=ExtResource("1_hsctb")]
+visible = false
+layout_mode = 1
+offset_left = 704.811
+offset_top = 326.667
+offset_right = 1815.19
+offset_bottom = 1073.33
+
+[connection signal="mouse_entered" from="Hotbar" to="Hotbar" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Hotbar" to="Hotbar" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventories/PlayerInventory" to="Inventories/PlayerInventory" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventories/PlayerInventory" to="Inventories/PlayerInventory" method="_on_mouse_exited"]

@@ -1,0 +1,123 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci561ngfngar7"]
+
+[ext_resource type="PackedScene" uid="uid://dir5gb0jhc5o8" path="res://Scenes/Main/UI/Inventory/slot.tscn" id="1_cl0en"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/hotbar.gd" id="1_jabmu"]
+
+[node name="Hotbar" type="PanelContainer"]
+custom_minimum_size = Vector2(908, 98)
+anchors_preset = -1
+anchor_left = 0.315625
+anchor_top = 0.931944
+anchor_right = 0.684375
+anchor_bottom = 1.0
+offset_left = 168.0
+offset_top = 58.0
+offset_right = -168.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_jabmu")
+metadata/_edit_use_anchors_ = true
+
+[node name="SlotMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ItemGrid" type="GridContainer" parent="SlotMargin"]
+layout_mode = 2
+columns = 10
+
+[node name="Slot1" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot1"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 1
+"
+
+[node name="Slot2" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot2"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 2"
+
+[node name="Slot3" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot3"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 3"
+
+[node name="Slot4" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot4"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 4"
+
+[node name="Slot5" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot5"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 5"
+
+[node name="Slot6" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot6"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 6"
+
+[node name="Slot7" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot7"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 7"
+
+[node name="Slot8" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot8"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 8"
+
+[node name="Slot9" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot9"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 9"
+
+[node name="Slot10" parent="SlotMargin/ItemGrid" instance=ExtResource("1_cl0en")]
+layout_mode = 2
+is_hotbar_slot = true
+
+[node name="SlotLabel" type="Label" parent="SlotMargin/ItemGrid/Slot10"]
+layout_mode = 2
+size_flags_vertical = 0
+text = " 0"
+
+[connection signal="gui_input" from="SlotMargin/ItemGrid" to="." method="_on_grid_container_gui_input"]

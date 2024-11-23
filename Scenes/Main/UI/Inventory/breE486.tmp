@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvc8rgdnvnahk"]
+
+[ext_resource type="PackedScene" uid="uid://dir5gb0jhc5o8" path="res://Scenes/Main/UI/Inventory/slot.tscn" id="1_8l4dq"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/brewing_inventory.gd" id="1_37d7f"]
+[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_ovmk7"]
+
+[node name="BrewingInventory" type="PanelContainer"]
+custom_minimum_size = Vector2(1128, 768)
+anchors_preset = -1
+anchor_left = 0.279687
+anchor_top = 0.233333
+anchor_right = 0.720312
+anchor_bottom = 0.766667
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_37d7f")
+metadata/_edit_use_anchors_ = true
+
+[node name="BrewingGrid" type="HBoxContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(1128, 768)
+layout_mode = 2
+
+[node name="BrewingMargin" type="MarginContainer" parent="BrewingGrid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="BrewingInventory" type="Control" parent="BrewingGrid/BrewingMargin"]
+layout_mode = 2
+
+[node name="Slot1" parent="BrewingGrid/BrewingMargin/BrewingInventory" instance=ExtResource("1_8l4dq")]
+layout_mode = 2
+anchor_left = 0.280005
+anchor_top = 0.183594
+anchor_right = 0.606672
+anchor_bottom = 0.311198
+offset_right = -0.000106812
+offset_bottom = 0.00012207
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot2" parent="BrewingGrid/BrewingMargin/BrewingInventory" instance=ExtResource("1_8l4dq")]
+layout_mode = 2
+anchor_left = 0.290005
+anchor_top = 0.514323
+anchor_right = 0.616671
+anchor_bottom = 0.641928
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerItems" parent="BrewingGrid" instance=ExtResource("2_ovmk7")]
+layout_mode = 2
+columns = 8
+
+[connection signal="drag_drop" from="BrewingGrid/BrewingMargin/BrewingInventory/Slot1" to="." method="_on_drag_drop"]
+[connection signal="drag_drop" from="BrewingGrid/BrewingMargin/BrewingInventory/Slot2" to="." method="_on_drag_drop"]
+[connection signal="update" from="BrewingGrid/PlayerItems" to="." method="_on_player_items_update"]

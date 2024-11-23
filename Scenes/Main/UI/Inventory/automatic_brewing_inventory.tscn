@@ -1,0 +1,110 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh6jrte14pleq"]
+
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/automatic_crafting_inventory.gd" id="1_kon00"]
+[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_jc8qx"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/slot.gd" id="2_of3ju"]
+[ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="3_wg6yc"]
+
+[node name="BrewingInventory" type="PanelContainer" node_paths=PackedStringArray("spell_input", "input", "output", "player_items", "recipe_panel", "recipe_button", "crafting_button")]
+custom_minimum_size = Vector2(1128, 768)
+anchors_preset = -1
+anchor_left = 0.279687
+anchor_top = 0.233333
+anchor_right = 0.720312
+anchor_bottom = 0.766667
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kon00")
+spell_input = NodePath("BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory/SpellInput")
+input = NodePath("BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory/Input")
+output = NodePath("BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory/Output")
+player_items = NodePath("BrewingGrid/PlayerItems")
+recipe_panel = NodePath("RecipePanel")
+recipe_button = NodePath("BrewingGrid/BrewingPanel/ButtonLayer/SelectRecipe")
+crafting_button = NodePath("BrewingGrid/BrewingPanel/ButtonLayer/Crafting")
+type = &"brewing"
+id = &"0"
+metadata/_edit_use_anchors_ = true
+
+[node name="BrewingGrid" type="HBoxContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(1128, 768)
+layout_mode = 2
+
+[node name="BrewingPanel" type="Control" parent="BrewingGrid"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="BrewingMargin" type="MarginContainer" parent="BrewingGrid/BrewingPanel"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BrewingInventory" type="Control" parent="BrewingGrid/BrewingPanel/BrewingMargin"]
+layout_mode = 2
+
+[node name="Input" type="GridContainer" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.113333
+anchor_top = 0.125683
+anchor_right = 0.723333
+anchor_bottom = 0.420765
+metadata/_edit_use_anchors_ = true
+
+[node name="Output" type="GridContainer" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0966667
+anchor_top = 0.480874
+anchor_right = 0.74
+anchor_bottom = 0.765027
+offset_top = 3.05176e-05
+offset_bottom = -3.05176e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="SpellInput" type="PanelContainer" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory"]
+layout_mode = 0
+anchor_left = 0.683338
+anchor_top = 0.234974
+anchor_right = 0.816671
+anchor_bottom = 0.307833
+script = ExtResource("2_of3ju")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonLayer" type="Control" parent="BrewingGrid/BrewingPanel"]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 0.270833
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectRecipe" type="Button" parent="BrewingGrid/BrewingPanel/ButtonLayer"]
+layout_mode = 2
+offset_left = 60.0013
+offset_top = 30.0005
+offset_right = 208.001
+offset_bottom = 145.0
+text = "Select Recipe"
+
+[node name="Crafting" type="Button" parent="BrewingGrid/BrewingPanel/ButtonLayer"]
+layout_mode = 0
+offset_left = 83.0013
+offset_top = 571.0
+offset_right = 160.001
+offset_bottom = 646.0
+text = "Brew"
+
+[node name="PlayerItems" parent="BrewingGrid" instance=ExtResource("2_jc8qx")]
+layout_mode = 2
+
+[node name="RecipePanel" parent="." instance=ExtResource("3_wg6yc")]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="BrewingGrid/BrewingPanel/ButtonLayer/Crafting" to="." method="_on_crafting_pressed"]

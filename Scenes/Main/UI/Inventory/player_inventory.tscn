@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxwt4kg2qa5ud"]
+
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/player_inventory.gd" id="1_ldld7"]
+[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_voa3d"]
+
+[node name="PlayerInventory" type="PanelContainer"]
+custom_minimum_size = Vector2(1128, 768)
+anchors_preset = -1
+anchor_left = 0.279687
+anchor_top = 0.233333
+anchor_right = 0.720312
+anchor_bottom = 0.766667
+offset_left = 240.0
+offset_top = 180.0
+offset_right = -240.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ldld7")
+
+[node name="InventoryMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="PlayerItems" parent="InventoryMargin" instance=ExtResource("2_voa3d")]
+layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

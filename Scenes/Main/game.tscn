@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7y035dspb6qv"]
+
+[ext_resource type="PackedScene" uid="uid://byn3ew2h6ybu2" path="res://Scenes/Main/LivingRoom/living_room.tscn" id="3_snt81"]
+[ext_resource type="PackedScene" uid="uid://c1iywwbjrsi3j" path="res://Scenes/Main/UI/ui.tscn" id="4_c8gnt"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Shop" type="Node2D" parent="."]
+
+[node name="Outside" type="Node2D" parent="."]
+
+[node name="LivingRoom" parent="." instance=ExtResource("3_snt81")]
+
+[node name="UI" parent="." instance=ExtResource("4_c8gnt")]
