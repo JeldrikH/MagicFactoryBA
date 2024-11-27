@@ -9,7 +9,7 @@ var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 var inventory_data: InventoryData
 var wait_for_next_process = false
 
-func _ready():
+func _ready() -> void:
 	inventory_data = load(path + id + ".tres")
 	fill_grid()
 	update()
@@ -57,6 +57,8 @@ func open():
 func close():
 	visible = false
 	Globals.mouse_inside_inventory = false
+	Globals.is_inventory_opened = false
+	Globals.is_ui_opened = false
 	update()
 	
 ##adds tre specified amount of slots to the inventory

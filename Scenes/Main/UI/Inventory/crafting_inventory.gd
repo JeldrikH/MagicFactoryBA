@@ -10,13 +10,13 @@ class_name CraftingInventory
 @export var id: StringName
 var recipe_list: Array[Recipe]
 var path = "res://Resources/Inventories/CraftingInventories/"
-var input_size: int = 1
-var output_size: int = 1
+@export var input_size: int = 1
+@export var output_size: int = 1
 var crafting_slot_node = preload("res://Scenes/Main/UI/Inventory/crafting_slot.tscn")
 var inventory_data: CraftingInventoryData
 var wait_for_next_process = false
 
-func _ready():
+func _ready() -> void:
 	create_resource_if_not_exist()
 	inventory_data = load(path + str(id) + ".tres")
 	recipe_list = inventory_data.recipe_list
@@ -35,14 +35,12 @@ func _process(_delta: float)-> void:
 	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
 		wait_for_next_process = true
 
-	if (Input.is_action_just_pressed("INVENTORY") or Input.is_action_just_pressed("CLOSE_UI")) and visible:
+	if Input.is_action_just_pressed("INVENTORY") and visible:
 		close()
 
 ##To instantiate container with parameters
-func scene_parameters(p_input_size: int, p_output_size: int)-> CraftingInventory:
-	id = str(IDIncrementer.new().id)
-	input_size = p_input_size
-	output_size = p_output_size
+func scene_parameters(p_id)-> CraftingInventory:
+	id = str(p_id)
 	return self
 
 func create_resource_if_not_exist():
@@ -78,13 +76,17 @@ func update():
 
 func open():
 	if not Globals.is_inventory_opened:
+		player_items.visible = true
 		Globals.is_inventory_opened = true
+		Globals.is_ui_opened = true
 		visible = true
 		update()
 		
 func close():
 	visible = false
 	Globals.mouse_inside_inventory = false
+	Globals.is_inventory_opened = false
+	Globals.is_ui_opened = false
 	update()
 	
 #Called when an item gets dragged

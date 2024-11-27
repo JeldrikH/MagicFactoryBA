@@ -1,8 +1,13 @@
 extends CraftingInventoryData
+class_name AutomaticCraftingInventoryData
 
 @export var spell_input: SlotData
 @export var use_count: int = 0
 
+func _init(p_type = "brewing", input_size = 1, output_size = 1) -> void:
+	super._init(p_type, input_size, output_size)
+	spell_input = SlotData.new()
+	
 ##Adds the specified item to the spell input slot
 ##or stacks Items of the Same Type
 ##returns the remainder of items not added to the slot
@@ -26,7 +31,7 @@ func remove_amount_spell_input(amount: int)-> bool:
 	spell_input.quantity = result_quantity
 	return true
 	
-func remove_stack_spell_input(index: int):
+func remove_stack_spell_input():
 	spell_input.quantity = 0
 	
 func can_craft()-> bool:

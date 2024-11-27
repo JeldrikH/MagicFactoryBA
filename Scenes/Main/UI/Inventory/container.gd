@@ -14,13 +14,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if (Input.is_action_just_pressed("INVENTORY") or Input.is_action_just_pressed("CLOSE_UI")) and visible:
+	if Input.is_action_just_pressed("INVENTORY") and visible:
 		close()
 
 	
-##To instantiate container with parameters
+##To instantiate container with parameters and a unique id
 func scene_parameters(container_size: int)-> ItemContainer:
-	id = str(IDIncrementer.new().id)
+	id = str(IDIncrementer.get_id())
 	grid_size = container_size
 	return self
 
@@ -30,7 +30,18 @@ func update():
 	player_items.update()
 	super.update()
 	
+func open():
+	super.open()
+	player_items.visible = true
+	Globals.is_inventory_opened = true
+	Globals.is_ui_opened = true
 	
+func close():
+	visible = false
+	Globals.mouse_inside_inventory = false
+	Globals.is_inventory_opened = false
+	Globals.is_ui_opened = false
+	update()
 #Transfers a stack from player inventory into the first available slot
 func transfer_in(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]

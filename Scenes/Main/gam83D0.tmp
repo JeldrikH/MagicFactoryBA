@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7y035dspb6qv"]
+[gd_scene load_steps=5 format=3 uid="uid://b7y035dspb6qv"]
 
+[ext_resource type="PackedScene" uid="uid://c8knauellm328" path="res://Scenes/Main/Outside/outside.tscn" id="1_nfxjs"]
 [ext_resource type="PackedScene" uid="uid://byn3ew2h6ybu2" path="res://Scenes/Main/LivingRoom/living_room.tscn" id="3_snt81"]
 [ext_resource type="PackedScene" uid="uid://c1iywwbjrsi3j" path="res://Scenes/Main/UI/ui.tscn" id="4_c8gnt"]
+[ext_resource type="Script" path="res://Scenes/Main/scene_builder.gd" id="4_vppc1"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Shop" type="Node2D" parent="."]
 
-[node name="Outside" type="Node2D" parent="."]
+[node name="Outside" parent="." instance=ExtResource("1_nfxjs")]
 
 [node name="LivingRoom" parent="." instance=ExtResource("3_snt81")]
 
 [node name="UI" parent="." instance=ExtResource("4_c8gnt")]
+
+[node name="SceneBuilder" type="Node2D" parent="."]
+script = ExtResource("4_vppc1")

@@ -15,13 +15,17 @@ func _process(_delta: float) -> void:
 
 func open():
 	if not Globals.is_inventory_opened:
+		$InventoryMargin/PlayerItems.visible = true
 		Globals.is_inventory_opened = true
+		Globals.is_ui_opened = true
 		visible = true
 		$InventoryMargin/PlayerItems.update()
 		
 func close():
-	$"..".close_all_inventories()
+	visible = false
 	Globals.mouse_inside_inventory = false
+	Globals.is_inventory_opened = false
+	Globals.is_ui_opened = false
 		
 		
 func _on_mouse_entered() -> void:

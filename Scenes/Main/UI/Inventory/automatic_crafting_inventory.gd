@@ -6,6 +6,7 @@ var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	create_resource_if_not_exist()
 	super._ready()
 
 
@@ -15,8 +16,13 @@ func _process(delta: float) -> void:
 
 func update():
 	super.update()
-	spell_input.get_child(0).set_slot_data(inventory_data.spell_input)
+	spell_input.set_slot_data(inventory_data.spell_input)
 	
+func create_resource_if_not_exist():
+	if not ResourceLoader.exists(path + str(id) + ".tres"):
+		var data = AutomaticCraftingInventoryData.new(type, input_size, output_size)
+		data.save_inventory_data(str(id))
+		
 func transfer_in_spell_input(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
 	var remainder = inventory_data.add_item_spell_input(slot.item, slot.quantity)
@@ -41,10 +47,10 @@ func drag_drop():
 	var start_index: int = -1
 	var target_index: int = -1
 	
-	if start_index < 0 and spell_input.get_child(0).is_selected:
+	if start_index < 0 and spell_input.is_selected:
 		start_index = 0
 		start_is_spell_input = true
-	if target_index < 0 and spell_input.get_child(0).is_drag_drop_target:
+	if target_index < 0 and spell_input.is_drag_drop_target:
 		target_index = 0
 		target_is_spell_input = true
 		
@@ -58,7 +64,7 @@ func drag_drop():
 	##Transfer in to input
 	if not start_is_spell_input and target_is_spell_input and start_index >= 0:
 		player_items.item_grid.get_child(start_index).is_selected = false
-		spell_input.get_child(target_index).is_drag_drop_target = false
+		spell_input.is_drag_drop_target = false
 		transfer_in_spell_input(start_index)
 		return
 	

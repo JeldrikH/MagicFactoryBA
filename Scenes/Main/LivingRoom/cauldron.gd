@@ -18,12 +18,12 @@ func brew():
 	
 
 func _on_interaction_range_body_exited(body: Node2D) -> void:
-	if body == $"../Player":
+	if body is Player:
 		playerEntered = false
 
 
 func _on_interaction_range_body_entered(body: Node2D) -> void:
-	if body == $"../Player":
+	if body is Player:
 		playerEntered = true
 
 
