@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_vbnkg")
-id = "frog_leg"
-name = "Frog Leg"
+id = &"frog_leg"
+name = "FROG_LEG_NAME"
 icon = ExtResource("1_2hgsc")
-description = "The leg of a poor little frog. Base ingredient of many potions"
+description = "FROG_LEG_DESCRIPTION"
 stackable = true

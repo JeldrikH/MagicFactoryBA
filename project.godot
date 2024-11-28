@@ -40,6 +40,12 @@ unique="Nodes created in the editor with saved values, only useable together wit
 player="Group for the player"
 persist="Nodes that need their state to be saved. If the node comes from the editor add it to the group Unique aswell. Every node in this group needs a save() function"
 
+[importer_defaults]
+
+csv_translation={
+"delimiter": 1
+}
+
 [input]
 
 INTERACT={
@@ -172,3 +178,7 @@ DEBUGPORT={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":44,"key_label":0,"unicode":44,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://Translations/items.de.translation", "res://Translations/items.en.translation", "res://Translations/item_descriptions.de.translation", "res://Translations/item_descriptions.en.translation")

@@ -9,8 +9,7 @@ effect_id = "heal"
 value = 0
 duration = 0
 id = "health_potion"
-name = "Health Potion"
+name = "HEALTH_POTION_NAME"
 icon = ExtResource("1_5hlt6")
-description = "A basic health potion, heals a small portion of HP.
-Helps you survive even the toughest frogs in the swamp."
+description = "HEALTH_POTION_DESCRIPTION"
 stackable = true

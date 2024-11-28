@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_8u7ft")
 id = "suspicious_potion"
-name = "Suspicious Potion"
+name = "SUSPICIOUS_POTION_NAME"
 icon = ExtResource("1_nhmjb")
-description = "A weird potion with a green liquid. I wouldn't risk drinking this, who knows whats in there."
+description = "SUSPICIOUS_POTION_DESCRIPTION"
 stackable = true
