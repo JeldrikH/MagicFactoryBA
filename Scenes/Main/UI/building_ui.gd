@@ -20,5 +20,5 @@ func close():
 
 
 func _on_automatic_brewing_pressed() -> void:
-	SceneBuilder.activate_build_mode(preload("res://Scenes/Main/Buildings/cauldron.tscn"))
+	Builder.activate_build_mode(preload("res://Scenes/Main/Buildings/cauldron.tscn"))
 	close()

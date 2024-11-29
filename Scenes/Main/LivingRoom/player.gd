@@ -24,6 +24,6 @@ func save()-> Dictionary:
 		"filename" : get_scene_file_path(),
 		"parent" : get_parent().get_path(),
 		"pos_x" : position.x,
-		"pos_y" : position.y,
+		"pos_y" : position.y
 	}
 	return save_dict

@@ -15,16 +15,24 @@ func _process(_delta):
 ##Activates the build mode showing the given scene
 func activate_build_mode(scene: PackedScene):
 	builder_on_top()
+	show_visual(scene)
 	scene_instance = scene.instantiate()
-	scene_visual = scene.instantiate()
-	add_child(scene_visual)
+	
 	build_mode = true
+	if Deconstructor.deconstruct_mode:
+		Deconstructor.deactivate_deconstruct_mode()
 
 ##deactivates the build mode and removes the building scene
 func deactivate_build_mode():
 	build_mode = false
 	scene_visual.queue_free()
 
+func show_visual(scene: PackedScene):
+	scene_visual = scene.instantiate()
+	scene_visual.set_collision_layer(0)
+	scene_visual.remove_from_group("persist")
+	add_child(scene_visual)
+	
 ##Builds the building in the given parent
 func build(parent: Node2D):
 	scene_instance.position = scene_visual.position

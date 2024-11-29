@@ -7,6 +7,7 @@ class_name CraftingInventoryData
 @export var type: StringName
 @export var active_recipe: Recipe
 var recipe_list: Array[Recipe]
+var save_folder_path = "res://Resources/Inventories/CraftingInventories/"
 
 func _init(p_type = "brewing", input_size = 1, output_size = 1) -> void:
 	self.type = p_type
@@ -22,7 +23,6 @@ func _fill_grid(input_size: int, output_size: int):
 		
 ##Saves the current state of the inventory with the specified ID
 func save_inventory_data(inventory_id: String):
-	var save_folder_path = "res://Resources/Inventories/CraftingInventories/"
 	ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
 		
 ##Adds the specified item to the corresponding input slot
@@ -63,6 +63,14 @@ func remove_stack_input(index: int):
 
 func remove_stack_output(index: int):
 	output[index].quantity = 0
+	
+func get_items()-> Array[SlotData]:
+	var item_list:Array[SlotData] = []
+	for slotdata in input:
+		item_list.append(slotdata)
+	for slotdata in output:
+		item_list.append(slotdata)
+	return item_list
 	
 ##Selects a recipe and returns the cleared input and output (Check for quantity to be >0 to avoid bugged items)
 func set_active_recipe(recipe: Recipe)-> Array[CraftingSlotData]:

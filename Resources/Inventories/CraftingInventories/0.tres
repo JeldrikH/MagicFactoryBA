@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="CraftingInventoryData" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="CraftingInventoryData" load_steps=8 format=3 uid="uid://ciyf4dnk7vcbj"]
 
 [ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_dmtna"]
-[ext_resource type="Resource" path="res://Resources/Recipes/suspicious_potion.tres" id="1_wt7b2"]
+[ext_resource type="Resource" uid="uid://ubup1pr8yya3" path="res://Resources/Recipes/suspicious_potion.tres" id="1_wt7b2"]
 [ext_resource type="Script" path="res://Resources/Inventories/crafting_inventory_data.gd" id="3_fi5d7"]
-[ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="3_g1leg"]
-[ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="4_m7wib"]
+[ext_resource type="Resource" uid="uid://b7msecpuh6qds" path="res://Resources/Items/frog_leg.tres" id="3_g1leg"]
+[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="4_m7wib"]
 
 [sub_resource type="Resource" id="Resource_cr0j7"]
 script = ExtResource("1_dmtna")
