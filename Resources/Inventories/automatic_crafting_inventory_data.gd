@@ -37,7 +37,8 @@ func remove_stack_spell_input():
 ## returns all items from every slot
 func get_items()-> Array[SlotData]:
 	var item_list = super.get_items()
-	item_list.append(spell_input)
+	if spell_input.quantity > 0:
+		item_list.append(spell_input)
 	return item_list
 	
 func can_craft()-> bool:

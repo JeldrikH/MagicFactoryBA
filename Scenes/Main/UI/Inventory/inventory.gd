@@ -8,10 +8,11 @@ var path: String
 var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 var inventory_data: InventoryData
 var wait_for_next_process = false
+signal updated
 
 func _ready() -> void:
-	inventory_data = load(path + id + ".tres")
 	create_resource_if_not_exist()
+	inventory_data = load(path + id + ".tres")
 	fill_grid()
 	update()
 	connect_signals()
@@ -20,7 +21,14 @@ func _process(_delta: float)-> void:
 	if visible:
 		input_handler()
 	
-
+##To instantiate inventory with parameters and a unique id
+##args[0] = id
+##args[1] = inventory_size
+func scene_parameters(args: Array)-> Inventory:
+	id = str(args[0])
+	grid_size = args[1]
+	return self
+	
 func input_handler():
 	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
 		#Call deferred to wait for slot children
@@ -44,17 +52,22 @@ func fill_grid():
 		var slot = slot_node.instantiate()
 		item_grid.add_child(slot)
 		slot.index = i
-		
+
+
+
 ##updates the inventory, call after changes to the inventory have happened
 func update():
 	for i in range(0, inventory_data.slot_data_table.size()):
 		item_grid.get_child(i).set_slot_data(inventory_data.slot_data_table[i])
 	inventory_data.save_inventory_data(path, id)
+	updated.emit()
 
 func open():
 	if not Globals.is_inventory_opened:
 		Globals.is_inventory_opened = true
 		Globals.is_ui_opened = true
+		Builder.deactivate_build_mode()
+		Deconstructor.deactivate_deconstruct_mode()
 		visible = true
 		update()
 		
@@ -63,7 +76,6 @@ func close():
 	Globals.mouse_inside_inventory = false
 	Globals.is_inventory_opened = false
 	Globals.is_ui_opened = false
-	update()
 	
 ##adds tre specified amount of slots to the inventory
 func add_slots(amount: int):
@@ -75,15 +87,32 @@ func split_stack_half(index: int):
 	inventory_data.split_stack_half(index)
 	update()
 	
-##Adds the specified item to the first free slot
-##returns true if successfull
+##Adds the specified item to the first free slot (just adds update to the data function)
+##returns the remainder if the inventory is full
 ##item_id: i.e "frog_leg"
-func add_item(item: Item, quantity: int) -> bool:
-	if inventory_data.add_item(item, quantity) != quantity:
-		update()
-		return true
-	print("inventory full")
-	return false
+func add_item(item: Item, quantity: int)-> int:
+	var remainder = inventory_data.add_item(item, quantity)
+	update()
+	return remainder
+
+func add_item_list(item_list: Array[SlotData]):
+	var remainder: Array[SlotData] = []
+	for stack in item_list:
+		var remainder_quantity = add_item(stack.item, stack.quantity)
+		if remainder_quantity > 0:
+			remainder.append(SlotData.new(stack.item, remainder_quantity))
+			
+	if remainder.size() > 0:
+		create_remainder_container(remainder)
+		
+##Creates a container with leftover items that didnt fit into the inventory and opens it
+func create_remainder_container(remainder: Array[SlotData]):
+	var remainder_container = preload("res://Scenes/Main/Buildings/RemainderContainer.tscn")
+	remainder_container = Builder.build(remainder_container, get_tree().current_scene, get_tree().current_scene.player.position, [remainder])
+	Globals.close_all_ui_windows()
+	remainder_container.inventory.open()
+		
+	
 	
 ##adds the specified item to the target index (old entries on that index are overwritten!)
 ##item_id: i.e "frog_leg"

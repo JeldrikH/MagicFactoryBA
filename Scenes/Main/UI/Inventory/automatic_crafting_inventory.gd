@@ -25,8 +25,9 @@ func create_resource_if_not_exist():
 		
 func transfer_in_spell_input(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
-	var remainder = inventory_data.add_item_spell_input(slot.item, slot.quantity)
-	player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
+	if slot.item is Spell:
+		var remainder = inventory_data.add_item_spell_input(slot.item, slot.quantity)
+		player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
 	update()
 	
 func transfer_out_spell_input_to_index(inv_index: int):

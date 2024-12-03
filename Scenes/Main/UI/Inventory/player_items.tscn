@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/player_items.gd" id="1_7akid"]
 
-[node name="PlayerItems" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories", "player_inventory"]]
+[node name="PlayerItems" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories"]]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_7akid")

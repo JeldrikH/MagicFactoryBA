@@ -27,7 +27,7 @@ metadata/_edit_use_anchors_ = true
 [node name="BrewingInventory" parent="Inventories" instance=ExtResource("6_o6yfk")]
 visible = false
 
-[node name="DeleteItem" type="PanelContainer" parent="Inventories" groups=["delete_prompt"]]
+[node name="DeleteItem" type="PanelContainer" parent="Inventories" groups=["delete_prompt", "ui"]]
 auto_translate_mode = 1
 visible = false
 custom_minimum_size = Vector2(500, 200)

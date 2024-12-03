@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/recipe_panel.gd" id="1_4de1e"]
 
-[node name="RecipePanel" type="PanelContainer" node_paths=PackedStringArray("recipe_grid")]
+[node name="RecipePanel" type="PanelContainer" node_paths=PackedStringArray("recipe_grid") groups=["ui"]]
 script = ExtResource("1_4de1e")
 recipe_grid = NodePath("RecipeControl/RecipeGrid")
 metadata/_edit_use_anchors_ = true

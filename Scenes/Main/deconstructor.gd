@@ -2,11 +2,6 @@ extends Node2D
 
 var deconstruct_mode: bool
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if (Input.is_action_just_pressed("CLOSE_UI")
@@ -25,11 +20,11 @@ func deactivate_deconstruct_mode():
 	
 func deconstruct(building: Building):
 	transfer_items(building)
-	DirAccess.remove_absolute(building.inventory.inventory_data.save_folder_path + building.inventory.id + ".tres")
+	DirAccess.remove_absolute(building.inventory.path + building.inventory.id + ".tres")
 	building.queue_free()
 	SaveManager.save_scene(get_tree().current_scene.scene_file_path)
 
 func transfer_items(building: Building):
 	var building_items = building.inventory.inventory_data.get_items()
-	for item_stack in building_items:
-		get_tree().call_group("player_items", "add_item", item_stack.item, item_stack.quantity)
+	if building_items.size() > 0:
+		building.inventory.player_items.add_item_list(building_items)

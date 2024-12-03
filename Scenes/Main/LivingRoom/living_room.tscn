@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://byn3ew2h6ybu2"]
 
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_co8es"]
-[ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Cauldron/Cauldron.png" id="1_pbxc2"]
+[ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/Cauldron.png" id="1_pbxc2"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/cauldron.gd" id="2_dx0ji"]
 [ext_resource type="Texture2D" uid="uid://dldkm8qagbeo3" path="res://Sprites/Objects/LivingRoom.png" id="2_y2f80"]
-[ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Cauldron/Cauldron_full.png" id="3_ugxfm"]
+[ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/Cauldron_full.png" id="3_ugxfm"]
 [ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="7_8umew"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="7_gdw8r"]
 [ext_resource type="PackedScene" uid="uid://bu2h6lb40hrmf" path="res://Scenes/Main/player.tscn" id="9_mimme"]

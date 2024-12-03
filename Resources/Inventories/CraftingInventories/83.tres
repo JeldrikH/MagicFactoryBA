@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=12 format=3 uid="uid://orgni87g4f55"]
+
+[ext_resource type="Resource" uid="uid://ubup1pr8yya3" path="res://Resources/Recipes/suspicious_potion.tres" id="1_f0f4g"]
+[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_rb7yw"]
+[ext_resource type="Script" path="res://Resources/item.gd" id="2_le0p7"]
+[ext_resource type="Resource" uid="uid://b7msecpuh6qds" path="res://Resources/Items/frog_leg.tres" id="3_co0de"]
+[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_ew7n7"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_006j1"]
+[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="4_8ltm2"]
+
+[sub_resource type="Resource" id="Resource_lnu1g"]
+script = ExtResource("1_rb7yw")
+required_amount = 2
+item = ExtResource("3_co0de")
+quantity = 113
+
+[sub_resource type="Resource" id="Resource_mrtwl"]
+script = ExtResource("1_rb7yw")
+required_amount = 1
+item = ExtResource("4_8ltm2")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_cpcsh"]
+script = ExtResource("2_le0p7")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_kchy7"]
+script = ExtResource("4_006j1")
+item = SubResource("Resource_cpcsh")
+quantity = 0
+
+[resource]
+script = ExtResource("3_ew7n7")
+spell_input = SubResource("Resource_kchy7")
+use_count = 0
+input = Array[ExtResource("1_rb7yw")]([SubResource("Resource_lnu1g")])
+output = Array[ExtResource("1_rb7yw")]([SubResource("Resource_mrtwl")])
+type = &"brewing"
+active_recipe = ExtResource("1_f0f4g")

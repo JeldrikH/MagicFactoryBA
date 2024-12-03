@@ -6,11 +6,11 @@ func _ready() -> void:
 	visible = false
 	
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("OPEN_BUILDER"):
+	if Input.is_action_just_pressed("OPEN_BUILDER") and Globals.allow_building:
 		open()
 		
 func open():
-	$"..".close_all_ui_windows()
+	Globals.close_all_ui_windows()
 	visible = true
 	Globals.is_ui_opened = true
 

@@ -40,7 +40,7 @@ delete_prompt="Confirms item deletion"
 unique="Nodes created in the editor with saved values, only useable together with persist group."
 player="Group for the player"
 persist="Nodes that need their state to be saved. If the node comes from the editor add it to the group Unique aswell. Every node in this group needs a save() function"
-player_items="group for the player inventory"
+ui="All UI windows"
 
 [importer_defaults]
 

@@ -6,9 +6,9 @@ func _ready() -> void:
 	
 	
 func _process(_delta: float) -> void:
-	if Globals.is_inventory_opened:
-		if  Input.is_action_just_pressed("INVENTORY"):
-			close()
+	if Globals.is_ui_opened:
+		if Input.is_action_just_pressed("INVENTORY"):
+			Globals.close_all_ui_windows()
 	else:
 		if Input.is_action_just_pressed("INVENTORY"):
 			open.call_deferred()

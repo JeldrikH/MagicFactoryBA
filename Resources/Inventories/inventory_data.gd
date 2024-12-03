@@ -30,12 +30,15 @@ func add_item(item: Item, quantity: int) -> int:
 	var remainder = quantity
 	for slot_data in slot_data_table:
 		if remainder == 0:
-			return remainder
+			break
+		# Fill empty slot
 		if slot_data.quantity == 0:
 			slot_data.item = item
-			slot_data.quantity = remainder
-			return 0
-		#calculate the available stack size and fill the stack
+			slot_data.quantity = min(remainder, SlotData.MAX_STACK_SIZE)
+			remainder = remainder - slot_data.quantity
+			continue
+		# Fill slot with same item
+		# calculate the available stack size and fill the stack
 		if item.id == slot_data.item.id:
 			var available_quantity = SlotData.MAX_STACK_SIZE - slot_data.quantity
 			var added_quantity = min(available_quantity, remainder)
@@ -70,6 +73,13 @@ func add_item_to_index(item: Item, quantity: int, index: int):
 	slot_data_table[index].quantity = quantity
 	return -1
 
+func get_items()-> Array[SlotData]:
+	var item_list: Array[SlotData] = []
+	for slotdata in slot_data_table:
+		if slotdata.quantity > 0:
+			item_list.append(slotdata)
+	return item_list
+	
 ##splits the stack in half and adds the new stack to the first free slot
 func split_stack_half(index: int):
 	@warning_ignore("integer_division")

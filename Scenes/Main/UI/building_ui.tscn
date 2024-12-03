@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/building_ui.gd" id="1_lgclg"]
 
-[node name="BuildingUI" type="PanelContainer"]
+[node name="BuildingUI" type="PanelContainer" groups=["ui"]]
 anchors_preset = -1
 anchor_left = 0.264648
 anchor_top = 0.238194

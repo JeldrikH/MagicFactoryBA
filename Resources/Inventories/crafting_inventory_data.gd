@@ -67,13 +67,15 @@ func remove_stack_output(index: int):
 func get_items()-> Array[SlotData]:
 	var item_list:Array[SlotData] = []
 	for slotdata in input:
-		item_list.append(slotdata)
+		if slotdata.quantity > 0:
+			item_list.append(slotdata)
 	for slotdata in output:
-		item_list.append(slotdata)
+		if slotdata.quantity > 0:
+			item_list.append(slotdata)
 	return item_list
 	
 ##Selects a recipe and returns the cleared input and output (Check for quantity to be >0 to avoid bugged items)
-func set_active_recipe(recipe: Recipe)-> Array[CraftingSlotData]:
+func set_active_recipe(recipe: Recipe)-> Array[SlotData]:
 	var cleared_slots = clear_input()
 	cleared_slots += clear_output()
 	active_recipe = recipe
@@ -108,16 +110,18 @@ func craft():
 		output[i].quantity += active_recipe.output[i][1]
 		
 ##Clears the input and returns the removed items
-func clear_input()-> Array[CraftingSlotData]:
-	var cleared_input = input.duplicate()
+func clear_input()-> Array[SlotData]:
+	var cleared_input: Array[SlotData] = []
 	for i in input.size():
+		cleared_input.append(SlotData.new(input[i].item, input[i].quantity))
 		input[i] = CraftingSlotData.new()
 	return cleared_input
 
 ##Clears the output and returns the removed items
-func clear_output()-> Array[CraftingSlotData]:
-	var cleared_output = output.duplicate()
+func clear_output()-> Array[SlotData]:
+	var cleared_output: Array[SlotData] = []
 	for i in output.size():
+		cleared_output.append(SlotData.new(output[i].item, output[i].quantity))
 		output[i] = CraftingSlotData.new()
 	return cleared_output
 

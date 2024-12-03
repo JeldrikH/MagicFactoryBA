@@ -1,9 +1,10 @@
 extends Node2D
 
 
-@export var mouse_inside_inventory = false
-@export var is_inventory_opened = false
-@export var is_ui_opened = false
+var mouse_inside_inventory = false
+var is_inventory_opened = false
+var is_ui_opened = false
+var allow_building = false
 
 #bubblesort to sort node children by Y position
 func sort_children_by_y_pos(node: Node):
@@ -18,3 +19,6 @@ func sort_children_by_y_pos(node: Node):
 					sorted_children = node.get_children()
 			j += 1
 		i -= 1
+
+func close_all_ui_windows():
+	get_tree().call_group("ui", "close")

@@ -39,8 +39,9 @@ func input_handler():
 		close()
 			
 ##To instantiate container with parameters
-func scene_parameters(p_id)-> CraftingInventory:
-	id = str(p_id)
+##args[0] = id
+func scene_parameters(args: Array)-> CraftingInventory:
+	id = str(args[0])
 	return self
 
 func create_resource_if_not_exist():
@@ -55,6 +56,7 @@ func fill_grid():
 		child.queue_free()
 	for child in output.get_children():
 		child.queue_free()
+		
 	for i in inventory_data.input.size():
 		slot = crafting_slot_node.instantiate()
 		input.add_child(slot)
@@ -76,10 +78,9 @@ func update():
 
 func open():
 	if not Globals.is_inventory_opened:
-		player_items.visible = true
-		Globals.is_inventory_opened = true
-		Globals.is_ui_opened = true
+		player_items.open()
 		visible = true
+		
 		update()
 		
 func close():
@@ -87,7 +88,6 @@ func close():
 	Globals.mouse_inside_inventory = false
 	Globals.is_inventory_opened = false
 	Globals.is_ui_opened = false
-	update()
 	
 #Called when an item gets dragged
 func drag_drop():
@@ -213,14 +213,17 @@ func _on_recipe_button_created(button: Button, recipe: Recipe):
 
 func _on_recipe_selected(recipe: Recipe):
 	var cleared_items = inventory_data.set_active_recipe(recipe)
-	for stack in cleared_items:
-		if stack.quantity > 0:
-			player_items.add_item(stack.item, stack.quantity)
+	return_items_to_player_inventory(cleared_items)
 	recipe_panel.visible = false
 	update()
 	
 func _on_back_pressed() -> void:
 	recipe_panel.visible = false
+
+##Returns the given item list to the players inventory
+func return_items_to_player_inventory(item_list: Array[SlotData]):
+	player_items.add_item_list(item_list)
+
 
 #Activates the crafting button if the requirements are met
 func activate_crafting_button():

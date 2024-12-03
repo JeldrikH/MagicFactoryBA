@@ -6,7 +6,6 @@ var player_items: Inventory
 func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
 	player_items = $ContainerGrid/InventoryMargin/PlayerItems
-	item_grid = $ContainerGrid/ContainerMargin/ContainerItems
 	super._ready()
 	visible = false
 	
@@ -18,11 +17,6 @@ func input_handler():
 	super.input_handler()
 	if Input.is_action_just_pressed("INVENTORY"):
 		close()
-##To instantiate container with parameters and a unique id
-func scene_parameters(container_size: int)-> ItemContainer:
-	id = str(IDIncrementer.get_id())
-	grid_size = container_size
-	return self
 
 
 ##updates the inventory, call after changes to the inventory have happened
@@ -32,16 +26,8 @@ func update():
 	
 func open():
 	super.open()
-	player_items.visible = true
-	Globals.is_inventory_opened = true
-	Globals.is_ui_opened = true
+	player_items.open()
 	
-func close():
-	visible = false
-	Globals.mouse_inside_inventory = false
-	Globals.is_inventory_opened = false
-	Globals.is_ui_opened = false
-	update()
 #Transfers a stack from player inventory into the first available slot
 func transfer_in(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]

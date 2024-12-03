@@ -5,13 +5,13 @@ var player: Player
 func _ready() -> void:
 	SaveManager.load_scene(self.scene_file_path)
 	Globals.sort_children_by_y_pos(self)
+	##DEBUG change to false later
+	Globals.allow_building = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	_player_occlusion()
-	if Input.is_action_just_pressed("CLICK") and Builder.build_mode:
-		Builder.build(self)
 
 ##objects need to be sorted by Y position for this to work.
 func _player_occlusion():

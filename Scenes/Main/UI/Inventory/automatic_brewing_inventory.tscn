@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_jc8qx"]
 [ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="3_wg6yc"]
 
-[node name="AutomaticBrewingInventory" type="PanelContainer" node_paths=PackedStringArray("spell_input", "input", "output", "player_items", "recipe_panel", "recipe_button", "crafting_button") groups=["inventories"]]
+[node name="AutomaticBrewingInventory" type="PanelContainer" node_paths=PackedStringArray("spell_input", "input", "output", "player_items", "recipe_panel", "recipe_button", "crafting_button") groups=["inventories", "ui"]]
 custom_minimum_size = Vector2(1128, 768)
 anchors_preset = -1
 anchor_left = 0.279687
