@@ -7,17 +7,17 @@ func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
 	player_items = $ContainerGrid/InventoryMargin/PlayerItems
 	item_grid = $ContainerGrid/ContainerMargin/ContainerItems
-	create_resource_if_not_exist()
 	super._ready()
 	visible = false
 	
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if Input.is_action_just_pressed("INVENTORY") and visible:
-		close()
 
-	
+func input_handler():
+	super.input_handler()
+	if Input.is_action_just_pressed("INVENTORY"):
+		close()
 ##To instantiate container with parameters and a unique id
 func scene_parameters(container_size: int)-> ItemContainer:
 	id = str(IDIncrementer.get_id())

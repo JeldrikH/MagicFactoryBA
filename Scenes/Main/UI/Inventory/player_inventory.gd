@@ -11,21 +11,16 @@ func _process(_delta: float) -> void:
 			close()
 	else:
 		if Input.is_action_just_pressed("INVENTORY"):
-			open()
+			open.call_deferred()
 
 func open():
 	if not Globals.is_inventory_opened:
-		$InventoryMargin/PlayerItems.visible = true
-		Globals.is_inventory_opened = true
-		Globals.is_ui_opened = true
 		visible = true
-		$InventoryMargin/PlayerItems.update()
+		$InventoryMargin/PlayerItems.open()
 		
 func close():
 	visible = false
-	Globals.mouse_inside_inventory = false
-	Globals.is_inventory_opened = false
-	Globals.is_ui_opened = false
+	$InventoryMargin/PlayerItems.close()
 		
 		
 func _on_mouse_entered() -> void:

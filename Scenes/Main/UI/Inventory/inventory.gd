@@ -11,17 +11,20 @@ var wait_for_next_process = false
 
 func _ready() -> void:
 	inventory_data = load(path + id + ".tres")
+	create_resource_if_not_exist()
 	fill_grid()
 	update()
 	connect_signals()
 
 func _process(_delta: float)-> void:
-	#Calls the drag_drop function next frame
-	if wait_for_next_process:
-		drag_drop()
-		wait_for_next_process = false
+	if visible:
+		input_handler()
+	
+
+func input_handler():
 	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
-		wait_for_next_process = true
+		#Call deferred to wait for slot children
+		drag_drop.call_deferred()
 	
 	if Input.is_action_just_pressed("RIGHT_CLICK"):
 		for child in item_grid.get_children():
@@ -51,6 +54,7 @@ func update():
 func open():
 	if not Globals.is_inventory_opened:
 		Globals.is_inventory_opened = true
+		Globals.is_ui_opened = true
 		visible = true
 		update()
 		

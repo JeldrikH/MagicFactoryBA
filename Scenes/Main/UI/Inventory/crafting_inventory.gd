@@ -14,7 +14,6 @@ var path = "res://Resources/Inventories/CraftingInventories/"
 @export var output_size: int = 1
 var crafting_slot_node = preload("res://Scenes/Main/UI/Inventory/crafting_slot.tscn")
 var inventory_data: CraftingInventoryData
-var wait_for_next_process = false
 
 func _ready() -> void:
 	create_resource_if_not_exist()
@@ -28,16 +27,17 @@ func _ready() -> void:
 	recipe_panel.visible = false
 
 func _process(_delta: float)-> void:
-	#Calls the drag_drop function next frame
-	if wait_for_next_process:
-		drag_drop()
-		wait_for_next_process = false
+	if visible:
+		input_handler()
+
+func input_handler():
 	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
-		wait_for_next_process = true
+		#Call deferred to wait for slot children
+		drag_drop.call_deferred()
 
-	if Input.is_action_just_pressed("INVENTORY") and visible:
+	if Input.is_action_just_pressed("INVENTORY"):
 		close()
-
+			
 ##To instantiate container with parameters
 func scene_parameters(p_id)-> CraftingInventory:
 	id = str(p_id)
