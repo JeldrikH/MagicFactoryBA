@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cul4466p5wp3i"]
+[gd_scene load_steps=2 format=3 uid="uid://cul4466p5wp3i"]
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/container.gd" id="1_5hji4"]
-[ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Inventory/player_items.tscn" id="2_m8ne1"]
 
-[node name="RemainderContainer" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories", "ui"]]
+[node name="RemainderContainer" type="PanelContainer" node_paths=PackedStringArray("inventory_grid", "item_grid") groups=["inventories", "ui"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5hji4")
+inventory_grid = NodePath("ContainerGrid/InventoryMargin")
 item_grid = NodePath("ContainerGrid/MarginContainer/Items")
 
 [node name="ContainerGrid" type="VBoxContainer" parent="."]
@@ -33,7 +33,3 @@ theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
-
-[node name="PlayerItems" parent="ContainerGrid/InventoryMargin" instance=ExtResource("2_m8ne1")]
-layout_mode = 2
-id = &""

@@ -2,10 +2,12 @@ extends Inventory
 class_name ItemContainer
 
 var player_items: Inventory
+##Node to add the player items
+@export var inventory_grid: Container
 
 func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
-	player_items = $ContainerGrid/InventoryMargin/PlayerItems
+	add_player_inventory()
 	super._ready()
 	visible = false
 	
@@ -28,7 +30,15 @@ func open():
 	super.open()
 	player_items.open()
 	
+func add_player_inventory():
+	var player_id = multiplayer.get_unique_id()
+	player_items = preload("res://Scenes/Main/UI/Inventory/player_items.tscn").instantiate()
+	player_items.player_id = player_id
+	player_items.set_multiplayer_authority(player_id)
+	inventory_grid.add_child(player_items)
+	
 #Transfers a stack from player inventory into the first available slot
+@rpc("any_peer", "call_local", "reliable")
 func transfer_in(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
 	var remainder = inventory_data.add_item(slot.item, slot.quantity)
@@ -36,6 +46,7 @@ func transfer_in(inv_index: int):
 	update()
 
 #Transfers a stack from container inventory out to the first available slot
+@rpc("any_peer", "call_local", "reliable")
 func transfer_out(container_index: int):
 	var slot = inventory_data.slot_data_table[container_index]
 	var remainder = player_items.inventory_data.add_item(slot.item, slot.quantity)
@@ -43,6 +54,7 @@ func transfer_out(container_index: int):
 	update()
 
 #Transfers from inventory index to container slot index. swaps if the slot is occupied or stacks if possible
+@rpc("any_peer", "call_local", "reliable")
 func transfer_in_index(inv_index: int, container_index: int):
 	var inv_slot = player_items.inventory_data.slot_data_table[inv_index]
 	var container_slot = SlotData.new()
@@ -56,6 +68,7 @@ func transfer_in_index(inv_index: int, container_index: int):
 	update()
 
 #Transfers from container slot index to inventory index. swaps if the slot is occupied or stacks if possible
+@rpc("any_peer", "call_local", "reliable")
 func transfer_out_index(inv_index: int, container_index: int):
 	var inv_slot = SlotData.new()
 	inv_slot.item = player_items.inventory_data.slot_data_table[inv_index].item
@@ -92,28 +105,28 @@ func drag_drop():
 	if not start_is_player_inventory and not target_is_player_inventory and start_index >= 0 and target_index >= 0 and start_index != target_index:
 		item_grid.get_child(start_index).is_selected = false
 		item_grid.get_child(target_index).is_drag_drop_target = false
-		move_item(start_index, target_index)
+		move_item.rpc(start_index, target_index)
 		return
 	
 	#Move items inside player inventory
 	if start_is_player_inventory and target_is_player_inventory and start_index != target_index:
 		player_items.item_grid.get_child(start_index).is_selected = false
 		player_items.item_grid.get_child(target_index).is_drag_drop_target = false
-		player_items.move_item(start_index, target_index)
+		player_items.move_item.rpc(start_index, target_index)
 		return
 	
 	#move item into container
 	if start_is_player_inventory and not target_is_player_inventory and target_index >= 0:
 		player_items.item_grid.get_child(start_index).is_selected = false
 		item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_in_index(start_index, target_index)
+		transfer_in_index.rpc(start_index, target_index)
 		return
 	
 	#move item out of the container
 	if not start_is_player_inventory and target_is_player_inventory and start_index >= 0:
 		item_grid.get_child(start_index).is_selected = false
 		player_items.item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_out_index(target_index, start_index)
+		transfer_out_index.rpc(target_index, start_index)
 		return
 	update()
 	

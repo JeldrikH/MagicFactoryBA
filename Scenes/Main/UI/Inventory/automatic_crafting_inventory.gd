@@ -21,8 +21,9 @@ func update():
 func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + str(id) + ".tres"):
 		var data = AutomaticCraftingInventoryData.new(type, input_size, output_size)
-		data.save_inventory_data(str(id))
+		data.save_inventory_data.rpc(str(id))
 		
+@rpc("any_peer", "call_local", "reliable")
 func transfer_in_spell_input(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
 	if slot.item is Spell:
@@ -30,6 +31,7 @@ func transfer_in_spell_input(inv_index: int):
 		player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
 	update()
 	
+@rpc("any_peer", "call_local", "reliable")
 func transfer_out_spell_input_to_index(inv_index: int):
 	var inv_slot = SlotData.new()
 	inv_slot.item = player_items.inventory_data.slot_data_table[inv_index].item
@@ -66,13 +68,13 @@ func drag_drop():
 	if not start_is_spell_input and target_is_spell_input and start_index >= 0:
 		player_items.item_grid.get_child(start_index).is_selected = false
 		spell_input.is_drag_drop_target = false
-		transfer_in_spell_input(start_index)
+		transfer_in_spell_input.rpc(start_index)
 		return
 	
 	##Transfer out from input
 	if start_is_spell_input and not target_is_spell_input and target_index >= 0:
 		input.get_child(start_index).is_selected = false
 		player_items.item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_out_spell_input_to_index(target_index)
+		transfer_out_spell_input_to_index.rpc(target_index)
 		return
 	super.drag_drop()

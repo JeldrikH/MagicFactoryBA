@@ -27,4 +27,4 @@ func deconstruct(building: Building):
 func transfer_items(building: Building):
 	var building_items = building.inventory.inventory_data.get_items()
 	if building_items.size() > 0:
-		building.inventory.player_items.add_item_list(building_items)
+		building.inventory.player_items.add_item_list.rpc(building_items)

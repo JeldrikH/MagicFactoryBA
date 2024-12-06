@@ -22,6 +22,7 @@ func _fill_grid(input_size: int, output_size: int):
 		output.append(CraftingSlotData.new())
 		
 ##Saves the current state of the inventory with the specified ID
+@rpc("authority", "call_local", "reliable", 1)
 func save_inventory_data(inventory_id: String):
 	ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
 		
@@ -74,10 +75,10 @@ func get_items()-> Array[SlotData]:
 			item_list.append(slotdata)
 	return item_list
 	
-##Selects a recipe and returns the cleared input and output (Check for quantity to be >0 to avoid bugged items)
-func set_active_recipe(recipe: Recipe)-> Array[SlotData]:
-	var cleared_slots = clear_input()
-	cleared_slots += clear_output()
+##Selects a recipe and clears input and output
+func set_active_recipe(recipe: Recipe):
+	clear_input()
+	clear_output()
 	active_recipe = recipe
 	for i in recipe.ingredients.size():
 		input[i].item = recipe.ingredients[i][0]
@@ -86,7 +87,6 @@ func set_active_recipe(recipe: Recipe)-> Array[SlotData]:
 	for i in recipe.output.size():
 		output[i].item = recipe.output[i][0]
 		output[i].required_amount = recipe.output[i][1]
-	return cleared_slots
 
 func can_craft()-> bool:
 	#quit if input is not enough

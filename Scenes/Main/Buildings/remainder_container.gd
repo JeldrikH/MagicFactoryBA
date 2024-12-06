@@ -9,7 +9,7 @@ func scene_parameters(args: Array)-> Building:
 func load_inventory():
 	inventory = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn").instantiate().scene_parameters([id, item_list.size()])
 	$Inventory.add_child(inventory)
-	inventory.add_item_list(item_list)
+	inventory.add_item_list.rpc(item_list)
 	inventory.visible = false
 	inventory.connect("updated", _inventory_updated)
 

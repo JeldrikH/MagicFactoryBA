@@ -9,10 +9,12 @@ var yAxis = 0
 
 @export var player_id: int = 1:
 	set(id):
+		print("player id set in player")
 		player_id = id
 		$InputSynchronizer.set_multiplayer_authority(id)
+		$PlayerUI/PlayerInventory.set_multiplayer_authority(id)
+		$PlayerUI/PlayerInventory.player_id = player_id
 		
-
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		apply_movement_from_input(delta)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1iywwbjrsi3j"]
+[gd_scene load_steps=7 format=3 uid="uid://c1iywwbjrsi3j"]
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/ui.gd" id="1_8ox7f"]
-[ext_resource type="PackedScene" uid="uid://cxwt4kg2qa5ud" path="res://Scenes/Main/UI/Inventory/player_inventory.tscn" id="1_hsctb"]
 [ext_resource type="PackedScene" uid="uid://ci561ngfngar7" path="res://Scenes/Main/UI/Inventory/hotbar.tscn" id="2_hnna8"]
 [ext_resource type="PackedScene" uid="uid://bvoexw45upwqd" path="res://Scenes/Main/UI/Inventory/container.tscn" id="6_n4pkb"]
 [ext_resource type="PackedScene" uid="uid://bvc8rgdnvnahk" path="res://Scenes/Main/UI/Inventory/brewing_inventory.tscn" id="6_o6yfk"]
@@ -14,15 +13,6 @@ script = ExtResource("1_8ox7f")
 [node name="Hotbar" parent="." instance=ExtResource("2_hnna8")]
 
 [node name="Inventories" type="CanvasLayer" parent="." groups=["inventories"]]
-
-[node name="PlayerInventory" parent="Inventories" instance=ExtResource("1_hsctb")]
-visible = false
-clip_contents = true
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = 0.0
-metadata/_edit_use_anchors_ = true
 
 [node name="BrewingInventory" parent="Inventories" instance=ExtResource("6_o6yfk")]
 visible = false

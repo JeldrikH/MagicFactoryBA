@@ -19,6 +19,7 @@ var tooltip_content: String
 #Sets the Background Color of the Item Slot
 func _ready() -> void:
 	add_to_group("slots")
+	name = str(index)
 	self["theme_override_styles/panel"] = StyleBoxFlat.new()
 	self["theme_override_styles/panel"].bg_color = color_default
 

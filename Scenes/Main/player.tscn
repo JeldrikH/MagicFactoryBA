@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu2h6lb40hrmf"]
+[gd_scene load_steps=13 format=3 uid="uid://bu2h6lb40hrmf"]
 
 [ext_resource type="Script" path="res://Scenes/Main/player.gd" id="1_4onid"]
 [ext_resource type="Script" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
 [ext_resource type="Texture2D" uid="uid://cc4nkpu7vb6fi" path="res://Sprites/Objects/Character/Character_idle_1.png" id="2_sa6a6"]
 [ext_resource type="Texture2D" uid="uid://c2saecq63mw4t" path="res://Sprites/Objects/Character/Character_idle_2.png" id="3_2utx1"]
 [ext_resource type="Texture2D" uid="uid://ydx5jaws45tp" path="res://Sprites/Objects/Character/Character_idle_3.png" id="4_320ba"]
+[ext_resource type="PackedScene" uid="uid://cxwt4kg2qa5ud" path="res://Scenes/Main/UI/Inventory/player_inventory.tscn" id="6_bmj32"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_stasp"]
 properties/0/path = NodePath(".:player_id")
@@ -96,6 +97,16 @@ replication_config = SubResource("SceneReplicationConfig_stasp")
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vdvek")
 script = ExtResource("2_4g8rx")
+
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+
+[node name="PlayerInventory" parent="PlayerUI" instance=ExtResource("6_bmj32")]
+clip_contents = true
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -156.25)
