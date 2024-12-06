@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MagicFactory"
-run/main_scene="res://Scenes/Main/load_game.tscn"
+run/main_scene="res://Scenes/Main/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
@@ -22,11 +22,14 @@ Builder="*res://Scenes/Main/builder.gd"
 Deconstructor="*res://Scenes/Main/deconstructor.gd"
 IDIncrementer="*res://Scenes/Main/id_incrementer.gd"
 SaveManager="*res://Scenes/Main/save_manager.gd"
+MultiplayerManager="*res://Scenes/Main/Multiplayer/multiplayer_manager.gd"
 
 [display]
 
 window/size/viewport_width=2560
 window/size/viewport_height=1440
+window/size/initial_position_type=2
+window/size/always_on_top=true
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
@@ -188,4 +191,4 @@ DECONSTRUCT={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Translations/items.de.translation", "res://Translations/items.en.translation", "res://Translations/item_descriptions.de.translation", "res://Translations/item_descriptions.en.translation")
+locale/translations=PackedStringArray("res://Translations/items.de.translation", "res://Translations/items.en.translation", "res://Translations/item_descriptions.de.translation", "res://Translations/item_descriptions.en.translation", "res://Translations/ui_elements.de.translation", "res://Translations/ui_elements.en.translation")

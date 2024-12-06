@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmenvclj8bknw"]
+
+[ext_resource type="Script" path="res://Scenes/Main/main.gd" id="1_t1kvt"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_t1kvt")
+metadata/_edit_use_anchors_ = true
+
+[node name="MainMenu" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.358008
+anchor_top = 0.247569
+anchor_right = 0.641992
+anchor_bottom = 0.752431
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.299862
+anchor_right = 1.0
+anchor_bottom = 1.00138
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Load" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "MENU_LOAD"
+
+[node name="Join" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "MENU_JOIN"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byn3ew2h6ybu2"]
+[gd_scene load_steps=13 format=3 uid="uid://byn3ew2h6ybu2"]
 
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_co8es"]
 [ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/Cauldron.png" id="1_pbxc2"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/Cauldron_full.png" id="3_ugxfm"]
 [ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="7_8umew"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="7_gdw8r"]
-[ext_resource type="PackedScene" uid="uid://bu2h6lb40hrmf" path="res://Scenes/Main/player.tscn" id="9_mimme"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/storage_interaction.gd" id="12_gyfdq"]
 [ext_resource type="PackedScene" uid="uid://c1iywwbjrsi3j" path="res://Scenes/Main/UI/ui.tscn" id="13_825vp"]
 
@@ -38,6 +37,10 @@ radius = 170.35
 
 [node name="LivingRoom" type="Node2D"]
 script = ExtResource("1_co8es")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/player.tscn")
+spawn_path = NodePath("..")
 
 [node name="UI" parent="." instance=ExtResource("13_825vp")]
 
@@ -80,6 +83,7 @@ polygon = PackedVector2Array(1040, 405, 860, 429, 842, 416, 838, 377, 758, 377, 
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Area2D" parent="LivingRoom"]
+collision_mask = 2
 
 [node name="DoorCollision" type="CollisionPolygon2D" parent="LivingRoom/Door"]
 polygon = PackedVector2Array(388.011, 224.218, 387.64, 286.001, 461.829, 328.144, 458.12, 227.082)
@@ -87,6 +91,7 @@ polygon = PackedVector2Array(388.011, 224.218, 387.64, 286.001, 461.829, 328.144
 [node name="Cauldron" type="Area2D" parent="."]
 position = Vector2(108, 1224)
 scale = Vector2(1.824, 1.824)
+collision_mask = 2
 script = ExtResource("2_dx0ji")
 
 [node name="CauldronSprite" type="AnimatedSprite2D" parent="Cauldron"]
@@ -117,8 +122,6 @@ script = ExtResource("12_gyfdq")
 position = Vector2(1213, 190)
 scale = Vector2(2.6958, 2.44405)
 polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342.464, -331.256, 373.969, -265.969, 327.735, -219.601, 260.633, -260.776, -30.6868)
-
-[node name="Player" parent="." instance=ExtResource("9_mimme")]
 
 [node name="EnterRoomPosition" type="Node2D" parent="."]
 position = Vector2(2178, 1057)

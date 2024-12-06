@@ -7,7 +7,7 @@ func _ready()-> void:
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = save_interval
-	timer.connect("timeout", autosave)
+	#DEBUGtimer.connect("timeout", autosave)
 	timer.start()
 	
 ## Load scene from save by path
@@ -21,7 +21,7 @@ func load_scene(scene: String):
 	##Deletes all unique nodes before loading them from save
 	var save_nodes = get_tree().get_nodes_in_group("unique")
 	for i in save_nodes:
-		i.queue_free()
+		i.free()
 	
 	# Load the Scene
 	# Load the file line by line
@@ -62,8 +62,9 @@ func save_scene(scene: String):
 	var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("persist")
 	
-	var current_scene_file = FileAccess.open(save_folder + "current_scene.save", FileAccess.WRITE)
-	current_scene_file.store_line(scene)
+	if scene != "res://Scenes/Main/main.tscn":
+		var current_scene_file = FileAccess.open(save_folder + "current_scene.save", FileAccess.WRITE)
+		current_scene_file.store_line(scene)
 	
 	for node in save_nodes:
 		# Check the node is an instanced scene so it can be instanced again during load.
@@ -93,4 +94,7 @@ func current_scene()-> String:
 	return scene.get_line()
 
 func autosave():
-	save_scene(get_tree().current_scene.scene_file_path)
+	if get_tree().current_scene:
+		save_scene(get_tree().current_scene.scene_file_path)
+	else:
+		print("No active scene, autosave skipped")

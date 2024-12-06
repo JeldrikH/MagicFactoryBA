@@ -7,6 +7,7 @@ func _ready() -> void:
 	Globals.sort_children_by_y_pos(self)
 	##DEBUG change to false later
 	Globals.allow_building = true
+	MultiplayerManager.manage_multiplayer()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +17,7 @@ func _process(_delta: float) -> void:
 ##objects need to be sorted by Y position for this to work.
 func _player_occlusion():
 	## Skip if player is not in scene
-	if !player.is_inside_tree():
+	if !is_instance_valid(player):
 		return
 	for child in get_children():
 		if "position" in child:
@@ -36,5 +37,5 @@ func _on_door_body_entered(body: Node2D) -> void:
 
 func _on_child_entered_tree(node: Node) -> void:
 	Globals.sort_children_by_y_pos.call_deferred(self)
-	if node is Player:
+	if node is Player and node.name == "Player" or node.name == MultiplayerManager.id:
 		player = node
