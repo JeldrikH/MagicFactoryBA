@@ -29,7 +29,7 @@ func transfer_in_spell_input(inv_index: int):
 	if slot.item is Spell:
 		var remainder = inventory_data.add_item_spell_input(slot.item, slot.quantity)
 		player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 	
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out_spell_input_to_index(inv_index: int):
@@ -42,7 +42,7 @@ func transfer_out_spell_input_to_index(inv_index: int):
 		inventory_data.add_item_to_index(inv_slot.item, inv_slot.quantity, inv_index)
 	else:
 		inventory_data.remove_amount_spell_input(input_slot.quantity - remainder)
-	update()
+	update_all_inventories()
 	
 func drag_drop():
 	var start_is_spell_input = false

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/Cauldron_full.png" id="3_ugxfm"]
 [ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="7_8umew"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="7_gdw8r"]
-[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/storage_interaction.gd" id="12_gyfdq"]
+[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="12_gyfdq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wo8wd"]
 radius = 213.53
@@ -88,7 +88,6 @@ polygon = PackedVector2Array(388.011, 224.218, 387.64, 286.001, 461.829, 328.144
 [node name="Cauldron" type="Area2D" parent="."]
 position = Vector2(108, 1224)
 scale = Vector2(1.824, 1.824)
-collision_mask = 2
 script = ExtResource("2_dx0ji")
 
 [node name="CauldronSprite" type="AnimatedSprite2D" parent="Cauldron"]
@@ -103,6 +102,8 @@ polygon = PackedVector2Array(-10, -326.1, -10, -325, -58.1, -323, -73.1, -323, -
 metadata/_edit_lock_ = true
 
 [node name="InteractionRange" type="Area2D" parent="Cauldron"]
+collision_mask = 2
+script = ExtResource("12_gyfdq")
 metadata/_edit_lock_ = true
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Cauldron/InteractionRange"]
@@ -113,12 +114,13 @@ shape = SubResource("CircleShape2D_weoqq")
 wait_time = 3.0
 
 [node name="StorageInteraction" type="Area2D" parent="."]
+collision_mask = 3
 script = ExtResource("12_gyfdq")
 
 [node name="StorageInteractionShape" type="CollisionPolygon2D" parent="StorageInteraction"]
 position = Vector2(1213, 190)
 scale = Vector2(2.6958, 2.44405)
-polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342.464, -331.256, 373.969, -265.969, 327.735, -219.601, 260.633, -260.776, -30.6868)
+polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342.464, -331.256, 373.969, -252.986, 341.646, -194.005, 263.497, -260.776, -30.6868)
 
 [node name="EnterRoomPosition" type="Node2D" parent="."]
 position = Vector2(2178, 1057)
@@ -127,8 +129,8 @@ position = Vector2(2178, 1057)
 [connection signal="body_entered" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_exited"]
 [connection signal="body_entered" from="LivingRoom/Door" to="." method="_on_door_body_entered"]
-[connection signal="body_entered" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_body_entered"]
-[connection signal="body_exited" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_body_exited"]
+[connection signal="player_entered_range" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_player_entered_range"]
+[connection signal="player_left_range" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_player_left_range"]
 [connection signal="timeout" from="Cauldron/BrewTimer" to="Cauldron" method="_on_brew_timer_timeout"]
-[connection signal="body_entered" from="StorageInteraction" to="StorageInteraction" method="_on_body_entered"]
-[connection signal="body_exited" from="StorageInteraction" to="StorageInteraction" method="_on_body_exited"]
+[connection signal="player_entered_range" from="StorageInteraction" to="." method="_on_storage_interaction_player_entered_range"]
+[connection signal="player_left_range" from="StorageInteraction" to="." method="_on_storage_interaction_player_left_range"]

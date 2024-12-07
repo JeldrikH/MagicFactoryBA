@@ -12,7 +12,23 @@ func _ready() -> void:
 	xAxis = Input.get_axis("MOVE_LEFT", "MOVE_RIGHT")
 	yAxis = Input.get_axis("MOVE_UP","MOVE_DOWN")
 
+func _process(_delta: float) -> void:
+	handle_input()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
 	xAxis = Input.get_axis("MOVE_LEFT", "MOVE_RIGHT")
 	yAxis = Input.get_axis("MOVE_UP","MOVE_DOWN")
+
+func handle_input():
+	if Globals.is_ui_opened:
+		if Input.is_action_just_pressed("INVENTORY"):
+			Globals.close_all_ui_windows()
+	else:
+		if Input.is_action_just_pressed("INVENTORY"):
+			$"..".inventory.open.call_deferred()
+			
+	if Input.is_action_just_pressed("INTERACT") and $"..".interaction_stack.interaction_available:
+		var interaction = $"..".interaction_stack.get_interaction()
+		if interaction.interaction_type == Interaction.interaction_types.OPEN_INVENTORY:
+			$"..".inventory.open_with_external_inventory(interaction.value, interaction.args)

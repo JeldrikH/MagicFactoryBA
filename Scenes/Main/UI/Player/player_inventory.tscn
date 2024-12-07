@@ -18,14 +18,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ldld7")
 
-[node name="InventoryMargin" type="MarginContainer" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/UI/Inventory/brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/automatic_brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/container.tscn", "res://Scenes/Main/UI/Inventory/spell_crafting_inventory.tscn")
+spawn_path = NodePath("../HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="InventoryMargin" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="PlayerItems" parent="InventoryMargin" instance=ExtResource("2_voa3d")]
+[node name="PlayerItems" parent="HBoxContainer/InventoryMargin" instance=ExtResource("2_voa3d")]
 layout_mode = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
