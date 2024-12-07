@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddw5b5cgcn5ul"]
+
+[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/delete_item.gd" id="1_60jym"]
+
+[node name="DeleteItem" type="PanelContainer" groups=["delete_prompt", "ui"]]
+auto_translate_mode = 1
+visible = false
+custom_minimum_size = Vector2(500, 200)
+anchors_preset = -1
+anchor_left = 0.402344
+anchor_top = 0.430556
+anchor_right = 0.597656
+anchor_bottom = 0.569444
+offset_left = 246.0
+offset_top = 96.0
+offset_right = -246.0
+offset_bottom = -95.9999
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_60jym")
+metadata/_edit_use_anchors_ = true
+
+[node name="PopUpMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PopUpContainer" type="Control" parent="PopUpMargin"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PopUpMargin/PopUpContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.71028
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Confirm" type="Button" parent="PopUpMargin/PopUpContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirm"
+
+[node name="Cancel" type="Button" parent="PopUpMargin/PopUpContainer/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="Label" type="Label" parent="PopUpMargin/PopUpContainer"]
+layout_mode = 2
+anchor_top = 0.242991
+anchor_right = 1.0
+anchor_bottom = 0.46729
+text = "Do you want to delete the Item?"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="PopUpMargin/PopUpContainer/ButtonContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="PopUpMargin/PopUpContainer/ButtonContainer/Cancel" to="." method="_on_cancel_pressed"]

@@ -53,10 +53,5 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "MENU_JOIN"
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://byn3ew2h6ybu2"]
+[gd_scene load_steps=12 format=3 uid="uid://byn3ew2h6ybu2"]
 
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_co8es"]
 [ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/Cauldron.png" id="1_pbxc2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="7_8umew"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="7_gdw8r"]
 [ext_resource type="Script" path="res://Scenes/Main/LivingRoom/storage_interaction.gd" id="12_gyfdq"]
-[ext_resource type="PackedScene" uid="uid://c1iywwbjrsi3j" path="res://Scenes/Main/UI/ui.tscn" id="13_825vp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wo8wd"]
 radius = 213.53
@@ -41,8 +40,6 @@ script = ExtResource("1_co8es")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/player.tscn")
 spawn_path = NodePath("..")
-
-[node name="UI" parent="." instance=ExtResource("13_825vp")]
 
 [node name="Table" type="StaticBody2D" parent="."]
 position = Vector2(1215, 1292)
@@ -127,14 +124,11 @@ polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342
 position = Vector2(2178, 1057)
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
-[connection signal="interact" from="Table" to="UI" method="_on_table_interact"]
 [connection signal="body_entered" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_exited"]
 [connection signal="body_entered" from="LivingRoom/Door" to="." method="_on_door_body_entered"]
-[connection signal="interact" from="Cauldron" to="UI" method="_on_cauldron_interact"]
 [connection signal="body_entered" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="Cauldron/InteractionRange" to="Cauldron" method="_on_interaction_range_body_exited"]
 [connection signal="timeout" from="Cauldron/BrewTimer" to="Cauldron" method="_on_brew_timer_timeout"]
 [connection signal="body_entered" from="StorageInteraction" to="StorageInteraction" method="_on_body_entered"]
 [connection signal="body_exited" from="StorageInteraction" to="StorageInteraction" method="_on_body_exited"]
-[connection signal="interact" from="StorageInteraction" to="UI" method="_on_storage_interaction_interact"]

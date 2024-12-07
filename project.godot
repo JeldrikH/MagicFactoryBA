@@ -17,11 +17,11 @@ config/icon="res://Sprites/icon.svg"
 
 [autoload]
 
-Globals="*res://Scenes/Main/globals.gd"
-Builder="*res://Scenes/Main/builder.gd"
-Deconstructor="*res://Scenes/Main/deconstructor.gd"
-IDIncrementer="*res://Scenes/Main/id_incrementer.gd"
-SaveManager="*res://Scenes/Main/save_manager.gd"
+Globals="*res://Scenes/Main/Globals/globals.gd"
+Builder="*res://Scenes/Main/Globals/builder.gd"
+Deconstructor="*res://Scenes/Main/Globals/deconstructor.gd"
+IDIncrementer="*res://Scenes/Main/Globals/id_incrementer.gd"
+SaveManager="*res://Scenes/Main/Globals/save_manager.gd"
 MultiplayerManager="*res://Scenes/Main/Multiplayer/multiplayer_manager.gd"
 
 [display]

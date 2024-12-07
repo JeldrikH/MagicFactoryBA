@@ -1,23 +1,12 @@
 extends Area2D
-signal interact
-var playerEntered = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("INTERACT") and playerEntered:
-		interact.emit()
-
+signal player_entered_range
+signal player_left_range
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
-		playerEntered = true
+	if body is Player and body.player_id == multiplayer.get_unique_id():
+		player_entered_range.emit()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is Player:
-		playerEntered = false
+	if body is Player and body.player_id == multiplayer.get_unique_id():
+		player_left_range.emit()

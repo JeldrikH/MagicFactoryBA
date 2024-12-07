@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://ct8t6f634ebxe"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/player_items.gd" id="1_7akid"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Player/player_items.gd" id="1_r1udg"]
 
 [node name="PlayerItems" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories"]]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_7akid")
+script = ExtResource("1_r1udg")
 item_grid = NodePath("ItemContainer")
 id = &"player_items"
 

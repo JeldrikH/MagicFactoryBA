@@ -4,11 +4,12 @@ var save_interval = 5
 var save_folder = "user://savegame/"
 
 func _ready()-> void:
-	timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = save_interval
-	#DEBUGtimer.connect("timeout", autosave)
-	timer.start()
+	if multiplayer.is_server():
+		timer = Timer.new()
+		add_child(timer)
+		timer.wait_time = save_interval
+		#DEBUGtimer.connect("timeout", autosave)
+		timer.start()
 	
 ## Load scene from save by path
 func load_scene(scene: String):
@@ -53,38 +54,39 @@ func load_scene(scene: String):
 	
 ## Save given scene node
 func save_scene(scene: String):
-	var scene_name_splits = scene.split("/", false)
-	var scene_name = scene_name_splits[scene_name_splits.size()-1].trim_suffix(".tscn")
-	
-	if not DirAccess.dir_exists_absolute(save_folder):
-		DirAccess.make_dir_absolute(save_folder)
+	if multiplayer.is_server():
+		var scene_name_splits = scene.split("/", false)
+		var scene_name = scene_name_splits[scene_name_splits.size()-1].trim_suffix(".tscn")
 		
-	var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.WRITE)
-	var save_nodes = get_tree().get_nodes_in_group("persist")
-	
-	if scene != "res://Scenes/Main/main.tscn":
-		var current_scene_file = FileAccess.open(save_folder + "current_scene.save", FileAccess.WRITE)
-		current_scene_file.store_line(scene)
-	
-	for node in save_nodes:
-		# Check the node is an instanced scene so it can be instanced again during load.
-		if node.scene_file_path.is_empty():
-			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
-			continue
-
-		# Check the node has a save function.
-		if !node.has_method("save"):
-			print("persistent node '%s' is missing a save() function, skipped" % node.name)
-			continue
+		if not DirAccess.dir_exists_absolute(save_folder):
+			DirAccess.make_dir_absolute(save_folder)
 			
-		# Call the node's save function.
-		var node_data = node.call("save")
+		var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.WRITE)
+		var save_nodes = get_tree().get_nodes_in_group("persist")
+		
+		if scene != "res://Scenes/Main/main.tscn":
+			var current_scene_file = FileAccess.open(save_folder + "current_scene.save", FileAccess.WRITE)
+			current_scene_file.store_line(scene)
+		
+		for node in save_nodes:
+			# Check the node is an instanced scene so it can be instanced again during load.
+			if node.scene_file_path.is_empty():
+				print("persistent node '%s' is not an instanced scene, skipped" % node.name)
+				continue
 
-		#serialize JSON string.
-		var json_string = JSON.stringify(node_data)
+			# Check the node has a save function.
+			if !node.has_method("save"):
+				print("persistent node '%s' is missing a save() function, skipped" % node.name)
+				continue
+				
+			# Call the node's save function.
+			var node_data = node.call("save")
 
-		# Store the save dictionary as a new line in the save file.
-		save_file.store_line(json_string)
+			#serialize JSON string.
+			var json_string = JSON.stringify(node_data)
+
+			# Store the save dictionary as a new line in the save file.
+			save_file.store_line(json_string)
 
 func current_scene()-> String:
 	if not FileAccess.file_exists(save_folder + "current_scene.save"):

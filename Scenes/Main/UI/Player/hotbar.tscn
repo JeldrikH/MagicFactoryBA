@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci561ngfngar7"]
 
 [ext_resource type="PackedScene" uid="uid://dir5gb0jhc5o8" path="res://Scenes/Main/UI/Inventory/slot.tscn" id="1_cl0en"]
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/hotbar.gd" id="1_jabmu"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Player/hotbar.gd" id="1_jabmu"]
 
 [node name="Hotbar" type="PanelContainer"]
 custom_minimum_size = Vector2(908, 98)
