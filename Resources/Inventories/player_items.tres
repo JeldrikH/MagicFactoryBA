@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=97 format=3 uid="uid://m8xqgyc8ppm4"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=97 format=3]
 
 [ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_qubm3"]
 [ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_pvot6"]
-[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="3_37u0k"]
+[ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="3_37u0k"]
 [ext_resource type="Script" path="res://Resources/item.gd" id="4_cmhd8"]
-[ext_resource type="Resource" uid="uid://b7msecpuh6qds" path="res://Resources/Items/frog_leg.tres" id="5_00xtn"]
-[ext_resource type="Resource" uid="uid://y34s5uwr0wrx" path="res://Resources/Items/paper.tres" id="5_wsu8r"]
+[ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="5_00xtn"]
+[ext_resource type="Resource" path="res://Resources/Items/paper.tres" id="5_wsu8r"]
 
 [sub_resource type="Resource" id="Resource_0qv8d"]
 script = ExtResource("2_pvot6")
