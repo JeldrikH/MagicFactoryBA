@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="4_xf7s2"]
 
 [node name="BrewingInventory" type="PanelContainer" node_paths=PackedStringArray("inventory_grid", "input", "output", "recipe_panel", "recipe_button", "crafting_button") groups=["inventories", "ui"]]
-custom_minimum_size = Vector2(1128, 768)
+custom_minimum_size = Vector2(300, 768)
 anchors_preset = -1
 anchor_left = 0.279687
 anchor_top = 0.233333
-anchor_right = 0.720312
-anchor_bottom = 0.766667
+anchor_right = 0.396874
+anchor_bottom = 0.766666
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tjvbt")
@@ -25,7 +25,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="BrewingGrid" type="HBoxContainer" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(1128, 768)
 layout_mode = 2
 
 [node name="BrewingPanel" type="Control" parent="BrewingGrid"]

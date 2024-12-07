@@ -42,7 +42,8 @@ func input_handler():
 func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + id + ".tres"):
 		var data = InventoryData.new(grid_size)
-		data.save_inventory_data(path, id)
+		if multiplayer.is_server():
+			data.save_inventory_data(path, id)
 		
 func fill_grid():
 	for child in item_grid.get_children():
@@ -53,10 +54,11 @@ func fill_grid():
 		item_grid.add_child(slot, true)
 		slot.index = i
 
-
-
+## Call all inventories to sync multiplayer inventories, called in rpc methods
+func update_all_inventories():
+	get_tree().call_group("inventories", "update")
+	
 ##updates the inventory, call after changes to the inventory have happened
-@rpc("any_peer", "call_local", "reliable")
 func update():
 	for i in range(0, inventory_data.slot_data_table.size()):
 		item_grid.get_child(i).set_slot_data(inventory_data.slot_data_table[i])
@@ -84,36 +86,39 @@ func close():
 func add_slots(amount: int):
 	grid_size += amount
 	inventory_data.add_slots(amount)
-	update()
+	update_all_inventories()
 	
 ##Splits stack in half on right click
 @rpc("any_peer", "call_local", "reliable")
 func split_stack_half(index: int):
 	inventory_data.split_stack_half(index)
-	update()
+	update_all_inventories()
 	
 ##Adds the specified item to the first free slot (just adds update to the data function)
 ##returns the remainder if the inventory is full
 ##item_id: i.e "frog_leg"
 @rpc("any_peer", "call_local", "reliable")
-func add_item(item: Item, quantity: int)-> int:
-	var remainder = inventory_data.add_item(item, quantity)
-	update()
-	return remainder
+func add_item(item_id: StringName, quantity: int):
+	var item: Item = load("res://Resources/Items/%s.tres" % item_id)
+	inventory_data.add_item(item, quantity)
+	update_all_inventories()
 
-@rpc("any_peer", "call_local", "reliable")
 func add_item_list(item_list: Array[SlotData]):
 	var remainder: Array[SlotData] = []
 	for stack in item_list:
-		var remainder_quantity = add_item(stack.item, stack.quantity)
+		var remainder_quantity = get_add_item_remainder(stack.item, stack.quantity)
+		add_item.rpc(stack.item.id, stack.quantity)
 		if remainder_quantity > 0:
 			remainder.append(SlotData.new(stack.item, remainder_quantity))
 			
 	if remainder.size() > 0:
-		create_remainder_container.rpc(remainder)
+		create_remainder_container(remainder)
 		
+func get_add_item_remainder(item: Item, quantity: int)-> int:
+	var remainder = inventory_data.get_add_item_remainder(item, quantity)
+	return remainder
+	
 ##Creates a container with leftover items that didnt fit into the inventory and opens it
-@rpc("authority", "call_local", "reliable")
 func create_remainder_container(remainder: Array[SlotData]):
 	var remainder_container = preload("res://Scenes/Main/Buildings/RemainderContainer.tscn")
 	remainder_container = Builder.build(remainder_container, get_tree().current_scene, get_tree().current_scene.player.position, [remainder])
@@ -125,10 +130,11 @@ func create_remainder_container(remainder: Array[SlotData]):
 ##adds the specified item to the target index (old entries on that index are overwritten!)
 ##item_id: i.e "frog_leg"
 @rpc("any_peer", "call_local", "reliable")
-func add_item_to_index(item: Item, quantity: int, index: int):
+func add_item_to_index(item_id: StringName, quantity: int, index: int):
 	if index >= inventory_data.slot_data_table.size() or index < 0:
 		print("invalid index on adding")
 		return
+	var item: Item = load("res://Resources/Items/%s.tres" % item_id)
 	inventory_data.add_item_to_index(item, quantity, index)
 	update()
 

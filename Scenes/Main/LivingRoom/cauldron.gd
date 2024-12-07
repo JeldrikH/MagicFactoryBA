@@ -1,31 +1,21 @@
 extends Area2D
-signal interact
-var playerEntered = false
+var inventory = preload("res://Scenes/Main/UI/Inventory/brewing_inventory.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$CauldronSprite.play("Empty")
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("INTERACT") and playerEntered:
-		interact.emit()
 
 func brew():
 	#if $"../InventoryBarPanel/InventoryBarGrid".get_item
 	$CauldronSprite.play("Brew")
 	$BrewTimer.start()
 	
-
-func _on_interaction_range_body_exited(body: Node2D) -> void:
-	if body is Player:
-		playerEntered = false
-
-
-func _on_interaction_range_body_entered(body: Node2D) -> void:
-	if body is Player:
-		playerEntered = true
-
-
 func _on_brew_timer_timeout() -> void:
 	$CauldronSprite.play("Empty")
+
+
+func _on_interaction_range_player_entered_range(player: Player) -> void:
+	#opens the default brewing inventory data [id = 0]
+	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory, 0, [0])
+
+func _on_interaction_range_player_left_range(player: Player) -> void:
+	player.interaction_stack.remove_interaction(inventory, 0)

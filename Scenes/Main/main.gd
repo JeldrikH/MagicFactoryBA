@@ -8,6 +8,7 @@ func _ready() -> void:
 
 func load_save() -> void:
 	get_tree().change_scene_to_file(SaveManager.current_scene())
+	
 
 
 func _on_load_pressed() -> void:

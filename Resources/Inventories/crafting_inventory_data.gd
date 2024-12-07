@@ -76,17 +76,17 @@ func get_items()-> Array[SlotData]:
 	return item_list
 	
 ##Selects a recipe and clears input and output
-func set_active_recipe(recipe: Recipe):
+func set_active_recipe(index: int):
 	clear_input()
 	clear_output()
-	active_recipe = recipe
-	for i in recipe.ingredients.size():
-		input[i].item = recipe.ingredients[i][0]
-		input[i].required_amount = recipe.ingredients[i][1]
+	active_recipe = recipe_list[index]
+	for i in active_recipe.ingredients.size():
+		input[i].item = active_recipe.ingredients[i][0]
+		input[i].required_amount = active_recipe.ingredients[i][1]
 			
-	for i in recipe.output.size():
-		output[i].item = recipe.output[i][0]
-		output[i].required_amount = recipe.output[i][1]
+	for i in active_recipe.output.size():
+		output[i].item = active_recipe.output[i][0]
+		output[i].required_amount = active_recipe.output[i][1]
 
 func can_craft()-> bool:
 	#quit if input is not enough

@@ -7,7 +7,10 @@ var player_items: Inventory
 
 func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
-	add_player_inventory()
+	
+	# Finds the current players inventory
+	player_items = get_parent().get_child(0).get_child(0)
+	
 	super._ready()
 	visible = false
 	
@@ -30,28 +33,24 @@ func open():
 	super.open()
 	player_items.open()
 	
-func add_player_inventory():
-	var player_id = multiplayer.get_unique_id()
-	player_items = preload("res://Scenes/Main/UI/Inventory/player_items.tscn").instantiate()
-	player_items.player_id = player_id
-	player_items.set_multiplayer_authority(player_id)
-	inventory_grid.add_child(player_items)
-	
+
 #Transfers a stack from player inventory into the first available slot
 @rpc("any_peer", "call_local", "reliable")
 func transfer_in(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
-	var remainder = inventory_data.add_item(slot.item, slot.quantity)
+	var remainder = inventory_data.get_add_item_remainder(slot.item, slot.quantity)
+	inventory_data.add_item(slot.item, slot.quantity)
 	player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 #Transfers a stack from container inventory out to the first available slot
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out(container_index: int):
 	var slot = inventory_data.slot_data_table[container_index]
-	var remainder = player_items.inventory_data.add_item(slot.item, slot.quantity)
+	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
+	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	inventory_data.remove_amount(container_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 #Transfers from inventory index to container slot index. swaps if the slot is occupied or stacks if possible
 @rpc("any_peer", "call_local", "reliable")
@@ -65,7 +64,7 @@ func transfer_in_index(inv_index: int, container_index: int):
 		player_items.inventory_data.add_item_to_index(container_slot.item, container_slot.quantity, inv_index)
 	else:
 		player_items.inventory_data.remove_amount(inv_index, inv_slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 #Transfers from container slot index to inventory index. swaps if the slot is occupied or stacks if possible
 @rpc("any_peer", "call_local", "reliable")
@@ -79,7 +78,7 @@ func transfer_out_index(inv_index: int, container_index: int):
 		inventory_data.add_item_to_index(inv_slot.item, inv_slot.quantity, container_index)
 	else:
 		inventory_data.remove_amount(container_index, container_slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 func drag_drop():
 	var start_is_player_inventory = false
@@ -135,7 +134,7 @@ func connect_signals():
 	super.connect_signals()
 	for child in player_items.item_grid.get_children():
 		if not child.is_connected("transfer", transfer_in):
-			child.transfer.connect(transfer_in.bind(child.index))
+			child.transfer.connect(transfer_in.rpc)
 	for child in item_grid.get_children():
 		if not child.is_connected("transfer", transfer_out):
-			child.transfer.connect(transfer_out.bind(child.index))
+			child.transfer.connect(transfer_out.rpc)

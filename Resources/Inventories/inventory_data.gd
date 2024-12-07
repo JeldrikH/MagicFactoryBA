@@ -24,9 +24,8 @@ func add_slots(amount: int):
 	
 ##Adds the specified item to the first free slot
 ##or stacks Items of the Same Type
-##returns the remainder of items not added to the inventory
-##returns the full quantity as a remainder if not successfull!
-func add_item(item: Item, quantity: int) -> int:
+##call get_add_item_remainder before to handle a full inventory by the sender
+func add_item(item: Item, quantity: int):
 	var remainder = quantity
 	for slot_data in slot_data_table:
 		if remainder == 0:
@@ -44,8 +43,26 @@ func add_item(item: Item, quantity: int) -> int:
 			var added_quantity = min(available_quantity, remainder)
 			remainder = remainder - added_quantity
 			slot_data.quantity += added_quantity
-	return remainder
 
+## Simulates adding an item to get the remainder (called by the sender only to retrieve items)
+func get_add_item_remainder(item: Item, quantity: int):
+	var remainder = quantity
+	for slot_data in slot_data_table:
+		if remainder == 0:
+			break
+		# Fill empty slot
+		if slot_data.quantity == 0:
+			var added_quantity = min(remainder, SlotData.MAX_STACK_SIZE)
+			remainder = remainder - added_quantity
+			continue
+		# Fill slot with same item
+		# calculate the available stack size and fill the stack
+		if item.id == slot_data.item.id:
+			var available_quantity = SlotData.MAX_STACK_SIZE - slot_data.quantity
+			var added_quantity = min(available_quantity, remainder)
+			remainder = remainder - added_quantity
+	return remainder
+	
 ##Adds the specified item to the first free slot
 ##returns false if not successfull!
 func add_item_no_stacking(item: Item, quantity: int) -> int:

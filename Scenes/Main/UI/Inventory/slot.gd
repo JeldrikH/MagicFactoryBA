@@ -10,7 +10,7 @@ class_name Slot
 @export var is_hovered = false
 @export var is_hotbar_slot = false
 @export var contains_item = false
-signal transfer
+signal transfer(index: int)
 
 @export var tooltip_delay = 1
 var tooltip: RichTextLabel
@@ -95,7 +95,7 @@ func tooltip_follow_cursor():
 	
 func read_inputs():
 	if Input.is_action_just_pressed("TRANSFER_ITEM") and contains_item:
-		transfer.emit()
+		transfer.emit(index)
 		return
 		
 	if Input.is_action_just_pressed("CLICK") and (contains_item or is_hotbar_slot):

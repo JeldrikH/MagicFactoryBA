@@ -7,20 +7,27 @@ const JUMP_VELOCITY = -400.0
 var xAxis = 0
 var yAxis = 0
 
+## Stack of currently available interactions
+var interaction_stack: InteractionStack
+@onready var inventory = $PlayerUI/PlayerInventory
+
+
 @export var player_id: int = 1:
 	set(id):
-		print("player id set in player")
 		player_id = id
 		$InputSynchronizer.set_multiplayer_authority(id)
-		$PlayerUI/PlayerInventory.set_multiplayer_authority(id)
 		$PlayerUI/PlayerInventory.player_id = player_id
 		
+func _ready():
+	interaction_stack = InteractionStack.new()
+	
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		apply_movement_from_input(delta)
 	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
 		_apply_animations(delta)
 	
+
 func _apply_animations(_delta):
 	if xAxis > 0:
 		$PlayerSprite.flip_h = false

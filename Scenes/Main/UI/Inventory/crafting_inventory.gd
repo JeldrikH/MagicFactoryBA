@@ -20,8 +20,11 @@ var inventory_data: CraftingInventoryData
 
 func _ready() -> void:
 	create_resource_if_not_exist()
-	add_player_inventory()
 	inventory_data = load(path + str(id) + ".tres")
+	
+	# Finds the current players inventory
+	player_items = get_parent().get_child(0).get_child(0)
+	
 	recipe_list = inventory_data.recipe_list
 	fill_grid()
 	connect_recipe_panel()
@@ -42,13 +45,7 @@ func input_handler():
 	if Input.is_action_just_pressed("INVENTORY"):
 		close()
 			
-			
-func add_player_inventory():
-	var player_id = multiplayer.get_unique_id()
-	player_items = preload("res://Scenes/Main/UI/Inventory/player_items.tscn").instantiate()
-	player_items.player_id = player_id
-	player_items.set_multiplayer_authority(player_id)
-	inventory_grid.add_child(player_items)
+		
 	
 ##To instantiate container with parameters
 ##args[0] = id
@@ -59,7 +56,8 @@ func scene_parameters(args: Array)-> CraftingInventory:
 func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + str(id) + ".tres"):
 		var data = CraftingInventoryData.new(type, input_size, output_size)
-		data.save_inventory_data.rpc(str(id))
+		if multiplayer.is_server():
+			data.save_inventory_data.rpc(str(id))
 	
 
 func fill_grid():
@@ -78,8 +76,11 @@ func fill_grid():
 		output.add_child(slot)
 		slot.index = i
 		
+## Call all inventories to sync multiplayer inventories, called in rpc methods
+func update_all_inventories():
+	get_tree().call_group("inventories", "update")
+
 ##updates the inventory, call after changes to the inventory have happened
-@rpc("any_peer", "call_local", "reliable")
 func update():
 	player_items.update()
 	for i in range(0, inventory_data.input.size()):
@@ -87,7 +88,8 @@ func update():
 	for i in range(0, inventory_data.output.size()):
 		output.get_child(i).set_slot_data(inventory_data.output[i])
 	activate_crafting_button()
-	inventory_data.save_inventory_data(id)
+	if multiplayer.is_server():
+		inventory_data.save_inventory_data(id)
 
 func open():
 	if not Globals.is_inventory_opened:
@@ -170,23 +172,25 @@ func transfer_in_input(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
 	var remainder = inventory_data.add_item(slot.item, slot.quantity)
 	player_items.inventory_data.remove_amount(inv_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 #Transfers a stack from input inventory out to the first available slot
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out_input(input_index: int):
 	var slot = inventory_data.input[input_index]
-	var remainder = player_items.inventory_data.add_item(slot.item, slot.quantity)
+	player_items.inventory_data.add_item(slot.item, slot.quantity)
+	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
 	inventory_data.remove_amount_input(input_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 	
 #Transfers a stack from output inventory out to the first available slot
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out_output(output_index: int):
 	var slot = inventory_data.output[output_index]
-	var remainder = player_items.inventory_data.add_item(slot.item, slot.quantity)
+	player_items.inventory_data.add_item(slot.item, slot.quantity)
+	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
 	inventory_data.remove_amount_output(output_index, slot.quantity - remainder)
-	update()
+	update_all_inventories()
 	
 #Transfers from container slot index to inventory index. swaps if the slot is occupied or stacks if possible
 @rpc("any_peer", "call_local", "reliable")
@@ -200,7 +204,7 @@ func transfer_out_input_to_index(inv_index: int, input_index: int):
 		player_items.inventory_data.add_item_to_index(inv_slot.item, inv_slot.quantity, inv_index)
 	else:
 		inventory_data.remove_amount_input(input_index, input_slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 #Transfers from container slot index to inventory index. swaps if the slot is occupied or stacks if possible
 @rpc("any_peer", "call_local", "reliable")
@@ -214,7 +218,7 @@ func transfer_out_output_to_index(inv_index: int, output_index: int):
 		player_items.inventory_data.add_item_to_index(inv_slot.item, inv_slot.quantity, inv_index)
 	else:
 		inventory_data.remove_amount_output(output_index, output_slot.quantity - remainder)
-	update()
+	update_all_inventories()
 
 func connect_recipe_panel():
 	recipe_panel.visible = false
@@ -226,20 +230,20 @@ func connect_recipe_panel():
 func _on_select_recipe_pressed() -> void:
 	recipe_panel.open()
 
-func _on_recipe_button_created(button: Button, recipe: Recipe):
-	button.pressed.connect(_on_recipe_selected.bind(recipe))
+func _on_recipe_button_created(button: Button, index: int):
+	button.pressed.connect(_on_recipe_selected.bind(index))
 
 
-func _on_recipe_selected(recipe: Recipe):
+func _on_recipe_selected(index: int):
 	return_items_to_player_inventory(inventory_data.get_items())
-	set_active_recipe.rpc(recipe)
+	set_active_recipe.rpc(index)
 	recipe_panel.visible = false
 	
 #To set the recipe on all clients, return is cought on sender only
 @rpc("any_peer", "call_local", "reliable")
-func set_active_recipe(recipe):
-	inventory_data.set_active_recipe(recipe)
-	update()
+func set_active_recipe(index: int):
+	inventory_data.set_active_recipe(index)
+	update_all_inventories()
 
 func _on_back_pressed() -> void:
 	recipe_panel.visible = false
@@ -263,7 +267,7 @@ func _on_crafting_button_pressed():
 @rpc("any_peer", "call_local", "reliable")
 func craft():
 	inventory_data.craft()
-	update()
+	update_all_inventories()
 	
 @rpc("any_peer", "call_local", "reliable")
 func remove_stack(index: int):
@@ -271,20 +275,20 @@ func remove_stack(index: int):
 		print("invalid index")
 		return
 	inventory_data.remove_stack(index)
-	update()
+	update_all_inventories()
 
 func connect_signals():
 	for child in input.get_children():
 		if not child.is_connected("transfer", transfer_out_input):
-			child.transfer.connect(transfer_out_input.bind(child.index))
+			child.transfer.connect(transfer_out_input.rpc)
 			
 	for child in output.get_children():
 		if not child.is_connected("transfer", transfer_out_output):
-			child.transfer.connect(transfer_out_output.bind(child.index))
+			child.transfer.connect(transfer_out_output.rpc)
 			
 	for child in player_items.item_grid.get_children():
 		if not child.is_connected("transfer", transfer_in_input):
-			child.transfer.connect(transfer_in_input.bind(child.index))
+			child.transfer.connect(transfer_in_input.rpc)
 	
 			
 	if not is_connected("mouse_entered", _on_mouse_entered):

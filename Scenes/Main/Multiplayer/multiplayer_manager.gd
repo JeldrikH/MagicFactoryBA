@@ -7,15 +7,18 @@ var player_scene = preload("res://Scenes/Main/player.tscn")
 var _players_spawn_node
 var host_mode_enabled = false
 
+var is_first_load = true
 var is_host = false
 var is_client = false
 var id
 
 func manage_multiplayer():
-	if is_host:
-		host()
-	elif is_client:
-		join()
+	if is_first_load:
+		is_first_load = false
+		if is_host:
+			host()
+		elif is_client:
+			join()
 		
 func host():
 	host_mode_enabled = true

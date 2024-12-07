@@ -2,6 +2,7 @@ extends Building
 
 var item_list: Array[SlotData]
 
+## takes args: [item_list] (the items added to the inventory)
 func scene_parameters(args: Array)-> Building:
 	item_list = args[0]
 	return self
