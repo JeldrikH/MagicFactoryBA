@@ -3,70 +3,66 @@ var timer: Timer
 var save_interval = 5
 var save_folder = "user://savegame/"
 
+var players: Dictionary = {}
+
 func _ready()-> void:
 	if multiplayer.is_server():
 		timer = Timer.new()
 		add_child(timer)
 		timer.wait_time = save_interval
-		#DEBUGtimer.connect("timeout", autosave)
+		timer.connect("timeout", _autosave)
 		timer.start()
 	
 ## Load scene from save by path
-func load_scene(scene: String):
-	var scene_name_splits = scene.split("/", false)
-	var scene_name = scene_name_splits[scene_name_splits.size()-1].trim_suffix(".tscn")
-	
-	if not FileAccess.file_exists(save_folder + scene_name + ".save"):
-		return
+func load_scene(scene_name: StringName):
+	scene_name = scene_name.to_snake_case()
+	if multiplayer.is_server():
+		if not FileAccess.file_exists(save_folder + scene_name + ".save"):
+			return
 
-	##Deletes all unique nodes before loading them from save
-	var save_nodes = get_tree().get_nodes_in_group("unique")
-	for i in save_nodes:
-		i.free()
-	
-	# Load the Scene
-	# Load the file line by line
-	var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.READ)
-	
-	while save_file.get_position() < save_file.get_length():
-		var json_string = save_file.get_line()
-		var json = JSON.new()
+		##Deletes all unique nodes before loading them from save
+		var save_nodes = get_tree().get_nodes_in_group("unique")
+		for i in save_nodes:
+			i.free()
+		
+		# Load the Scene
+		# Load the file line by line
+		var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.READ)
+		
+		while save_file.get_position() < save_file.get_length():
+			var json_string = save_file.get_line()
+			var json = JSON.new()
 
-		# Check if there is any error while parsing the JSON string, skip in case of failure.
-		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue
-
-		# Get the data from the JSON object.
-		var node_data = json.data
-
-		# create the object, add it to the tree and set its position.
-		var new_object = load(node_data["filename"]).instantiate()
-		new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
-
-		# Now we set the remaining variables.
-		for i in node_data.keys():
-			if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
+			# Check if there is any error while parsing the JSON string, skip in case of failure.
+			var parse_result = json.parse(json_string)
+			if not parse_result == OK:
+				print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 				continue
-			new_object.set(i, node_data[i])
-		get_node(node_data["parent"]).add_child(new_object)
+
+			# Get the data from the JSON object.
+			var node_data = json.data
+
+			# create the object, add it to the tree and set its position.
+			var new_object = load(node_data["filename"]).instantiate()
+			new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+			# set the remaining variables.
+			for i in node_data.keys():
+				if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
+					continue
+				new_object.set(i, node_data[i])
+			get_node(node_data["parent"]).add_child(new_object)
 	
 ## Save given scene node
-func save_scene(scene: String):
+func save_scene(scene_name: StringName):
+	scene_name = scene_name.to_snake_case()
 	if multiplayer.is_server():
-		var scene_name_splits = scene.split("/", false)
-		var scene_name = scene_name_splits[scene_name_splits.size()-1].trim_suffix(".tscn")
 		
 		if not DirAccess.dir_exists_absolute(save_folder):
 			DirAccess.make_dir_absolute(save_folder)
 			
 		var save_file = FileAccess.open(save_folder + scene_name + ".save", FileAccess.WRITE)
 		var save_nodes = get_tree().get_nodes_in_group("persist")
-		
-		if scene != "res://Scenes/Main/main.tscn":
-			var current_scene_file = FileAccess.open(save_folder + "current_scene.save", FileAccess.WRITE)
-			current_scene_file.store_line(scene)
 		
 		for node in save_nodes:
 			# Check the node is an instanced scene so it can be instanced again during load.
@@ -88,15 +84,65 @@ func save_scene(scene: String):
 			# Store the save dictionary as a new line in the save file.
 			save_file.store_line(json_string)
 
-func current_scene()-> String:
-	if not FileAccess.file_exists(save_folder + "current_scene.save"):
-		return "res://Scenes/Main/LivingRoom/living_room.tscn"
-	
-	var scene = FileAccess.open(save_folder + "current_scene.save", FileAccess.READ)
-	return scene.get_line()
 
-func autosave():
-	if get_tree().current_scene:
-		save_scene(get_tree().current_scene.scene_file_path)
-	else:
-		print("No active scene, autosave skipped")
+func save_active_scenes():
+	for scene in SceneManager.scenes_in_tree.keys():
+		save_scene(scene)
+	
+func load_players():
+	if not FileAccess.file_exists(save_folder + "players.save"):
+		return
+
+	# Load the Scene
+	# Load the file line by line
+	var save_file = FileAccess.open(save_folder + "players.save", FileAccess.READ)
+	
+	while save_file.get_position() < save_file.get_length():
+		var json_string = save_file.get_line()
+		var json = JSON.new()
+
+		# Check if there is any error while parsing the JSON string, skip in case of failure.
+		var parse_result = json.parse(json_string)
+		if not parse_result == OK:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
+			continue
+
+		# Get the data from the JSON object.
+		var node_data = json.data
+
+		# create the object, add it to the tree and set its position.
+		var player: Player = load("res://Scenes/Main/player.tscn").instantiate()
+		player.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+		# set the remaining variables.
+		for i in node_data.keys():
+			if i == "pos_x" or i == "pos_y":
+				continue
+			player.set(i, node_data[i])
+		player.name = str(player.player_id)
+		players.get_or_add(player.name, player)
+
+## Save given scene node
+func save_players():
+	if multiplayer.is_server():
+		
+		if not DirAccess.dir_exists_absolute(save_folder):
+			DirAccess.make_dir_absolute(save_folder)
+			
+		var save_file = FileAccess.open(save_folder + "players.save", FileAccess.WRITE)
+		var players_to_save = get_tree().get_nodes_in_group("player")
+		
+		for player in players_to_save:
+			# Call the player's save function.
+			var player_data = player.call("save")
+
+			#serialize JSON string.
+			var json_string = JSON.stringify(player_data)
+
+			# Store the save dictionary as a new line in the save file.
+			save_file.store_line(json_string)
+			
+func _autosave():
+	save_active_scenes()
+	save_players()
+	SceneManager._close_inactive_scenes()

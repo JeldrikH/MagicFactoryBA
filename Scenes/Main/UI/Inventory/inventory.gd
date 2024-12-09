@@ -4,6 +4,7 @@ class_name Inventory
 @export var item_grid: Control
 @export var grid_size: int
 @export var id: StringName
+var player_owner: Player
 var path: String
 var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 @export var inventory_data: InventoryData
@@ -11,7 +12,8 @@ signal updated
 
 func _ready() -> void:
 	create_resource_if_not_exist()
-	inventory_data = load(path + id + ".tres")
+	if !inventory_data:
+		inventory_data = load(path + id + ".tres")
 	fill_grid()
 	update()
 	connect_signals()
@@ -41,9 +43,9 @@ func input_handler():
 ##Creates a new inventory resource
 func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + id + ".tres"):
-		var data = InventoryData.new(grid_size)
+		inventory_data = InventoryData.new(grid_size)
 		if multiplayer.is_server():
-			data.save_inventory_data(path, id)
+			inventory_data.save_inventory_data(path, id)
 		
 func fill_grid():
 	for child in item_grid.get_children():
@@ -72,11 +74,11 @@ func open():
 		Globals.is_ui_opened = true
 		Builder.deactivate_build_mode()
 		Deconstructor.deactivate_deconstruct_mode()
-		visible = true
+		show()
 		update()
 		
 func close():
-	visible = false
+	hide()
 	Globals.mouse_inside_inventory = false
 	Globals.is_inventory_opened = false
 	Globals.is_ui_opened = false
@@ -120,11 +122,11 @@ func get_add_item_remainder(item: Item, quantity: int)-> int:
 	
 ##Creates a container with leftover items that didnt fit into the inventory and opens it
 func create_remainder_container(remainder: Array[SlotData]):
-	var remainder_container = preload("res://Scenes/Main/Buildings/RemainderContainer.tscn")
-	remainder_container = Builder.build(remainder_container, get_tree().current_scene, get_tree().current_scene.player.position, [remainder])
+	var remainder_container = Builder.build("RemainderContainer",player_owner.current_scene, player_owner.position, [remainder.size()])
+	remainder_container.inventory.add_item_list(remainder)
 	Globals.close_all_ui_windows()
-	remainder_container.inventory.open()
-		
+	player_owner.inventory.add_external_inventory(remainder_container.inventory, [remainder_container.id, remainder.size()])
+	player_owner.inventory.open.rpc_id(player_owner.player_id)
 	
 	
 ##adds the specified item to the target index (old entries on that index are overwritten!)

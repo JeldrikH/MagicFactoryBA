@@ -31,4 +31,4 @@ func handle_input():
 	if Input.is_action_just_pressed("INTERACT") and $"..".interaction_stack.interaction_available:
 		var interaction = $"..".interaction_stack.get_interaction()
 		if interaction.interaction_type == Interaction.interaction_types.OPEN_INVENTORY:
-			$"..".inventory.open_with_external_inventory(interaction.value, interaction.args)
+			$"..".inventory.open_with_external_inventory.call_deferred(interaction.value, interaction.args)

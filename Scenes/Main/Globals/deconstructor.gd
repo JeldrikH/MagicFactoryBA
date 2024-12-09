@@ -21,10 +21,11 @@ func deactivate_deconstruct_mode():
 func deconstruct(building: Building):
 	transfer_items(building)
 	DirAccess.remove_absolute(building.inventory.path + building.inventory.id + ".tres")
+	var parent = building.get_parent()
 	building.queue_free()
-	SaveManager.save_scene(get_tree().current_scene.scene_file_path)
+	SaveManager.save_scene(parent.name)
 
 func transfer_items(building: Building):
 	var building_items = building.inventory.inventory_data.get_items()
 	if building_items.size() > 0:
-		building.inventory.player_items.add_item_list.rpc(building_items)
+		building.inventory.player_items.add_item_list(building_items)

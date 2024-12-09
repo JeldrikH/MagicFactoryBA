@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c71whvq6gs3hp"]
+[gd_scene load_steps=5 format=3 uid="uid://c71whvq6gs3hp"]
 
 [ext_resource type="Script" path="res://Scenes/Main/Buildings/remainder_container.gd" id="1_x3n3v"]
+[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_4pwjy"]
 [ext_resource type="Texture2D" uid="uid://b4lje5r2cl7b2" path="res://Sprites/Objects/Buildings/Chest.png" id="2_b71jf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o8n84"]
@@ -15,6 +16,7 @@ hitbox = NodePath("Hitbox")
 inventory_type = &"remainder_container"
 
 [node name="InteractionRange" type="Area2D" parent="."]
+script = ExtResource("2_4pwjy")
 
 [node name="Range" type="CollisionShape2D" parent="InteractionRange"]
 shape = SubResource("CircleShape2D_o8n84")
@@ -22,8 +24,6 @@ shape = SubResource("CircleShape2D_o8n84")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.553711, 0.553711)
 texture = ExtResource("2_b71jf")
-
-[node name="Inventory" type="CanvasLayer" parent="."]
 
 [node name="Hitbox" type="Area2D" parent="."]
 
@@ -33,3 +33,6 @@ polygon = PackedVector2Array(-179.5, -317, -238, -317, -241.6, -316, -245.2, -31
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(155, 113, -162, 106, -153, 169, 148, 173)
+
+[connection signal="player_entered_range" from="InteractionRange" to="." method="_on_interaction_range_player_entered_range"]
+[connection signal="player_left_range" from="InteractionRange" to="." method="_on_interaction_range_player_left_range"]

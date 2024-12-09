@@ -7,14 +7,15 @@ class_name Building
 @export var inventory_type: StringName
 
 var id: int
-var player_entered: bool = false
 var is_hovered = false
-var inventory
+var inventory: PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	input_pickable = true
 	connect_signals()
+	if !id:
+		id = name.to_int()
 	if id:
 		load_inventory()
 
@@ -22,8 +23,6 @@ func _process(_delta: float) -> void:
 	input_handler()
 			
 func input_handler():
-	if Input.is_action_just_pressed("INTERACT") and player_entered:
-		inventory.open()
 	if is_hovered:
 		highlight()
 		if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode:
@@ -32,13 +31,12 @@ func input_handler():
 # Called when the building has been built
 func build():
 	id = IDIncrementer.get_id()
+	name = str(id)
 	visible = true
 	load_inventory()
 
 func load_inventory():
-	inventory = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn").instantiate().scene_parameters([id])
-	$Inventory.add_child(inventory)
-	inventory.visible = false
+	inventory = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
 	
 func highlight():
 	if Deconstructor.deconstruct_mode:
@@ -52,8 +50,6 @@ func remove_highlight():
 func connect_signals():
 	hitbox.connect("mouse_entered", _on_mouse_entered)
 	hitbox.connect("mouse_exited", _on_mouse_exited)
-	interaction_range.connect("body_entered", _on_interaction_range_body_entered)
-	interaction_range.connect("body_exited", _on_interaction_range_body_exited)
 	
 func _on_mouse_entered():
 	is_hovered = true
@@ -61,15 +57,6 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	is_hovered = false
 	remove_highlight()
-	
-func _on_interaction_range_body_entered(body: Node2D) -> void:
-	if typeof(body) == typeof(Player):
-		player_entered = true
-
-
-func _on_interaction_range_body_exited(body: Node2D) -> void:
-	if typeof(body) == typeof(Player):
-		player_entered = false
 
 func save()-> Dictionary:
 	var save_dict = {

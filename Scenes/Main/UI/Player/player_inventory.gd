@@ -10,24 +10,27 @@ var player_id:
 		
 func _ready() -> void:
 	visible = false
-	$MultiplayerSpawner.set_multiplayer_authority(player_id)
+	$InventorySpawner.set_multiplayer_authority(player_id)
 	
 			
 func open():
 	if not Globals.is_inventory_opened:
-		visible = true
+		show()
 		player_items.open()
 		
 func close():
-	visible = false
-	player_items.close()
 	if is_instance_valid(external_inventory):
 		external_inventory.queue_free()
-
+	hide()
+	Globals.mouse_inside_inventory = false
+	Globals.is_inventory_opened = false
+	Globals.is_ui_opened = false
+			
 func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Array = []):
 	if not Globals.is_ui_opened:
 		add_external_inventory(inventory_scene, scene_args)
-		open()
+		external_inventory.show()
+	open()
 	
 func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = []):
 	external_inventory = inventory_scene.instantiate()
@@ -37,7 +40,6 @@ func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = []
 	external_inventory.name = "ExternalInventory"
 	$HBoxContainer.add_child(external_inventory, true)
 	$HBoxContainer.move_child(external_inventory,0)
-	external_inventory.visible = true
 	
 func _on_mouse_entered() -> void:
 	Globals.mouse_inside_inventory = true

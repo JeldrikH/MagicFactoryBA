@@ -1,11 +1,10 @@
 extends Node2D
 
 ##The Building intended to be built
-var building: PackedScene
+var building: StringName
 var building_visual: Node2D
 ##True if build mode is activated
 var build_mode: bool
-var build_parent: Node2D
 
 func _process(_delta):
 	visual_follow_cursor()
@@ -19,10 +18,11 @@ func input_handler():
 		deactivate_build_mode()
 		
 	if Input.is_action_just_pressed("CLICK") and Builder.build_mode and Globals.allow_building:
-		build(building, get_tree().current_scene, get_viewport().get_mouse_position())
+		var player = Globals.get_player(multiplayer.get_unique_id())
+		build.rpc_id(1, building, player.current_scene, get_viewport().get_mouse_position())
 
 ##Activates the build mode showing the given building
-func activate_build_mode(p_building: PackedScene):
+func activate_build_mode(p_building: StringName):
 	builder_on_top()
 	show_visual(p_building)
 	building = p_building
@@ -37,22 +37,23 @@ func deactivate_build_mode():
 		build_mode = false
 		building_visual.queue_free()
 
-func show_visual(p_building: PackedScene):
-	building_visual = p_building.instantiate()
+func show_visual(p_building: StringName):
+	building_visual = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
 	building_visual.set_collision_layer(0)
 	building_visual.remove_from_group("persist")
 	add_child(building_visual)
 	
 ##Builds the building in the given parent
-func build(p_building: PackedScene, parent: Node2D, build_position: Vector2, scene_args: Array = [])-> Building:
-	var building_instance = p_building.instantiate()
-	
+@rpc("authority", "call_local", "reliable")
+func build(p_building: StringName, parent: String, build_position: Vector2, scene_args: Array = [])-> Building:
+	var building_instance = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
 	#apply parameters if required
 	if scene_args.size() > 0 and building_instance.has_method("scene_parameters"):
 		building_instance = building_instance.scene_parameters(scene_args)
 		
 	building_instance.position = build_position
-	parent.add_child(building_instance)
+	var parent_node = get_tree().get_current_scene().get_node(parent)
+	parent_node.add_child(building_instance)
 	building_instance.build()
 	return building_instance
 	

@@ -9,7 +9,7 @@ func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
 	
 	# Finds the current players inventory
-	player_items = get_parent().get_child(0).get_child(0)
+	player_items = get_parent().get_node("InventoryMargin").get_child(0)
 	
 	super._ready()
 	visible = false

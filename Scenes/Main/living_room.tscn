@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://byn3ew2h6ybu2"]
+[gd_scene load_steps=13 format=3 uid="uid://byn3ew2h6ybu2"]
 
-[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_co8es"]
-[ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/Cauldron.png" id="1_pbxc2"]
-[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/cauldron.gd" id="2_dx0ji"]
-[ext_resource type="Texture2D" uid="uid://dldkm8qagbeo3" path="res://Sprites/Objects/LivingRoom.png" id="2_y2f80"]
-[ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/Cauldron_full.png" id="3_ugxfm"]
-[ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="7_8umew"]
-[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="7_gdw8r"]
-[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="12_gyfdq"]
+[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_mur7o"]
+[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/building_spawner.gd" id="2_dyejg"]
+[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/table.gd" id="3_4prxe"]
+[ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/Table.png" id="4_r8ost"]
+[ext_resource type="Texture2D" uid="uid://dldkm8qagbeo3" path="res://Sprites/Objects/LivingRoom.png" id="5_mfuup"]
+[ext_resource type="Script" path="res://Scenes/Main/LivingRoom/cauldron.gd" id="6_44dnt"]
+[ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/Cauldron_full.png" id="7_qpnpy"]
+[ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/Cauldron.png" id="8_js3fr"]
+[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="9_t083u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wo8wd"]
 radius = 213.53
@@ -16,7 +17,7 @@ radius = 213.53
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_ugxfm")
+"texture": ExtResource("7_qpnpy")
 }],
 "loop": true,
 "name": &"Brew",
@@ -24,7 +25,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_pbxc2")
+"texture": ExtResource("8_js3fr")
 }],
 "loop": true,
 "name": &"Empty",
@@ -35,16 +36,21 @@ animations = [{
 radius = 170.35
 
 [node name="LivingRoom" type="Node2D"]
-script = ExtResource("1_co8es")
+script = ExtResource("1_mur7o")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/player.tscn")
 spawn_path = NodePath("..")
 
+[node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/Buildings/cauldron.tscn", "res://Scenes/Main/Buildings/RemainderContainer.tscn")
+spawn_path = NodePath("..")
+script = ExtResource("2_dyejg")
+
 [node name="Table" type="StaticBody2D" parent="."]
 position = Vector2(1215, 1292)
 scale = Vector2(2.28, 2.28)
-script = ExtResource("7_gdw8r")
+script = ExtResource("3_4prxe")
 metadata/_edit_lock_ = true
 
 [node name="TableHitbox" type="CollisionPolygon2D" parent="Table"]
@@ -54,7 +60,7 @@ polygon = PackedVector2Array(459, 435, 429.614, 493.596, 431, 583, 583.942, 583,
 [node name="TableSprite" type="Sprite2D" parent="Table"]
 position = Vector2(-1, -482)
 scale = Vector2(1.182, 1.071)
-texture = ExtResource("7_8umew")
+texture = ExtResource("4_r8ost")
 metadata/_edit_lock_ = true
 
 [node name="InteractionRange" type="Area2D" parent="Table"]
@@ -67,7 +73,7 @@ metadata/_edit_lock_ = true
 [node name="LivingRoom" type="Sprite2D" parent="."]
 position = Vector2(1213, 190)
 scale = Vector2(2.6958, 2.44405)
-texture = ExtResource("2_y2f80")
+texture = ExtResource("5_mfuup")
 metadata/_edit_lock_ = true
 
 [node name="Wall" type="StaticBody2D" parent="LivingRoom"]
@@ -88,7 +94,7 @@ polygon = PackedVector2Array(388.011, 224.218, 387.64, 286.001, 461.829, 328.144
 [node name="Cauldron" type="Area2D" parent="."]
 position = Vector2(108, 1224)
 scale = Vector2(1.824, 1.824)
-script = ExtResource("2_dx0ji")
+script = ExtResource("6_44dnt")
 
 [node name="CauldronSprite" type="AnimatedSprite2D" parent="Cauldron"]
 scale = Vector2(0.313477, 0.313477)
@@ -103,7 +109,7 @@ metadata/_edit_lock_ = true
 
 [node name="InteractionRange" type="Area2D" parent="Cauldron"]
 collision_mask = 2
-script = ExtResource("12_gyfdq")
+script = ExtResource("9_t083u")
 metadata/_edit_lock_ = true
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Cauldron/InteractionRange"]
@@ -115,7 +121,7 @@ wait_time = 3.0
 
 [node name="StorageInteraction" type="Area2D" parent="."]
 collision_mask = 3
-script = ExtResource("12_gyfdq")
+script = ExtResource("9_t083u")
 
 [node name="StorageInteractionShape" type="CollisionPolygon2D" parent="StorageInteraction"]
 position = Vector2(1213, 190)
@@ -125,7 +131,6 @@ polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342
 [node name="EnterRoomPosition" type="Node2D" parent="."]
 position = Vector2(2178, 1057)
 
-[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="body_entered" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_entered"]
 [connection signal="body_exited" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_exited"]
 [connection signal="body_entered" from="LivingRoom/Door" to="." method="_on_door_body_entered"]

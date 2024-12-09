@@ -4,12 +4,15 @@ class_name Player
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+var is_online = false
+
 var xAxis = 0
 var yAxis = 0
 
 ## Stack of currently available interactions
 var interaction_stack: InteractionStack
 @onready var inventory = $PlayerUI/PlayerInventory
+var current_scene: String
 
 
 @export var player_id: int = 1:
@@ -20,12 +23,13 @@ var interaction_stack: InteractionStack
 		
 func _ready():
 	interaction_stack = InteractionStack.new()
+	inventory.player_items.player_owner = self
+	current_scene = get_parent().name
 	
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		apply_movement_from_input(delta)
-	if not multiplayer.is_server() or MultiplayerManager.host_mode_enabled:
-		_apply_animations(delta)
+	_apply_animations(delta)
 	
 
 func _apply_animations(_delta):
@@ -49,9 +53,9 @@ func apply_movement_from_input(_delta):
 	
 func save()-> Dictionary:
 	var save_dict = {
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
+		"player_id" : player_id,
 		"pos_x" : position.x,
-		"pos_y" : position.y
+		"pos_y" : position.y,
+		"current_scene" : current_scene
 	}
 	return save_dict

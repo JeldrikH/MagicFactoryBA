@@ -7,19 +7,19 @@ func _ready() -> void:
 
 
 func load_save() -> void:
-	get_tree().change_scene_to_file(SaveManager.current_scene())
+	MultiplayerManager.manage_multiplayer()
 	
 
 
 func _on_load_pressed() -> void:
 	$MainMenu.hide()
-	load_save()
 	MultiplayerManager.is_host = true
+	load_save()
 	
 
 
 func _on_join_pressed() -> void:
 	$MainMenu.hide()
-	load_save()
 	MultiplayerManager.is_client = true
+	load_save()
 	

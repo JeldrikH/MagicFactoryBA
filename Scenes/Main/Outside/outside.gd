@@ -4,7 +4,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
-		SaveManager.load_scene(self.scene_file_path)
+		SaveManager.load_scene(name)
 		Globals.sort_children_by_y_pos(self)
 
 

@@ -178,17 +178,17 @@ func transfer_in_input(inv_index: int):
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out_input(input_index: int):
 	var slot = inventory_data.input[input_index]
-	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
+	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	inventory_data.remove_amount_input(input_index, slot.quantity - remainder)
 	update_all_inventories()
-	
+
 #Transfers a stack from output inventory out to the first available slot
 @rpc("any_peer", "call_local", "reliable")
 func transfer_out_output(output_index: int):
 	var slot = inventory_data.output[output_index]
-	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
+	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	inventory_data.remove_amount_output(output_index, slot.quantity - remainder)
 	update_all_inventories()
 	
@@ -231,11 +231,11 @@ func _on_select_recipe_pressed() -> void:
 	recipe_panel.open()
 
 func _on_recipe_button_created(button: Button, index: int):
-	button.pressed.connect(_on_recipe_selected.bind(index))
+	button.pressed.connect(_on_recipe_selected.bind(index, multiplayer.get_unique_id()))
 
 
-func _on_recipe_selected(index: int):
-	return_items_to_player_inventory(inventory_data.get_items())
+func _on_recipe_selected(index: int, player_id: int):
+	return_items_to_player_inventory.rpc_id(1, player_id)
 	set_active_recipe.rpc(index)
 	recipe_panel.visible = false
 	
@@ -249,8 +249,11 @@ func _on_back_pressed() -> void:
 	recipe_panel.visible = false
 
 ##Returns the given item list to the players inventory
-func return_items_to_player_inventory(item_list: Array[SlotData]):
-	player_items.add_item_list(item_list)
+@rpc("authority", "call_local", "reliable")
+func return_items_to_player_inventory(player_id: int):
+	var item_list = inventory_data.get_items()
+	var p_items = Globals.get_player(player_id).inventory.player_items
+	p_items.add_item_list(item_list)
 
 
 #Activates the crafting button if the requirements are met

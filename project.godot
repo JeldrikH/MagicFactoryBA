@@ -23,6 +23,7 @@ Deconstructor="*res://Scenes/Main/Globals/deconstructor.gd"
 IDIncrementer="*res://Scenes/Main/Globals/id_incrementer.gd"
 SaveManager="*res://Scenes/Main/Globals/save_manager.gd"
 MultiplayerManager="*res://Scenes/Main/Multiplayer/multiplayer_manager.gd"
+SceneManager="*res://Scenes/Main/Globals/scene_manager.gd"
 
 [display]
 

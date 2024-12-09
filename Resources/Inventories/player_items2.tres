@@ -1,43 +1,28 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=93 format=3]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=88 format=3]
 
 [ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_qubm3"]
 [ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_pvot6"]
 [ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="3_37u0k"]
-[ext_resource type="Script" path="res://Resources/item.gd" id="4_3hipx"]
 
 [sub_resource type="Resource" id="Resource_vuvyu"]
 script = ExtResource("2_pvot6")
 item = ExtResource("3_37u0k")
-quantity = 5
-
-[sub_resource type="Resource" id="Resource_yr4db"]
-script = ExtResource("4_3hipx")
-id = &""
-name = ""
-description = ""
-stackable = true
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_lxwr6"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_yr4db")
-quantity = 0
+item = ExtResource("3_37u0k")
+quantity = 2
 
 [sub_resource type="Resource" id="Resource_00ro0"]
 script = ExtResource("2_pvot6")
 item = ExtResource("3_37u0k")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_okajp"]
-script = ExtResource("4_3hipx")
-id = &""
-name = ""
-description = ""
-stackable = true
-
 [sub_resource type="Resource" id="Resource_36jxr"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_okajp")
-quantity = 0
+item = ExtResource("3_37u0k")
+quantity = 3
 
 [sub_resource type="Resource" id="Resource_fnr8p"]
 script = ExtResource("2_pvot6")
@@ -82,7 +67,7 @@ quantity = 1
 [sub_resource type="Resource" id="Resource_klqj2"]
 script = ExtResource("2_pvot6")
 item = ExtResource("3_37u0k")
-quantity = 12
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_sojak"]
 script = ExtResource("2_pvot6")
@@ -139,17 +124,10 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_37u0k")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_p21a7"]
-script = ExtResource("4_3hipx")
-id = &""
-name = ""
-description = ""
-stackable = true
-
 [sub_resource type="Resource" id="Resource_x8c5d"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_p21a7")
-quantity = 0
+item = ExtResource("3_37u0k")
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_buvg8"]
 script = ExtResource("2_pvot6")
@@ -176,17 +154,10 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_37u0k")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_65e7s"]
-script = ExtResource("4_3hipx")
-id = &""
-name = ""
-description = ""
-stackable = true
-
 [sub_resource type="Resource" id="Resource_2owfu"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_65e7s")
-quantity = 0
+item = ExtResource("3_37u0k")
+quantity = 1
 
 [sub_resource type="Resource" id="Resource_hyxqm"]
 script = ExtResource("2_pvot6")
