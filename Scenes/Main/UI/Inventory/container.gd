@@ -49,6 +49,7 @@ func transfer_out(container_index: int):
 	var remainder = player_items.inventory_data.get_add_item_remainder(slot.item, slot.quantity)
 	player_items.inventory_data.add_item(slot.item, slot.quantity)
 	inventory_data.remove_amount(container_index, slot.quantity - remainder)
+	Globals.item_removed.emit(self)
 	update_all_inventories()
 
 #Transfers from inventory index to container slot index. swaps if the slot is occupied or stacks if possible

@@ -43,13 +43,13 @@ func _input(_event):
 	deconstructor_input()
 
 func builder_input():
-	if Input.is_action_just_pressed("OPEN_BUILDER") and Globals.is_building_allowed:
+	if Input.is_action_just_pressed("OPEN_BUILDER") and Builder.is_building_allowed:
 		$"../PlayerUI/BuildingUI".open()
 	
 	if Input.is_action_just_pressed("CLOSE_UI") and Builder.build_mode:
 		Builder.deactivate_build_mode()
 		
-	if Input.is_action_just_pressed("CLICK") and Builder.build_mode and Globals.is_building_allowed:
+	if Input.is_action_just_pressed("CLICK") and Builder.build_mode and Builder.is_building_allowed:
 		Builder.build.rpc_id(1, Builder.building, $"..".current_scene, get_viewport().get_mouse_position())
 
 func deconstructor_input():
@@ -60,5 +60,5 @@ func deconstructor_input():
 	elif Input.is_action_just_pressed("DECONSTRUCT") and not Deconstructor.deconstruct_mode:
 		Deconstructor.activate_deconstruct_mode()
 	
-	if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode and Globals.selected_building:
-			Deconstructor.player_deconstruct(Globals.selected_building, get_parent())
+	if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode and Builder.selected_building:
+			Deconstructor.player_deconstruct(Builder.selected_building, get_parent())

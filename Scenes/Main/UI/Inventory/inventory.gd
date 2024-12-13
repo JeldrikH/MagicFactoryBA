@@ -6,8 +6,6 @@ var player_owner: Player
 var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 var inventory_data: InventoryData
 
-signal updated
-
 @export var item_grid: Control
 @export var grid_size: int
 var id: StringName:
@@ -74,7 +72,7 @@ func update():
 		item_grid.get_child(i).set_slot_data(inventory_data.slot_data_table[i])
 	if multiplayer.is_server():
 		inventory_data.save_inventory_data(path, id)
-	updated.emit()
+	Globals.inventory_updated.emit(self)
 
 func open():
 	if not Globals.is_inventory_opened:
@@ -98,6 +96,14 @@ func add_slots(amount: int):
 	inventory_data.add_slots(amount)
 	update_all_inventories()
 	
+## removes the last slot if it is empty
+@rpc("any_peer", "call_local", "reliable")
+func remove_slot():
+	if inventory_data.slot_data_table[inventory_data.slot_data_table.size() - 1].quantity == 0:
+		grid_size -= 1
+		inventory_data.slot_data_table.pop_back()
+		update_all_inventories()
+	
 ##Splits stack in half on right click
 @rpc("any_peer", "call_local", "reliable")
 func split_stack_half(index: int):
@@ -110,8 +116,13 @@ func split_stack_half(index: int):
 @rpc("any_peer", "call_local", "reliable")
 func add_item(item_id: StringName, quantity: int):
 	var item: Item = load("res://Resources/Items/%s.tres" % item_id)
+	if not item:
+		item = load("res://Resources/Potions/%s.tres" % item_id)
+	if not item:
+		item = load("res://Resources/Spells/%s.tres" % item_id)
 	inventory_data.add_item(item, quantity)
 	update_all_inventories()
+	Globals.item_added.emit(self)
 
 func add_item_list(item_list: Array[SlotData]):
 	var remainder: Array[SlotData] = []
@@ -124,18 +135,22 @@ func add_item_list(item_list: Array[SlotData]):
 	if remainder.size() > 0:
 		create_remainder_container(remainder)
 		
+
 func get_add_item_remainder(item: Item, quantity: int)-> int:
 	var remainder = inventory_data.get_add_item_remainder(item, quantity)
 	return remainder
 	
 ##Creates a container with leftover items that didnt fit into the inventory and opens it
 func create_remainder_container(remainder: Array[SlotData]):
+	Builder.building_created.connect(add_items_to_remainder_container.bind(remainder))
 	player_owner.inventory.close()
-	Builder.build.rpc_id(1, "RemainderContainer",player_owner.current_scene, player_owner.position, [remainder.size()])
-	# get the container after it spawned
-	var remainder_container = Globals.last_created_building
-	var external_inventory = player_owner.inventory.open_with_external_inventory(remainder_container.inventory, [remainder_container.id, remainder.size()])
-	external_inventory.add_item_list(remainder)
+	Builder.build.rpc_id(1, "remainder_container",player_owner.current_scene, player_owner.position, [remainder.size()])
+	
+func add_items_to_remainder_container(remainder_container: Building, remainder: Array[SlotData]):
+	if remainder_container is RemainderContainer:
+		var external_inventory = player_owner.inventory.open_with_external_inventory(remainder_container.inventory_scene, [remainder_container.id, remainder.size()])
+		external_inventory.add_item_list.call_deferred(remainder)
+		Builder.building_created.disconnect(add_items_to_remainder_container)
 	
 	
 ##adds the specified item to the target index (old entries on that index are overwritten!)

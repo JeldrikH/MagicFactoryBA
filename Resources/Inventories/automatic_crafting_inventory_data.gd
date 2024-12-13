@@ -1,12 +1,12 @@
 extends CraftingInventoryData
 class_name AutomaticCraftingInventoryData
 
-@export var spell_input: SlotData
+@export var spell_input: CraftingSlotData
 @export var use_count: int = 0
 
 func _init(p_type = "brewing", input_size = 1, output_size = 1) -> void:
 	super._init(p_type, input_size, output_size)
-	spell_input = SlotData.new()
+	spell_input = CraftingSlotData.new()
 	
 ##Adds the specified item to the spell input slot
 ##or stacks Items of the Same Type
@@ -15,7 +15,7 @@ func _init(p_type = "brewing", input_size = 1, output_size = 1) -> void:
 func add_item_spell_input(spell: Spell, quantity: int):
 	var remainder = quantity
 		#calculate the available stack size and fill the stack
-	if spell.id == spell_input.spell.id:
+	if spell.id == spell_input.item.id:
 		var available_quantity = SlotData.MAX_STACK_SIZE - spell_input.quantity
 		var added_quantity = min(available_quantity, remainder)
 		remainder = remainder - added_quantity

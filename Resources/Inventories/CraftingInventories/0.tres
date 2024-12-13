@@ -6,13 +6,13 @@
 [ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="3_g1leg"]
 [ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="4_m7wib"]
 
-[sub_resource type="Resource" id="Resource_dlkbu"]
+[sub_resource type="Resource" id="Resource_v57l6"]
 script = ExtResource("1_dmtna")
 required_amount = 2
 item = ExtResource("3_g1leg")
 quantity = 0
 
-[sub_resource type="Resource" id="Resource_u6ye3"]
+[sub_resource type="Resource" id="Resource_lsf5a"]
 script = ExtResource("1_dmtna")
 required_amount = 1
 item = ExtResource("4_m7wib")
@@ -20,7 +20,7 @@ quantity = 0
 
 [resource]
 script = ExtResource("3_fi5d7")
-input = Array[ExtResource("1_dmtna")]([SubResource("Resource_dlkbu")])
-output = Array[ExtResource("1_dmtna")]([SubResource("Resource_u6ye3")])
+input = Array[ExtResource("1_dmtna")]([SubResource("Resource_v57l6")])
+output = Array[ExtResource("1_dmtna")]([SubResource("Resource_lsf5a")])
 type = &"brewing"
 active_recipe = ExtResource("1_wt7b2")

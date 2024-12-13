@@ -7,6 +7,7 @@ func _ready() -> void:
 	SaveManager.load_scene(name)
 	sort_children_by_y_pos()
 	child_entered_tree.connect(_on_child_entered_tree)
+	print(Builder.building_created.get_name())
 
 
 func _process(_delta: float) -> void:
@@ -59,4 +60,4 @@ func _on_child_entered_tree(node: Node):
 	SceneManager.show_player_scene()
 	
 	if node is Building:
-		Globals.last_created_building = node
+		Builder.building_created.emit(node)

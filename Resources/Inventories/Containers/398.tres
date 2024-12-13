@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_2to0u"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_a2722"]
+[ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="3_4ivlp"]
+
+[sub_resource type="Resource" id="Resource_yy0m0"]
+script = ExtResource("2_a2722")
+item = ExtResource("3_4ivlp")
+quantity = 255
+
+[resource]
+script = ExtResource("1_2to0u")
+slot_data_table = Array[ExtResource("2_a2722")]([SubResource("Resource_yy0m0")])

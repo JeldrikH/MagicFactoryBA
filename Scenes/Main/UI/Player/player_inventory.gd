@@ -7,10 +7,12 @@ var player_id:
 	set(id):
 		player_id = id
 		player_items.player_id = id
+		$InventorySpawner.set_multiplayer_authority(id)
 		
 func _ready() -> void:
 	visible = false
-	$InventorySpawner.set_multiplayer_authority(player_id)
+	if player_id != multiplayer.get_unique_id():
+		remove_from_group("ui")
 	
 @rpc("any_peer", "call_local", "reliable")
 func open():

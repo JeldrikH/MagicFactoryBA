@@ -6,6 +6,12 @@ var building_visual: Sprite2D
 ##True if build mode is activated
 var build_mode: bool
 
+var is_building_allowed = false
+var selected_building: Building
+
+@warning_ignore("unused_signal")
+signal building_created(building: Building)
+
 func _process(_delta):
 	visual_follow_cursor()
 	

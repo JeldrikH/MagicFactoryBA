@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_a4lin"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_kybve"]
+[ext_resource type="Script" path="res://Resources/item.gd" id="3_miiwy"]
+
+[sub_resource type="Resource" id="Resource_2h0c4"]
+script = ExtResource("3_miiwy")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_l31jl"]
+script = ExtResource("2_kybve")
+item = SubResource("Resource_2h0c4")
+quantity = 0
+
+[resource]
+script = ExtResource("1_a4lin")
+slot_data_table = Array[ExtResource("2_kybve")]([SubResource("Resource_l31jl")])

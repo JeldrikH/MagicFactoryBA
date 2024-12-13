@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Spell" load_steps=2 format=3 uid="uid://d768nwiof0o6"]
+[gd_resource type="Resource" script_class="Spell" load_steps=3 format=3 uid="uid://d768nwiof0o6"]
 
 [ext_resource type="Script" path="res://Resources/spell.gd" id="1_eeego"]
+[ext_resource type="Texture2D" uid="uid://b1m343pq3f74r" path="res://Sprites/Recipes/automatic_brewing.png" id="1_t28fg"]
 
 [resource]
 script = ExtResource("1_eeego")
 use_amount = 5
 id = "automatic_brewing"
 name = "Automatic Brewing"
+icon = ExtResource("1_t28fg")
 description = "Allows to brew spells in a cauldron"
 stackable = true

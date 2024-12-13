@@ -25,7 +25,8 @@ func _ready():
 	interaction_stack = InteractionStack.new()
 	inventory.player_items.player_owner = self
 	current_scene = get_parent().name
-	Globals.is_building_allowed = get_parent().is_building_allowed
+	if get_multiplayer_authority() == multiplayer.get_unique_id():
+		Builder.is_building_allowed = get_parent().is_building_allowed
 	
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():

@@ -7,11 +7,12 @@ class_name Building
 @export var inventory_type: StringName:
 	set(p_inventory_type):
 		inventory_type = p_inventory_type
-		inventory = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
+		inventory_scene = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
 @export_enum("Containers", "CraftingInventories") var inventory_resource_folder: String
 
-var inventory: PackedScene
-
+var inventory_scene: PackedScene
+## Only for temporary use, not for opening a UI window (is not part of a CanvasLayer)
+var internal_inventory: PanelContainer
 var id: int
 var is_hovered = false
 
@@ -20,8 +21,6 @@ func _ready() -> void:
 	input_pickable = true
 	setup_building_synchronization()
 	connect_signals()
-	if !id:
-		id = name.to_int()
 
 func _process(_delta: float) -> void:
 	input_handler()
@@ -35,16 +34,10 @@ func build():
 	id = IDIncrementer.get_id()
 	name = str(id)
 	visible = true
-	load_inventory()
 	
-# debug, maybe better solution, Loads the inventory once to create the resource file
-func load_inventory():
-	inventory = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
-	var inventory_instance = SaveManager.players.get("1").inventory.add_external_inventory(inventory, [id])
-	inventory_instance.queue_free()
 	
 func highlight():
-	Globals.selected_building = self
+	Builder.selected_building = self
 	if Deconstructor.deconstruct_mode:
 		building_sprite.modulate = Color.RED
 	else:
@@ -52,16 +45,19 @@ func highlight():
 
 func remove_highlight():
 	building_sprite.modulate = Color(1,1,1)
-	Globals.selected_building = null
+	Builder.selected_building = null
 	
 func connect_signals():
 	hitbox.connect("mouse_entered", _on_mouse_entered)
 	hitbox.connect("mouse_exited", _on_mouse_exited)
+	interaction_range.connect("player_entered_range", _on_interaction_range_player_entered_range)
+	interaction_range.connect("player_left_range", _on_interaction_range_player_left_range)
 	
 func setup_building_synchronization():
 	var synchronizer = MultiplayerSynchronizer.new()
 	var config: SceneReplicationConfig = SceneReplicationConfig.new()
 	config.add_property(":position")
+	config.add_property(":id")
 	# ...
 	
 	synchronizer.set_replication_config(config)
@@ -76,10 +72,10 @@ func _on_mouse_exited():
 
 func _on_interaction_range_player_entered_range(player: Player) -> void:
 	#opens the default brewing inventory data [id = 0]
-	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory, id, [id])
+	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory_scene, id, [id])
 
 func _on_interaction_range_player_left_range(player: Player) -> void:
-	player.interaction_stack.remove_interaction(inventory, id)
+	player.interaction_stack.remove_interaction(inventory_scene, id)
 	
 func save()-> Dictionary:
 	var save_dict = {

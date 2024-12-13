@@ -7,6 +7,7 @@ var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready()
+	configure_spell_input()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +24,15 @@ func create_resource_if_not_exist():
 		var data = AutomaticCraftingInventoryData.new(type, input_size, output_size)
 		if multiplayer.is_server():
 			data.save_inventory_data(str(id))
-		
+
+
+func configure_spell_input():
+	match type:
+		"brewing":
+			var item = load("res://Resources/Spells/automatic_brewing.tres")
+			inventory_data.spell_input.item  = item
+	
+
 @rpc("any_peer", "call_local", "reliable")
 func transfer_in_spell_input(inv_index: int):
 	var slot = player_items.inventory_data.slot_data_table[inv_index]
