@@ -59,6 +59,7 @@ func _add_player_to_game(p_id: int):
 	
 func _add_new_player(p_id: int):
 	var player = player_scene.instantiate()
+	SaveManager.players.get_or_add(str(p_id), player)
 	player.player_id = p_id
 	player.name = str(p_id)
 	player.is_online = true

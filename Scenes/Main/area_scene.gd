@@ -44,15 +44,19 @@ func _player_occlusion():
 func move_player(player_name: String, node_name: String):
 	var player = get_node(player_name)
 	var node = get_node(node_name)
-	if player.position[1] > node.position[1] and player.get_index() < node.get_index():
-		move_child(player, node.get_index())
-	elif player.position[1] < node.position[1] and player.get_index() > node.get_index():
-		move_child(player, node.get_index()) 
+	if player and node:
+		if player.position[1] > node.position[1] and player.get_index() < node.get_index():
+			move_child(player, node.get_index())
+		elif player.position[1] < node.position[1] and player.get_index() > node.get_index():
+			move_child(player, node.get_index()) 
 		
 @rpc("authority","call_local","reliable")
 func player_leaves_area(player_id: int):
 	remove_child(get_node(str(player_id)))
 	
-func _on_child_entered_tree(_node: Node):
+func _on_child_entered_tree(node: Node):
 	sort_children_by_y_pos.call_deferred()
 	SceneManager.show_player_scene()
+	
+	if node is Building:
+		Globals.last_created_building = node

@@ -6,12 +6,11 @@ const hotbar_data = preload("res://Resources/Inventories/player_hotbar.tres")
 var player_id
 
 func _ready() -> void:
-	path = "res://Resources/Inventories/"
-	
-	print("player_id_set_in inventory")
+	#debug change later
 	if player_id:
 		handle_multiplayer_inventory()
 	super._ready()
+	handle_multiplayer_inventory()
 	
 	
 #Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,7 +35,5 @@ func add_to_hotbar_with_key():
 
 #debug change later to dynamic inventory
 func handle_multiplayer_inventory():
-	if player_id == 1:
-		id = "player_items"
-	else:
-		id = "player_items2"
+	if player_id != 1:
+		name = "PlayerItems2"

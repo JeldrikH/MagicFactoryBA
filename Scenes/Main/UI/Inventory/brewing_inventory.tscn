@@ -20,7 +20,6 @@ recipe_panel = NodePath("RecipePanel")
 recipe_button = NodePath("BrewingGrid/BrewingPanel/ButtonLayer/SelectRecipe")
 crafting_button = NodePath("BrewingGrid/BrewingPanel/ButtonLayer/Crafting")
 type = &"brewing"
-id = &"0"
 metadata/_edit_use_anchors_ = true
 
 [node name="BrewingGrid" type="HBoxContainer" parent="."]

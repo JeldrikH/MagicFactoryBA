@@ -1,37 +1,42 @@
 extends PanelContainer
 class_name CraftingInventory
+
+var player_items: Inventory
+var path = "res://Resources/Inventories/CraftingInventories/"
+var crafting_slot_node = preload("res://Scenes/Main/UI/Inventory/crafting_slot.tscn")
+var inventory_data: CraftingInventoryData
+
 ##Node to add the player items
 @export var inventory_grid: Container
 ##Crafting input/output
 @export var input: GridContainer
 @export var output: GridContainer
-var player_items: Inventory
+@export var input_size: int = 1
+@export var output_size: int = 1
+
 @export var recipe_panel: RecipePanel
 @export var recipe_button: Button
 @export var crafting_button: Button
 @export var type: StringName
-@export var id: StringName
-var recipe_list: Array[Recipe]
-var path = "res://Resources/Inventories/CraftingInventories/"
-@export var input_size: int = 1
-@export var output_size: int = 1
-var crafting_slot_node = preload("res://Scenes/Main/UI/Inventory/crafting_slot.tscn")
-var inventory_data: CraftingInventoryData
-
+var id: StringName:
+	set(p_id):
+		id = p_id
+		if ResourceLoader.exists(path + str(id) + ".tres"):
+			inventory_data = load(path + id + ".tres")
+		
 func _ready() -> void:
-	create_resource_if_not_exist()
-	inventory_data = load(path + str(id) + ".tres")
-	
+	id = name
 	# Finds the current players inventory
-	player_items = get_parent().get_child(0).get_child(0)
-	
-	recipe_list = inventory_data.recipe_list
+	player_items = get_parent().get_parent().player_items
+	create_resource_if_not_exist()
+	if not inventory_data:
+		inventory_data = load(path + id + ".tres")
 	fill_grid()
+	update()
 	connect_recipe_panel()
 	connect_signals()
-	update()
-	visible = false
-	recipe_panel.visible = false
+	hide()
+	recipe_panel.hide()
 
 func _process(_delta: float)-> void:
 	if visible:
@@ -54,10 +59,10 @@ func scene_parameters(args: Array)-> CraftingInventory:
 	return self
 
 func create_resource_if_not_exist():
-	if not ResourceLoader.exists(path + str(id) + ".tres"):
-		var data = CraftingInventoryData.new(type, input_size, output_size)
+	if not ResourceLoader.exists(path + id + ".tres"):
+		inventory_data = CraftingInventoryData.new(type, input_size, output_size)
 		if multiplayer.is_server():
-			data.save_inventory_data.rpc(str(id))
+			inventory_data.save_inventory_data(str(id))
 	
 
 func fill_grid():
@@ -252,7 +257,7 @@ func _on_back_pressed() -> void:
 @rpc("authority", "call_local", "reliable")
 func return_items_to_player_inventory(player_id: int):
 	var item_list = inventory_data.get_items()
-	var p_items = Globals.get_player(player_id).inventory.player_items
+	var p_items = SaveManager.players.get(str(player_id)).inventory.player_items
 	p_items.add_item_list(item_list)
 
 

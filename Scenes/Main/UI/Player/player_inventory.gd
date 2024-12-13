@@ -1,18 +1,18 @@
 extends PanelContainer
 
-@onready var player_items = $HBoxContainer/InventoryMargin/PlayerItems
+@export var player_items: Inventory
 var external_inventory: PanelContainer
 
 var player_id:
 	set(id):
 		player_id = id
-		$HBoxContainer/InventoryMargin/PlayerItems.player_id = id
+		player_items.player_id = id
 		
 func _ready() -> void:
 	visible = false
 	$InventorySpawner.set_multiplayer_authority(player_id)
 	
-			
+@rpc("any_peer", "call_local", "reliable")
 func open():
 	if not Globals.is_inventory_opened:
 		show()
@@ -26,20 +26,22 @@ func close():
 	Globals.is_inventory_opened = false
 	Globals.is_ui_opened = false
 			
-func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Array = []):
+func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
 	if not Globals.is_ui_opened:
 		add_external_inventory(inventory_scene, scene_args)
 		external_inventory.show()
 	open()
+	return external_inventory
 	
-func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = []):
+func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
 	external_inventory = inventory_scene.instantiate()
 		
 	if scene_args.size() > 0 and external_inventory.has_method("scene_parameters"):
 		external_inventory = external_inventory.scene_parameters(scene_args)
-	external_inventory.name = "ExternalInventory"
-	$HBoxContainer.add_child(external_inventory, true)
-	$HBoxContainer.move_child(external_inventory,0)
+	external_inventory.name = external_inventory.id
+	$InventoryContainer.add_child(external_inventory, true)
+	$InventoryContainer.move_child(external_inventory,0)
+	return external_inventory
 	
 func _on_mouse_entered() -> void:
 	Globals.mouse_inside_inventory = true

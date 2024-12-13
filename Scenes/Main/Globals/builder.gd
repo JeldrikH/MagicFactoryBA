@@ -2,24 +2,14 @@ extends Node2D
 
 ##The Building intended to be built
 var building: StringName
-var building_visual: Node2D
+var building_visual: Sprite2D
 ##True if build mode is activated
 var build_mode: bool
 
 func _process(_delta):
 	visual_follow_cursor()
-	input_handler()
 	
-func input_handler():
-	if Input.is_action_just_pressed("CLOSE_UI") and build_mode:
-		deactivate_build_mode()
-		
-	if Input.is_action_just_pressed("OPEN_BUILDER") and build_mode:
-		deactivate_build_mode()
-		
-	if Input.is_action_just_pressed("CLICK") and Builder.build_mode and Globals.allow_building:
-		var player = Globals.get_player(multiplayer.get_unique_id())
-		build.rpc_id(1, building, player.current_scene, get_viewport().get_mouse_position())
+
 
 ##Activates the build mode showing the given building
 func activate_build_mode(p_building: StringName):
@@ -38,24 +28,24 @@ func deactivate_build_mode():
 		building_visual.queue_free()
 
 func show_visual(p_building: StringName):
-	building_visual = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
-	building_visual.set_collision_layer(0)
-	building_visual.remove_from_group("persist")
+	var temp_building = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
+	var building_scale: Vector2 = temp_building.get_node("Sprite2D").scale
+	building_visual = Sprite2D.new()
+	building_visual.scale = building_scale
+	building_visual.texture = load("res://Sprites/Objects/Buildings/%s.png" % p_building)
 	add_child(building_visual)
 	
 ##Builds the building in the given parent
-@rpc("authority", "call_local", "reliable")
-func build(p_building: StringName, parent: String, build_position: Vector2, scene_args: Array = [])-> Building:
+@rpc("any_peer", "call_local", "reliable")
+func build(p_building: StringName, parent: String, build_position: Vector2, scene_args: Array = []):
 	var building_instance = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
 	#apply parameters if required
 	if scene_args.size() > 0 and building_instance.has_method("scene_parameters"):
 		building_instance = building_instance.scene_parameters(scene_args)
-		
 	building_instance.position = build_position
-	var parent_node = get_tree().get_current_scene().get_node(parent)
-	parent_node.add_child(building_instance)
 	building_instance.build()
-	return building_instance
+	var parent_node = get_tree().get_current_scene().get_node(parent)
+	parent_node.add_child(building_instance, true)
 	
 	
 ##makes the building instance follow the cursor

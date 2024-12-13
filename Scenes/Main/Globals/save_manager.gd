@@ -51,7 +51,7 @@ func load_scene(scene_name: StringName):
 				if i == "filename" or i == "parent" or i == "pos_x" or i == "pos_y":
 					continue
 				new_object.set(i, node_data[i])
-			get_node(node_data["parent"]).add_child(new_object)
+			get_node(node_data["parent"]).add_child(new_object, true)
 	
 ## Save given scene node
 func save_scene(scene_name: StringName):

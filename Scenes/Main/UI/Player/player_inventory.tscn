@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Main/UI/Player/player_inventory.gd" id="1_ldld7"]
 [ext_resource type="PackedScene" uid="uid://ct8t6f634ebxe" path="res://Scenes/Main/UI/Player/player_items.tscn" id="2_voa3d"]
 
-[node name="PlayerInventory" type="PanelContainer" groups=["inventories", "ui"]]
+[node name="PlayerInventory" type="PanelContainer" node_paths=PackedStringArray("player_items") groups=["inventories", "ui"]]
 clip_contents = true
 anchors_preset = -1
 anchor_left = 0.279687
@@ -15,25 +15,18 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ldld7")
+player_items = NodePath("InventoryContainer/PlayerItems")
 metadata/_edit_use_anchors_ = true
 
 [node name="InventorySpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/UI/Inventory/brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/automatic_brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/container.tscn", "res://Scenes/Main/UI/Inventory/spell_crafting_inventory.tscn")
-spawn_path = NodePath("../HBoxContainer")
+spawn_path = NodePath("../InventoryContainer")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="InventoryContainer" type="HBoxContainer" parent="."]
 clip_contents = true
 layout_mode = 2
 
-[node name="InventoryMargin" type="MarginContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
-
-[node name="PlayerItems" parent="HBoxContainer/InventoryMargin" instance=ExtResource("2_voa3d")]
+[node name="PlayerItems" parent="InventoryContainer" instance=ExtResource("2_voa3d")]
 layout_mode = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

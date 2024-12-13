@@ -1,31 +1,35 @@
 extends Node2D
 
 var deconstruct_mode: bool
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if (Input.is_action_just_pressed("CLOSE_UI")
-	or Input.is_action_just_pressed("DECONSTRUCT")) and deconstruct_mode:
-		deactivate_deconstruct_mode()
-	elif Input.is_action_just_pressed("DECONSTRUCT") and not deconstruct_mode:
-		activate_deconstruct_mode()
+signal activated
+signal deactivated
 
 func activate_deconstruct_mode():
 	deconstruct_mode = true
+	activated.emit()
 	if Builder.build_mode:
 		Builder.deactivate_build_mode()
 	
 func deactivate_deconstruct_mode():
 	deconstruct_mode = false
+	deactivated.emit()
 	
-func deconstruct(building: Building):
-	transfer_items(building)
-	DirAccess.remove_absolute(building.inventory.path + building.inventory.id + ".tres")
-	var parent = building.get_parent()
+@rpc("any_peer","call_local","reliable")
+func deconstruct(building_id: String, parent: String):
+	var building = get_node("/root/Main/%s/%s" % [parent, building_id])
+	DirAccess.remove_absolute("res://Resources/Inventories/" + building.inventory_resource_folder + str(building.id) + ".tres")
 	building.queue_free()
-	SaveManager.save_scene(parent.name)
+	SaveManager.save_scene(parent)
 
-func transfer_items(building: Building):
-	var building_items = building.inventory.inventory_data.get_items()
+func player_deconstruct(building: Building, player: Player):
+	Globals.selected_building = null
+	var parent = building.get_parent().name
+	transfer_items(building, player)
+	deconstruct.rpc_id(1, building.name, parent)
+
+func transfer_items(building: Building, player: Player):
+	var inventory = player.inventory.add_external_inventory(building.inventory, [building.id])
+	var building_items = inventory.inventory_data.get_items()
+	inventory.queue_free()
 	if building_items.size() > 0:
-		building.inventory.player_items.add_item_list(building_items)
+		player.inventory.player_items.add_item_list(building_items)

@@ -1,18 +1,11 @@
 extends PanelContainer
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	visible = false
-	
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("OPEN_BUILDER") and Globals.allow_building:
-		open()
 		
 func open():
 	Globals.close_all_ui_windows()
 	visible = true
 	Globals.is_ui_opened = true
+	Builder.deactivate_build_mode()
+	Deconstructor.deactivate_deconstruct_mode()
 
 func close():
 	visible = false
@@ -20,5 +13,5 @@ func close():
 
 
 func _on_automatic_brewing_pressed() -> void:
-	Builder.activate_build_mode(preload("res://Scenes/Main/Buildings/cauldron.tscn"))
+	Builder.activate_build_mode("cauldron")
 	close()

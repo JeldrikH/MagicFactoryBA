@@ -9,7 +9,7 @@ func _ready() -> void:
 	path = "res://Resources/Inventories/Containers/"
 	
 	# Finds the current players inventory
-	player_items = get_parent().get_node("InventoryMargin").get_child(0)
+	player_items = get_parent().get_parent().player_items
 	
 	super._ready()
 	visible = false
@@ -26,7 +26,6 @@ func input_handler():
 
 ##updates the inventory, call after changes to the inventory have happened
 func update():
-	player_items.update()
 	super.update()
 	
 func open():

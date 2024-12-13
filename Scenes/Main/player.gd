@@ -25,6 +25,7 @@ func _ready():
 	interaction_stack = InteractionStack.new()
 	inventory.player_items.player_owner = self
 	current_scene = get_parent().name
+	Globals.is_building_allowed = get_parent().is_building_allowed
 	
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
@@ -50,7 +51,7 @@ func apply_movement_from_input(_delta):
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	
 	move_and_slide()
-	
+ 
 func save()-> Dictionary:
 	var save_dict = {
 		"player_id" : player_id,
@@ -59,3 +60,4 @@ func save()-> Dictionary:
 		"current_scene" : current_scene
 	}
 	return save_dict
+	

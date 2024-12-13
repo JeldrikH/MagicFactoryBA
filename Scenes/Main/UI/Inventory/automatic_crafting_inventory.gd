@@ -6,12 +6,12 @@ var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	create_resource_if_not_exist()
 	super._ready()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	create_resource_if_not_exist()
 	super._process(delta)
 
 func update():
@@ -21,7 +21,8 @@ func update():
 func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + str(id) + ".tres"):
 		var data = AutomaticCraftingInventoryData.new(type, input_size, output_size)
-		data.save_inventory_data.rpc(str(id))
+		if multiplayer.is_server():
+			data.save_inventory_data(str(id))
 		
 @rpc("any_peer", "call_local", "reliable")
 func transfer_in_spell_input(inv_index: int):

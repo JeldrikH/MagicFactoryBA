@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bu2h6lb40hrmf"]
+[gd_scene load_steps=16 format=3 uid="uid://bu2h6lb40hrmf"]
 
 [ext_resource type="Script" path="res://Scenes/Main/player.gd" id="1_4onid"]
 [ext_resource type="Script" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
-[ext_resource type="Texture2D" uid="uid://cc4nkpu7vb6fi" path="res://Sprites/Objects/Character/Character_idle_1.png" id="2_sa6a6"]
-[ext_resource type="Texture2D" uid="uid://c2saecq63mw4t" path="res://Sprites/Objects/Character/Character_idle_2.png" id="3_2utx1"]
-[ext_resource type="Script" path="res://Scenes/Main/UI/Player/player_ui.gd" id="3_l2w7y"]
-[ext_resource type="Texture2D" uid="uid://ydx5jaws45tp" path="res://Sprites/Objects/Character/Character_idle_3.png" id="4_320ba"]
+[ext_resource type="Texture2D" uid="uid://cc4nkpu7vb6fi" path="res://Sprites/Objects/Character/character_idle_1.png" id="2_sa6a6"]
+[ext_resource type="Texture2D" uid="uid://c2saecq63mw4t" path="res://Sprites/Objects/Character/character_idle_2.png" id="3_2utx1"]
+[ext_resource type="Texture2D" uid="uid://ydx5jaws45tp" path="res://Sprites/Objects/Character/character_idle_3.png" id="4_320ba"]
+[ext_resource type="Texture2D" uid="uid://brst4arfsxkdh" path="res://Sprites/UI/destructor_overlay.png" id="5_6amfr"]
+[ext_resource type="PackedScene" uid="uid://bcy7uicsxnrad" path="res://Scenes/Main/UI/building_ui.tscn" id="5_e3nkf"]
+[ext_resource type="Script" path="res://Scenes/Main/UI/Player/deconstructor_overlay.gd" id="6_256iv"]
 [ext_resource type="PackedScene" uid="uid://cxwt4kg2qa5ud" path="res://Scenes/Main/UI/Player/player_inventory.tscn" id="6_bmj32"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_stasp"]
@@ -101,10 +103,26 @@ replication_config = SubResource("SceneReplicationConfig_vdvek")
 script = ExtResource("2_4g8rx")
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
-script = ExtResource("3_l2w7y")
 
 [node name="PlayerInventory" parent="PlayerUI" instance=ExtResource("6_bmj32")]
-clip_contents = true
+visible = false
+
+[node name="BuildingUI" parent="PlayerUI" instance=ExtResource("5_e3nkf")]
+visible = false
+
+[node name="DeconstructorOverlay" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 3
+anchor_right = 1.00312
+anchor_bottom = 0.997222
+mouse_filter = 2
+script = ExtResource("6_256iv")
+metadata/_edit_use_anchors_ = true
+
+[node name="DeconstructorOverlay" type="Sprite2D" parent="PlayerUI/DeconstructorOverlay"]
+position = Vector2(1280, 720)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("5_6amfr")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -156.25)

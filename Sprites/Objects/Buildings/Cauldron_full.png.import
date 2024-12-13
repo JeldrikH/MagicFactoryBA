@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d33aykunpyfmk"
-path="res://.godot/imported/Cauldron_full.png-bd4015778d09defedfe088dba7d94006.ctex"
+path="res://.godot/imported/cauldron_full.png-d2c232b5f436b9ddf2b3f557add30d37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Objects/Buildings/Cauldron_full.png"
-dest_files=["res://.godot/imported/Cauldron_full.png-bd4015778d09defedfe088dba7d94006.ctex"]
+source_file="res://Sprites/Objects/Buildings/cauldron_full.png"
+dest_files=["res://.godot/imported/cauldron_full.png-d2c232b5f436b9ddf2b3f557add30d37.ctex"]
 
 [params]
 

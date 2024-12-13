@@ -1,0 +1,609 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=104 format=3]
+
+[ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_i22pe"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_83hvi"]
+[ext_resource type="Script" path="res://Resources/item.gd" id="3_7nf0p"]
+
+[sub_resource type="Resource" id="Resource_a2s71"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_fstiy"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_a2s71")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_d1qdd"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_kq35k"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_d1qdd")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_vmiov"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_rp15x"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_vmiov")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_4et43"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_24l5d"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_4et43")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_6qm5q"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ti5qo"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_6qm5q")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_q0pel"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_b25wh"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_q0pel")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_x2w7n"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_fbdwg"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_x2w7n")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_e4v5b"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_mg2dk"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_e4v5b")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_s5lwk"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ohana"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_s5lwk")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_mdlsl"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_r7vxw"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_mdlsl")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_57af4"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ldn3u"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_57af4")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_2yuwc"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_lfs04"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_2yuwc")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_ix3sk"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_20ttm"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_ix3sk")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_q1bad"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_bv1us"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_q1bad")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_xfjll"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_mq6oi"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_xfjll")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_bvjnn"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ftesy"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_bvjnn")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_p1jbr"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ronvw"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_p1jbr")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_0nco7"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_tm0jg"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_0nco7")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_vbb5r"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_vsufj"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_vbb5r")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_71jbb"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_imna7"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_71jbb")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_wuuhk"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_1eawd"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_wuuhk")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_gsr5j"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ntt8f"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_gsr5j")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_ne24s"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_n4gmk"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_ne24s")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_h0o1c"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_3qaap"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_h0o1c")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_0hxlb"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_an6q4"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_0hxlb")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_354a6"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_4sa4d"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_354a6")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_wwxnp"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_nibe2"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_wwxnp")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_a8mhd"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_m1x26"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_a8mhd")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_m0r4m"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_hfmyq"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_m0r4m")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_mgs5a"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_cvy7e"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_mgs5a")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_ijvdh"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_uy7i7"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_ijvdh")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_psmnr"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_w45f3"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_psmnr")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_5rtfh"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_g7rdt"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_5rtfh")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_k4kcw"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_aus6p"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_k4kcw")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_hpy67"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ypnej"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_hpy67")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_p6r8j"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_nejv6"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_p6r8j")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_4j3bc"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_hi3ux"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_4j3bc")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_u6m18"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_62148"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_u6m18")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_ya77v"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_koxtx"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_ya77v")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_2mawu"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_8aink"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_2mawu")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_pchbi"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_uucw2"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_pchbi")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_dvw1j"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_j7tir"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_dvw1j")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_0wvoy"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_2wed6"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_0wvoy")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_v1sdm"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_ahsgd"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_v1sdm")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_lwo0o"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_s14ho"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_lwo0o")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_lshh8"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_lvlqj"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_lshh8")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_ga1vs"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_4p03b"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_ga1vs")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_1xx8r"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_e3d8i"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_1xx8r")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_4e7ue"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_rgiun"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_4e7ue")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_tt8pf"]
+script = ExtResource("3_7nf0p")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_mp38u"]
+script = ExtResource("2_83hvi")
+item = SubResource("Resource_tt8pf")
+quantity = 0
+
+[resource]
+script = ExtResource("1_i22pe")
+slot_data_table = Array[ExtResource("2_83hvi")]([SubResource("Resource_fstiy"), SubResource("Resource_kq35k"), SubResource("Resource_rp15x"), SubResource("Resource_24l5d"), SubResource("Resource_ti5qo"), SubResource("Resource_b25wh"), SubResource("Resource_fbdwg"), SubResource("Resource_mg2dk"), SubResource("Resource_ohana"), SubResource("Resource_r7vxw"), SubResource("Resource_ldn3u"), SubResource("Resource_lfs04"), SubResource("Resource_20ttm"), SubResource("Resource_bv1us"), SubResource("Resource_mq6oi"), SubResource("Resource_ftesy"), SubResource("Resource_ronvw"), SubResource("Resource_tm0jg"), SubResource("Resource_vsufj"), SubResource("Resource_imna7"), SubResource("Resource_1eawd"), SubResource("Resource_ntt8f"), SubResource("Resource_n4gmk"), SubResource("Resource_3qaap"), SubResource("Resource_an6q4"), SubResource("Resource_4sa4d"), SubResource("Resource_nibe2"), SubResource("Resource_m1x26"), SubResource("Resource_hfmyq"), SubResource("Resource_cvy7e"), SubResource("Resource_uy7i7"), SubResource("Resource_w45f3"), SubResource("Resource_g7rdt"), SubResource("Resource_aus6p"), SubResource("Resource_ypnej"), SubResource("Resource_nejv6"), SubResource("Resource_hi3ux"), SubResource("Resource_62148"), SubResource("Resource_koxtx"), SubResource("Resource_8aink"), SubResource("Resource_uucw2"), SubResource("Resource_j7tir"), SubResource("Resource_2wed6"), SubResource("Resource_ahsgd"), SubResource("Resource_s14ho"), SubResource("Resource_lvlqj"), SubResource("Resource_4p03b"), SubResource("Resource_e3d8i"), SubResource("Resource_rgiun"), SubResource("Resource_mp38u")])

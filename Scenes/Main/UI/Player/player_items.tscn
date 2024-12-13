@@ -7,7 +7,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_r1udg")
 item_grid = NodePath("ItemContainer")
-id = &"player_items"
 
 [node name="ItemContainer" type="GridContainer" parent="."]
 layout_mode = 2

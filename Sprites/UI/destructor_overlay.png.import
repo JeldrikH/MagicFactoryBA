@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dldkm8qagbeo3"
-path="res://.godot/imported/LivingRoom.png-f3a1e2ca5dbb1b576f5f9434485db921.ctex"
+uid="uid://brst4arfsxkdh"
+path="res://.godot/imported/destructor_overlay.png-51be14ceee7ac91350fca71d9b9c368d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Objects/LivingRoom.png"
-dest_files=["res://.godot/imported/LivingRoom.png-f3a1e2ca5dbb1b576f5f9434485db921.ctex"]
+source_file="res://Sprites/UI/destructor_overlay.png"
+dest_files=["res://.godot/imported/destructor_overlay.png-51be14ceee7ac91350fca71d9b9c368d.ctex"]
 
 [params]
 

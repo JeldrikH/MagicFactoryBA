@@ -1,23 +1,30 @@
 extends PanelContainer
 class_name Inventory
 
-@export var item_grid: Control
-@export var grid_size: int
-@export var id: StringName
+var path = "res://Resources/Inventories/Containers/"
 var player_owner: Player
-var path: String
 var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
-@export var inventory_data: InventoryData
+var inventory_data: InventoryData
+
 signal updated
 
+@export var item_grid: Control
+@export var grid_size: int
+var id: StringName:
+	set(p_id):
+		id = p_id
+		if ResourceLoader.exists(path + id + ".tres"):
+			inventory_data = load(path + id + ".tres")
+
 func _ready() -> void:
+	id = name.to_snake_case()
 	create_resource_if_not_exist()
-	if !inventory_data:
+	if not inventory_data:
 		inventory_data = load(path + id + ".tres")
 	fill_grid()
 	update()
 	connect_signals()
-
+	
 func _process(_delta: float)-> void:
 	if visible:
 		input_handler()
@@ -27,7 +34,8 @@ func _process(_delta: float)-> void:
 ##args[1] = inventory_size
 func scene_parameters(args: Array)-> Inventory:
 	id = str(args[0])
-	grid_size = args[1]
+	if args.size() > 1:
+		grid_size = args[1]
 	return self
 	
 func input_handler():
@@ -122,11 +130,12 @@ func get_add_item_remainder(item: Item, quantity: int)-> int:
 	
 ##Creates a container with leftover items that didnt fit into the inventory and opens it
 func create_remainder_container(remainder: Array[SlotData]):
-	var remainder_container = Builder.build("RemainderContainer",player_owner.current_scene, player_owner.position, [remainder.size()])
-	remainder_container.inventory.add_item_list(remainder)
-	Globals.close_all_ui_windows()
-	player_owner.inventory.add_external_inventory(remainder_container.inventory, [remainder_container.id, remainder.size()])
-	player_owner.inventory.open.rpc_id(player_owner.player_id)
+	player_owner.inventory.close()
+	Builder.build.rpc_id(1, "RemainderContainer",player_owner.current_scene, player_owner.position, [remainder.size()])
+	# get the container after it spawned
+	var remainder_container = Globals.last_created_building
+	var external_inventory = player_owner.inventory.open_with_external_inventory(remainder_container.inventory, [remainder_container.id, remainder.size()])
+	external_inventory.add_item_list(remainder)
 	
 	
 ##adds the specified item to the target index (old entries on that index are overwritten!)
