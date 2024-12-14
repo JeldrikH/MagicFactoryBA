@@ -6,15 +6,19 @@ class_name Slot
 @export var color_default = Color(0.9, 0.9, 1, 0.32)
 @export var color_hovered = Color(0.9, 0.9, 1, 0.5)
 @export var is_selected = false
-@export var is_drag_drop_target = false
 @export var is_hovered = false
 @export var is_hotbar_slot = false
 @export var contains_item = false
-signal transfer(index: int)
 
 @export var tooltip_delay = 1
 var tooltip: RichTextLabel
 var tooltip_content: String
+
+var slot_type: Globals.DragDropLocation
+
+signal drag_drop_start(start: Globals.DragDropLocation, index: int)
+signal drag_drop_result(result: Globals.DragDropLocation, index: int)
+signal transfer(index: int)
 
 #Sets the Background Color of the Item Slot
 func _ready() -> void:
@@ -29,12 +33,12 @@ func _process(_delta: float) -> void:
 		read_inputs()
 		tooltip_follow_cursor()
 	check_for_item_deleting()
+	check_for_drag_drop_cancel()
 
 
 #Sets the Item Contents of the Slot
 func set_slot_data(slot_data: SlotData):
 	set_selected(false)
-	is_drag_drop_target = false
 	if slot_data.item:
 		$SlotMargin/ItemTexture.texture = slot_data.item.icon
 		tooltip_content = "[b]" + tr(slot_data.item.name) + "[/b]\n\n" + tr(slot_data.item.description)
@@ -63,11 +67,13 @@ func toggle_selected():
 func _on_mouse_entered() -> void:
 	self["theme_override_styles/panel"].bg_color = color_hovered
 	is_hovered = true
+	Globals.mouse_over_slot = true
 	activate_tooltip()
 	
 func _on_mouse_exited() -> void:
 	self["theme_override_styles/panel"].bg_color = color_default
 	is_hovered = false
+	Globals.mouse_over_slot = false
 	deactivate_tooltip()
 	
 func _on_delay_timeout() -> void:
@@ -100,11 +106,22 @@ func read_inputs():
 		
 	if Input.is_action_just_pressed("CLICK") and (contains_item or is_hotbar_slot):
 		set_selected(true)
+		drag_drop_start.emit(slot_type, index)
 	
 	if Input.is_action_just_released("CLICK") and not is_hotbar_slot:
-		is_drag_drop_target = true
+		drag_drop_result.emit(slot_type, index)
 
 ## Is item dragged out of the inventory?
 func check_for_item_deleting():
 	if contains_item and is_selected and Input.is_action_just_released("CLICK") and not Globals.mouse_inside_inventory and not is_hotbar_slot:
-		get_tree().call_group("delete_prompt", "open_prompt", get_parent(), index)
+		drag_drop_result.emit(Globals.DragDropLocation.OUTSIDE, -1)
+		#get_tree().call_group("delete_prompt", "open_prompt", get_parent(), index) # old keeping for backup debug
+
+func check_for_drag_drop_cancel():
+	if (contains_item 
+	and is_selected 
+	and Input.is_action_just_released("CLICK") 
+	and Globals.mouse_inside_inventory 
+	and not Globals.mouse_over_slot 
+	and not is_hotbar_slot):
+		drag_drop_result.emit(Globals.DragDropLocation.CANCEL, -1)

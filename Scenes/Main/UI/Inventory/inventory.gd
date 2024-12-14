@@ -1,6 +1,7 @@
 extends PanelContainer
 class_name Inventory
 
+var player_inventory: Inventory
 var path = "res://Resources/Inventories/Containers/"
 var player_owner: Player
 var slot_node = preload("res://Scenes/Main/UI/Inventory/slot.tscn")
@@ -36,11 +37,7 @@ func scene_parameters(args: Array)-> Inventory:
 		grid_size = args[1]
 	return self
 	
-func input_handler():
-	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
-		#Call deferred to wait for slot children
-		drag_drop.call_deferred()
-	
+func input_handler(): #debug move to multiplayerinput
 	if Input.is_action_just_pressed("RIGHT_CLICK"):
 		for child in item_grid.get_children():
 				if child.is_hovered:
@@ -51,17 +48,21 @@ func create_resource_if_not_exist():
 	if not ResourceLoader.exists(path + id + ".tres"):
 		inventory_data = InventoryData.new(grid_size)
 		if multiplayer.is_server():
-			inventory_data.save_inventory_data(path, id)
+			inventory_data.save_inventory_data(id)
 		
 func fill_grid():
 	for child in item_grid.get_children():
 		child.queue_free()
 	for i in inventory_data.slot_data_table.size():
 		var slot = slot_node.instantiate()
+		slot.slot_type = Globals.DragDropLocation.INTERNAL
 		slot.set_slot_data(inventory_data.slot_data_table[i])
 		item_grid.add_child(slot, true)
 		slot.index = i
-
+		
+func get_slots()-> Array:
+	return item_grid.get_children()
+	
 ## Call all inventories to sync multiplayer inventories, called in rpc methods
 func update_all_inventories():
 	get_tree().call_group("inventories", "update")
@@ -71,9 +72,10 @@ func update():
 	for i in range(0, inventory_data.slot_data_table.size()):
 		item_grid.get_child(i).set_slot_data(inventory_data.slot_data_table[i])
 	if multiplayer.is_server():
-		inventory_data.save_inventory_data(path, id)
+		inventory_data.save_inventory_data(id)
 	Globals.inventory_updated.emit(self)
 
+@rpc("any_peer", "call_local", "reliable")
 func open():
 	if not Globals.is_inventory_opened:
 		Globals.is_inventory_opened = true
@@ -82,7 +84,8 @@ func open():
 		Deconstructor.deactivate_deconstruct_mode()
 		show()
 		update()
-		
+
+@rpc("any_peer", "call_local", "reliable")
 func close():
 	hide()
 	Globals.mouse_inside_inventory = false
@@ -94,6 +97,7 @@ func close():
 func add_slots(amount: int):
 	grid_size += amount
 	inventory_data.add_slots(amount)
+	fill_grid.rpc()
 	update_all_inventories()
 	
 ## removes the last slot if it is empty
@@ -102,6 +106,7 @@ func remove_slot():
 	if inventory_data.slot_data_table[inventory_data.slot_data_table.size() - 1].quantity == 0:
 		grid_size -= 1
 		inventory_data.slot_data_table.pop_back()
+		fill_grid.rpc()
 		update_all_inventories()
 	
 ##Splits stack in half on right click
@@ -116,10 +121,6 @@ func split_stack_half(index: int):
 @rpc("any_peer", "call_local", "reliable")
 func add_item(item_id: StringName, quantity: int):
 	var item: Item = load("res://Resources/Items/%s.tres" % item_id)
-	if not item:
-		item = load("res://Resources/Potions/%s.tres" % item_id)
-	if not item:
-		item = load("res://Resources/Spells/%s.tres" % item_id)
 	inventory_data.add_item(item, quantity)
 	update_all_inventories()
 	Globals.item_added.emit(self)
@@ -144,7 +145,7 @@ func get_add_item_remainder(item: Item, quantity: int)-> int:
 func create_remainder_container(remainder: Array[SlotData]):
 	Builder.building_created.connect(add_items_to_remainder_container.bind(remainder))
 	player_owner.inventory.close()
-	Builder.build.rpc_id(1, "remainder_container",player_owner.current_scene, player_owner.position, [remainder.size()])
+	Builder.build.rpc_id(1, "remainder_container",player_owner.current_scene, player_owner.position)
 	
 func add_items_to_remainder_container(remainder_container: Building, remainder: Array[SlotData]):
 	if remainder_container is RemainderContainer:
@@ -190,23 +191,6 @@ func connect_signals():
 		mouse_entered.connect(_on_mouse_entered)
 	if not is_connected("mouse_exited", _on_mouse_exited):
 		mouse_exited.connect(_on_mouse_exited)
-
-#Called when an item gets dragged
-func drag_drop():
-	var start_index: int = -1
-	var target_index: int = -1
-	for child in item_grid.get_children():
-		if start_index < 0 and child.is_selected:
-			start_index = child.get_index()
-		if target_index < 0 and child.is_drag_drop_target:
-			target_index = child.get_index()
-			
-	if start_index >= 0 and target_index >= 0 and start_index != target_index:
-		item_grid.get_child(start_index).is_selected = false
-		item_grid.get_child(target_index).is_drag_drop_target = false
-		move_item.rpc(start_index, target_index)
-		return
-	update()
 		
 func delete_confirmed(inventory: Inventory, index: int):
 	if inventory == self:

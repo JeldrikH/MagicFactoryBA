@@ -11,7 +11,7 @@ var yAxis = 0
 
 ## Stack of currently available interactions
 var interaction_stack: InteractionStack
-@onready var inventory = $PlayerUI/PlayerInventory
+var inventory: Inventory
 var current_scene: String
 
 
@@ -19,11 +19,12 @@ var current_scene: String
 	set(id):
 		player_id = id
 		$InputSynchronizer.set_multiplayer_authority(id)
-		$PlayerUI/PlayerInventory.player_id = player_id
+		
 		
 func _ready():
+	create_player_inventory(player_id)
 	interaction_stack = InteractionStack.new()
-	inventory.player_items.player_owner = self
+	inventory.player_owner = self
 	current_scene = get_parent().name
 	if get_multiplayer_authority() == multiplayer.get_unique_id():
 		Builder.is_building_allowed = get_parent().is_building_allowed
@@ -53,6 +54,12 @@ func apply_movement_from_input(_delta):
 	
 	move_and_slide()
  
+func create_player_inventory(id: int):
+	inventory = load("res://Scenes/Main/UI/Player/player_inventory.tscn").instantiate()
+	get_node("/root/Main/PlayerInventories").add_child(inventory, true)
+	inventory.name = str(id)
+	inventory.player_id = id
+	
 func save()-> Dictionary:
 	var save_dict = {
 		"player_id" : player_id,

@@ -5,22 +5,22 @@ class_name InventoryData
 @export var slot_data_table: Array[SlotData] = []
 
 func _init(inventory_size = 84) -> void:
-	_fill_grid(inventory_size)
+	_fill_grid([inventory_size])
 	
 
 #helper function to fill the inventory with slots
-func _fill_grid(inventory_size: int):
-	while slot_data_table.size() < inventory_size:
+func _fill_grid(inventory_size: Array[int]):
+	while slot_data_table.size() < inventory_size[0]:
 		slot_data_table.append(SlotData.new())
 		
 ##Saves the current state of the inventory with the specified ID
-func save_inventory_data(save_folder_path: String = "res://Resources/Inventories/", inventory_id: String = ""):
+func save_inventory_data(inventory_id: String, save_folder_path: String = "res://Resources/Inventories/Containers"):
 	if inventory_id != "":
 		ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
 	
 ##Adds the set amount of slots to the inventory
 func add_slots(amount: int):
-	_fill_grid(slot_data_table.size() + amount)
+	_fill_grid([slot_data_table.size() + amount])
 	
 ##Adds the specified item to the first free slot
 ##or stacks Items of the Same Type

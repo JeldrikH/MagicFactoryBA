@@ -2,8 +2,11 @@ extends Node2D
 
 
 var mouse_inside_inventory = false
+var mouse_over_slot = false
 var is_inventory_opened = false
 var is_ui_opened = false
+
+enum DragDropLocation {INTERNAL, CONTAINER, INPUT, OUTPUT, SPELLSLOT, OUTSIDE, CANCEL}
 
 @warning_ignore("unused_signal")
 signal inventory_updated(inventory: Inventory)

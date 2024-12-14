@@ -6,11 +6,6 @@ var size: int
 func _ready() -> void:
 	super._ready()
 	check_if_init_done()
-	
-## takes args: [item_list] (the items added to the inventory)
-func scene_parameters(args: Array)-> Building:
-	size = args[0]
-	return self
 
 ## Prevents the Container from deleting itself before items got added
 ## Only executed on host

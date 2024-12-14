@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bu2h6lb40hrmf"]
+[gd_scene load_steps=15 format=3 uid="uid://bu2h6lb40hrmf"]
 
 [ext_resource type="Script" path="res://Scenes/Main/player.gd" id="1_4onid"]
 [ext_resource type="Script" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://brst4arfsxkdh" path="res://Sprites/UI/destructor_overlay.png" id="5_6amfr"]
 [ext_resource type="PackedScene" uid="uid://bcy7uicsxnrad" path="res://Scenes/Main/UI/building_ui.tscn" id="5_e3nkf"]
 [ext_resource type="Script" path="res://Scenes/Main/UI/Player/deconstructor_overlay.gd" id="6_256iv"]
-[ext_resource type="PackedScene" uid="uid://cxwt4kg2qa5ud" path="res://Scenes/Main/UI/Player/player_inventory.tscn" id="6_bmj32"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_stasp"]
 properties/0/path = NodePath(".:player_id")
@@ -103,9 +102,6 @@ replication_config = SubResource("SceneReplicationConfig_vdvek")
 script = ExtResource("2_4g8rx")
 
 [node name="PlayerUI" type="CanvasLayer" parent="."]
-
-[node name="PlayerInventory" parent="PlayerUI" instance=ExtResource("6_bmj32")]
-visible = false
 
 [node name="BuildingUI" parent="PlayerUI" instance=ExtResource("5_e3nkf")]
 visible = false

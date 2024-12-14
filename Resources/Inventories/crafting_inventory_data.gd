@@ -1,5 +1,5 @@
 ##Class for a Brewing Inventory
-extends Resource
+extends InventoryData
 class_name CraftingInventoryData
 
 @export var input: Array[CraftingSlotData]
@@ -12,18 +12,18 @@ var save_folder_path = "res://Resources/Inventories/CraftingInventories/"
 func _init(p_type = "brewing", input_size = 1, output_size = 1) -> void:
 	self.type = p_type
 	_load_recipes()
-	_fill_grid(input_size, output_size)
+	_fill_grid([input_size, output_size])
 	
 #helper function to fill the inventory with slots
-func _fill_grid(input_size: int, output_size: int):
-	while input.size() < input_size:
+func _fill_grid(inventory_size: Array[int]):
+	while input.size() < inventory_size[0]:
 		input.append(CraftingSlotData.new())
-	while output.size() < output_size:
+	while output.size() < inventory_size[1]:
 		output.append(CraftingSlotData.new())
 		
 ##Saves the current state of the inventory with the specified ID
 @rpc("authority", "call_local", "reliable", 1)
-func save_inventory_data(inventory_id: String):
+func save_inventory_data(inventory_id: String, save_folder_path: String = "res://Resources/Containers/"):
 	ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
 		
 ##Adds the specified item to the corresponding input slot

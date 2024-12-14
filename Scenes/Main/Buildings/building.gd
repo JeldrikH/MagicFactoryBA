@@ -10,10 +10,9 @@ class_name Building
 		inventory_scene = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
 @export_enum("Containers", "CraftingInventories") var inventory_resource_folder: String
 
-var inventory_scene: PackedScene
-## Only for temporary use, not for opening a UI window (is not part of a CanvasLayer)
-var internal_inventory: PanelContainer
 var id: int
+
+var inventory_scene: PackedScene
 var is_hovered = false
 
 # Called when the node enters the scene tree for the first time.

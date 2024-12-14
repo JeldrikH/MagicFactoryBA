@@ -48,5 +48,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "MENU_JOIN"
 
+[node name="PlayerInventories" type="CanvasLayer" parent="."]
+
 [connection signal="pressed" from="MainMenu/MenuPanel/MarginContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="MainMenu/MenuPanel/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]

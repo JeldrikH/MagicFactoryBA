@@ -1,7 +1,7 @@
 extends Resource
 class_name HotbarData
 
-const inventory_data = preload("res://Resources/Inventories/Containers/player_items.tres")
+const inventory_data = preload("res://Resources/Inventories/Containers/player_inventory.tres") # debug not dynamic
 
 @export var slot_data_table: Array[SlotData]
 

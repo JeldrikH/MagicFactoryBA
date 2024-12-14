@@ -11,7 +11,6 @@ func _process(delta: float) -> void:
 #Sets the Item Contents of the Slot
 func set_slot_data(slot_data: SlotData):
 	set_selected(false)
-	is_drag_drop_target = false
 	if slot_data.item:
 		$SlotMargin/ItemTexture.texture = slot_data.item.icon
 		$QuantityLabel.text = str(slot_data.quantity) + "/" + str(slot_data.required_amount)

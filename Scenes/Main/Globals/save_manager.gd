@@ -90,37 +90,38 @@ func save_active_scenes():
 		save_scene(scene)
 	
 func load_players():
-	if not FileAccess.file_exists(save_folder + "players.save"):
-		return
+	if multiplayer.is_server():
+		if not FileAccess.file_exists(save_folder + "players.save"):
+			return
 
-	# Load the Scene
-	# Load the file line by line
-	var save_file = FileAccess.open(save_folder + "players.save", FileAccess.READ)
-	
-	while save_file.get_position() < save_file.get_length():
-		var json_string = save_file.get_line()
-		var json = JSON.new()
+		# Load the Scene
+		# Load the file line by line
+		var save_file = FileAccess.open(save_folder + "players.save", FileAccess.READ)
+		
+		while save_file.get_position() < save_file.get_length():
+			var json_string = save_file.get_line()
+			var json = JSON.new()
 
-		# Check if there is any error while parsing the JSON string, skip in case of failure.
-		var parse_result = json.parse(json_string)
-		if not parse_result == OK:
-			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
-			continue
-
-		# Get the data from the JSON object.
-		var node_data = json.data
-
-		# create the object, add it to the tree and set its position.
-		var player: Player = load("res://Scenes/Main/player.tscn").instantiate()
-		player.position = Vector2(node_data["pos_x"], node_data["pos_y"])
-
-		# set the remaining variables.
-		for i in node_data.keys():
-			if i == "pos_x" or i == "pos_y":
+			# Check if there is any error while parsing the JSON string, skip in case of failure.
+			var parse_result = json.parse(json_string)
+			if not parse_result == OK:
+				print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 				continue
-			player.set(i, node_data[i])
-		player.name = str(player.player_id)
-		players.get_or_add(player.name, player)
+
+			# Get the data from the JSON object.
+			var node_data = json.data
+
+			# create the object, add it to the tree and set its position.
+			var player: Player = load("res://Scenes/Main/player.tscn").instantiate()
+			player.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+
+			# set the remaining variables.
+			for i in node_data.keys():
+				if i == "pos_x" or i == "pos_y":
+					continue
+				player.set(i, node_data[i])
+			player.name = str(player.player_id)
+			players.get_or_add(player.name, player)
 
 ## Save given scene node
 func save_players():
