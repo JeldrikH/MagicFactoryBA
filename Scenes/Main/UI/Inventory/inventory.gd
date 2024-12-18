@@ -23,10 +23,8 @@ func _ready() -> void:
 	fill_grid()
 	update()
 	connect_signals()
+	hide()
 	
-func _process(_delta: float)-> void:
-	if visible:
-		input_handler()
 	
 ##To instantiate inventory with parameters and a unique id
 ##args[0] = id
@@ -37,11 +35,6 @@ func scene_parameters(args: Array)-> Inventory:
 		grid_size = args[1]
 	return self
 	
-func input_handler(): #debug move to multiplayerinput
-	if Input.is_action_just_pressed("RIGHT_CLICK"):
-		for child in item_grid.get_children():
-				if child.is_hovered:
-					split_stack_half.rpc(child.get_index())
 
 ##Creates a new inventory resource
 func create_resource_if_not_exist():
@@ -55,9 +48,10 @@ func fill_grid():
 		child.queue_free()
 	for i in inventory_data.slot_data_table.size():
 		var slot = slot_node.instantiate()
-		slot.slot_type = Globals.DragDropLocation.INTERNAL
+		slot.slot_type = InventoryManager.DragDropLocation.INTERNAL
 		slot.set_slot_data(inventory_data.slot_data_table[i])
 		item_grid.add_child(slot, true)
+		connect_slot(slot)
 		slot.index = i
 		
 func get_slots()-> Array:
@@ -73,13 +67,13 @@ func update():
 		item_grid.get_child(i).set_slot_data(inventory_data.slot_data_table[i])
 	if multiplayer.is_server():
 		inventory_data.save_inventory_data(id)
-	Globals.inventory_updated.emit(self)
+	InventoryManager.inventory_updated.emit(self)
 
 @rpc("any_peer", "call_local", "reliable")
 func open():
-	if not Globals.is_inventory_opened:
-		Globals.is_inventory_opened = true
-		Globals.is_ui_opened = true
+	if not InventoryManager.is_inventory_opened:
+		InventoryManager.is_inventory_opened = true
+		InventoryManager.is_ui_opened = true
 		Builder.deactivate_build_mode()
 		Deconstructor.deactivate_deconstruct_mode()
 		show()
@@ -88,9 +82,9 @@ func open():
 @rpc("any_peer", "call_local", "reliable")
 func close():
 	hide()
-	Globals.mouse_inside_inventory = false
-	Globals.is_inventory_opened = false
-	Globals.is_ui_opened = false
+	InventoryManager.mouse_inside_inventory = false
+	InventoryManager.is_inventory_opened = false
+	InventoryManager.is_ui_opened = false
 	
 ##adds the specified amount of slots to the inventory
 @rpc("any_peer", "call_local", "reliable")
@@ -123,7 +117,7 @@ func add_item(item_id: StringName, quantity: int):
 	var item: Item = load("res://Resources/Items/%s.tres" % item_id)
 	inventory_data.add_item(item, quantity)
 	update_all_inventories()
-	Globals.item_added.emit(self)
+	InventoryManager.item_added.emit(self)
 
 func add_item_list(item_list: Array[SlotData]):
 	var remainder: Array[SlotData] = []
@@ -191,6 +185,9 @@ func connect_signals():
 		mouse_entered.connect(_on_mouse_entered)
 	if not is_connected("mouse_exited", _on_mouse_exited):
 		mouse_exited.connect(_on_mouse_exited)
+
+func connect_slot(slot: Slot):
+	slot.split_stack.connect(split_stack_half)
 		
 func delete_confirmed(inventory: Inventory, index: int):
 	if inventory == self:
@@ -198,8 +195,8 @@ func delete_confirmed(inventory: Inventory, index: int):
 		update()
 
 func _on_mouse_entered() -> void:
-	Globals.mouse_inside_inventory = true
+	InventoryManager.mouse_inside_inventory = true
 
 func _on_mouse_exited() -> void:
 	if not Rect2(Vector2(), size).has_point(get_local_mouse_position()):
-		Globals.mouse_inside_inventory = false
+		InventoryManager.mouse_inside_inventory = false

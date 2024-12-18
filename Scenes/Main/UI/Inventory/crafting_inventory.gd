@@ -16,36 +16,12 @@ var crafting_slot_node = preload("res://Scenes/Main/UI/Inventory/crafting_slot.t
 @export var crafting_button: Button
 @export var type: StringName
 
-func _set(property: StringName, value: Variant):
-	match name:
-		"path":
-			path = "res://Resources/Inventories/CraftingInventories/"
 func _ready() -> void:
-	id = name
-	create_resource_if_not_exist()
-	if not inventory_data:
-		inventory_data = load(path + id + ".tres")
-	fill_grid()
-	update()
+	path = "res://Resources/Inventories/CraftingInventories/"
+	super._ready()
 	connect_recipe_panel()
-	connect_signals()
-	hide()
 	recipe_panel.hide()
-
-func _process(_delta: float)-> void:
-	if visible:
-		input_handler()
-
-func input_handler():
-	if Input.is_action_just_released("CLICK") and Globals.mouse_inside_inventory:
-		#Call deferred to wait for slot children
-		drag_drop.call_deferred()
-
-	if Input.is_action_just_pressed("INVENTORY"):
-		close()
-			
 		
-	
 ##To instantiate container with parameters
 ##args[0] = id
 func scene_parameters(args: Array)-> CraftingInventory:
@@ -58,7 +34,14 @@ func create_resource_if_not_exist():
 		if multiplayer.is_server():
 			inventory_data.save_inventory_data(id)
 	
-
+func get_slots()-> Array:
+	var slots = []
+	for slot in input.get_children():
+		slots.append(slot)
+	for slot in output.get_children():
+		slots.append(slot)
+	return slots
+	
 func fill_grid():
 	var slot
 	for child in input.get_children():
@@ -69,19 +52,19 @@ func fill_grid():
 	for i in inventory_data.input.size():
 		slot = crafting_slot_node.instantiate()
 		input.add_child(slot)
+		connect_input_slot(slot)
 		slot.index = i
+		slot.slot_type = InventoryManager.DragDropLocation.INPUT
 	for i in inventory_data.output.size():
 		slot = crafting_slot_node.instantiate()
 		output.add_child(slot)
+		connect_output_slot(slot)
 		slot.index = i
+		slot.slot_type = InventoryManager.DragDropLocation.OUTPUT
 		
-## Call all inventories to sync multiplayer inventories, called in rpc methods
-func update_all_inventories():
-	get_tree().call_group("inventories", "update")
 
 ##updates the inventory, call after changes to the inventory have happened
 func update():
-	player_inventory.update()
 	for i in range(0, inventory_data.input.size()):
 		input.get_child(i).set_slot_data(inventory_data.input[i])
 	for i in range(0, inventory_data.output.size()):
@@ -89,81 +72,6 @@ func update():
 	activate_crafting_button()
 	if multiplayer.is_server():
 		inventory_data.save_inventory_data(id)
-
-func open():
-	if not Globals.is_inventory_opened:
-		player_inventory.open()
-		visible = true
-		
-		update()
-		
-func close():
-	visible = false
-	Globals.mouse_inside_inventory = false
-	Globals.is_inventory_opened = false
-	Globals.is_ui_opened = false
-	
-#Called when an item gets dragged
-func drag_drop():
-	var start_is_player_inventory = false
-	var target_is_player_inventory = false
-	var start_is_output = false
-	var start_index: int = -1
-	var target_index: int = -1
-	
-	#Search the input
-	for child in input.get_children():
-		if start_index < 0 and child.is_selected:
-			start_index = child.get_index()
-		if target_index < 0 and child.is_drag_drop_target:
-			target_index = child.get_index()
-	
-	#Search the output
-	for child in output.get_children():
-		if start_index < 0 and child.is_selected:
-			start_index = child.get_index()
-			start_is_output = true
-		if target_index < 0 and child.is_drag_drop_target:
-			child.is_drag_drop_target = false
-			update()
-			return
-	
-	#Search the player inventory
-	for child in player_inventory.item_grid.get_children():
-		if start_index < 0 and child.is_selected:
-			start_index = child.get_index()
-			start_is_player_inventory = true
-		if target_index < 0 and child.is_drag_drop_target:
-			target_index = child.get_index()
-			target_is_player_inventory = true
-	
-	#Move items inside player Inventory
-	if start_is_player_inventory and target_is_player_inventory and start_index != target_index:
-		player_inventory.item_grid.get_child(start_index).is_selected = false
-		player_inventory.item_grid.get_child(target_index).is_selected = false
-		player_inventory.move_item.rpc(start_index, target_index)
-		
-	#Transfer in to input
-	if start_is_player_inventory and not target_is_player_inventory and target_index >= 0:
-		player_inventory.item_grid.get_child(start_index).is_selected = false
-		input.get_child(target_index).is_drag_drop_target = false
-		transfer_in_input.rpc(start_index)
-		return
-	
-	#Transfer out from input
-	if not start_is_player_inventory and not start_is_output and target_is_player_inventory and start_index >= 0:
-		input.get_child(start_index).is_selected = false
-		player_inventory.item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_out_input_to_index.rpc(target_index, start_index)
-		return
-	
-	#Transfer out from output
-	if start_is_output and target_is_player_inventory:
-		output.get_child(start_index).is_selected = false
-		player_inventory.item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_out_output_to_index.rpc(target_index, start_index)
-		return
-	update()
 
 #Transfers a stack from player inventory into the first input available slot
 @rpc("any_peer", "call_local", "reliable")
@@ -280,16 +188,8 @@ func remove_stack(index: int):
 	update_all_inventories()
 
 func connect_signals():
-	for child in input.get_children():
-		if not child.is_connected("transfer", transfer_out_input):
-			child.transfer.connect(transfer_out_input.rpc)
-			
-	for child in output.get_children():
-		if not child.is_connected("transfer", transfer_out_output):
-			child.transfer.connect(transfer_out_output.rpc)
-			
 	for child in player_inventory.item_grid.get_children():
-		if not child.is_connected("transfer", transfer_in_input):
+		if not child.is_connected("transfer", transfer_in_input.rpc):
 			child.transfer.connect(transfer_in_input.rpc)
 	
 			
@@ -298,9 +198,21 @@ func connect_signals():
 	if not is_connected("mouse_exited", _on_mouse_exited):
 		mouse_exited.connect(_on_mouse_exited)
 
+func connect_input_slot(slot: Slot):
+	slot.transfer.connect(transfer_out_input.rpc)
+	
+func connect_output_slot(slot: Slot):
+	slot.transfer.connect(transfer_out_output.rpc)
+	
+	super.connect_slot(slot)
+func disconnect_signals():
+	for child in player_inventory.item_grid.get_children():
+		if child.is_connected("transfer", transfer_in_input.rpc):
+			child.transfer.disconnect(transfer_in_input.rpc)
+
 func _on_mouse_entered() -> void:
-	Globals.mouse_inside_inventory = true
+	InventoryManager.mouse_inside_inventory = true
 
 func _on_mouse_exited() -> void:
 	if not Rect2(Vector2(), size).has_point(get_local_mouse_position()):
-		Globals.mouse_inside_inventory = false
+		InventoryManager.mouse_inside_inventory = false

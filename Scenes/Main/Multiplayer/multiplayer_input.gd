@@ -2,6 +2,7 @@ extends MultiplayerSynchronizer
 
 var xAxis
 var yAxis
+var is_sprinting: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,14 +20,15 @@ func _physics_process(_delta: float) -> void:
 	yAxis = Input.get_axis("MOVE_UP","MOVE_DOWN")
 
 func _input(_event):
+	is_sprinting = Input.is_action_pressed("SPRINT")
 	# Close UI
-	if Globals.is_ui_opened:
+	if InventoryManager.is_ui_opened:
 		if (
 			Input.is_action_just_pressed("INVENTORY") 
 			or Input.is_action_just_pressed("CLOSE_UI") 
 			or Input.is_action_just_pressed("OPEN_BUILDER")
 			):
-			Globals.close_all_ui_windows()
+			InventoryManager.close_all_ui_windows()
 			return
 			
 	# Inventory
@@ -41,6 +43,7 @@ func _input(_event):
 	
 	builder_input()
 	deconstructor_input()
+	add_to_hotbar_with_key()
 
 func builder_input():
 	if Input.is_action_just_pressed("OPEN_BUILDER") and Builder.is_building_allowed:
@@ -60,5 +63,13 @@ func deconstructor_input():
 	elif Input.is_action_just_pressed("DECONSTRUCT") and not Deconstructor.deconstruct_mode:
 		Deconstructor.activate_deconstruct_mode()
 	
-	if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode and Builder.selected_building:
+	if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode and is_instance_valid(Builder.selected_building):
 			Deconstructor.player_deconstruct(Builder.selected_building, get_parent())
+
+##adds the hovered item to the pressed hotbar slot with the corresponding keystroke #debug change to signal
+func add_to_hotbar_with_key():
+	for slot_number in range(0,10):
+		if Input.is_action_just_pressed("SLOT_" + str(slot_number+1)):
+			for child in $"..".inventory.item_grid.get_children():
+				if child.is_hovered:
+					$"..".inventory.link_item_to_hotbar($"..".inventory.inventory_data.slot_data_table[child.get_index()].item, slot_number)

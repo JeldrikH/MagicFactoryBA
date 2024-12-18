@@ -4,6 +4,7 @@ class_name Player
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+var is_sprinting: bool = false
 var is_online = false
 
 var xAxis = 0
@@ -44,10 +45,13 @@ func _apply_animations(_delta):
 func apply_movement_from_input(_delta):
 	xAxis = $InputSynchronizer.xAxis
 	yAxis = $InputSynchronizer.yAxis
-		
+	is_sprinting = $InputSynchronizer.is_sprinting
+	var speed_multiplier = 1
+	if is_sprinting:
+		speed_multiplier = 2
 	if xAxis or yAxis:
-		velocity.x = xAxis * SPEED
-		velocity.y = yAxis * SPEED
+		velocity.x = xAxis * SPEED * speed_multiplier
+		velocity.y = yAxis * SPEED * speed_multiplier
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)

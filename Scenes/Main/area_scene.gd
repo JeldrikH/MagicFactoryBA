@@ -7,11 +7,11 @@ func _ready() -> void:
 	SaveManager.load_scene(name)
 	sort_children_by_y_pos()
 	child_entered_tree.connect(_on_child_entered_tree)
-	print(Builder.building_created.get_name())
 
 
 func _process(_delta: float) -> void:
-	_player_occlusion()
+	pass
+	#_player_occlusion()
 
 #bubblesort to sort node children by Y position
 func sort_children_by_y_pos():
@@ -34,7 +34,7 @@ func _player_occlusion():
 		return
 	for player in SaveManager.players.values():
 		
-		if player.current_scene  != name or !player.is_online:
+		if player.current_scene != name or !player.is_online:
 			continue
 			
 		for child in get_children():
@@ -51,9 +51,12 @@ func move_player(player_name: String, node_name: String):
 		elif player.position[1] < node.position[1] and player.get_index() > node.get_index():
 			move_child(player, node.get_index()) 
 		
-@rpc("authority","call_local","reliable")
-func player_leaves_area(player_id: int):
-	remove_child(get_node(str(player_id)))
+func player_changes_scene(player_id: int, next_area: StringName):
+	var player = SaveManager.players.get(str(player_id))
+	SceneManager.open_scene.rpc(next_area)
+	var parent = get_node("/root/Main/%s" % next_area)
+	player.reparent.call_deferred(parent)
+	player.ready.emit.call_deferred()
 	
 func _on_child_entered_tree(node: Node):
 	sort_children_by_y_pos.call_deferred()

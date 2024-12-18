@@ -9,8 +9,8 @@ func _ready() -> void:
 	is_building_allowed = true
 
 func _on_door_body_entered(body: Node2D) -> void:
-	if body is Player and body.player_id == multiplayer.get_unique_id():
-		player_leaves_area.rpc_id(1, body)
+	if body is Player and multiplayer.is_server():
+		player_changes_scene(body.player_id, "Outside")
 		SaveManager.save_scene(name)
 
 func _on_storage_interaction_player_entered_range(player: Player) -> void:

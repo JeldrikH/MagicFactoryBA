@@ -22,10 +22,10 @@ func deconstruct(building_id: String, parent: String):
 	SaveManager.save_scene(parent)
 
 func player_deconstruct(building: Building, player: Player):
-	Builder.selected_building = null
 	var parent = building.get_parent().name
 	transfer_items(building, player)
 	deconstruct.rpc_id(1, building.name, parent)
+	Builder.selected_building = null
 
 func transfer_items(building: Building, player: Player):
 	var inventory = player.inventory.add_external_inventory(building.inventory_scene, [building.id])

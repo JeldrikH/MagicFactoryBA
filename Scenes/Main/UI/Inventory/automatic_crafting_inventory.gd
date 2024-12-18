@@ -8,12 +8,6 @@ func _ready() -> void:
 	super._ready()
 	configure_spell_input()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	create_resource_if_not_exist()
-	super._process(delta)
-
 func update():
 	super.update()
 	spell_input.set_slot_data(inventory_data.spell_input)
@@ -24,8 +18,10 @@ func create_resource_if_not_exist():
 		if multiplayer.is_server():
 			inventory_data.save_inventory_data(id)
 
-
 func configure_spell_input():
+	spell_input.index = 1
+	spell_input.slot_type = InventoryManager.DragDropLocation.SPELLSLOT
+	connect_spell_input()
 	match type:
 		"brewing":
 			var item = load("res://Resources/Items/automatic_brewing.tres")
@@ -41,6 +37,22 @@ func transfer_in_spell_input(inv_index: int):
 	update_all_inventories()
 	
 @rpc("any_peer", "call_local", "reliable")
+func transfer_out_spell_input(_index: int):
+	var spell_input_data = inventory_data.spell_input
+	var remainder = player_inventory.inventory_data.get_add_item_remainder(spell_input_data.item, spell_input_data.quantity)
+	player_inventory.inventory_data.add_item(spell_input_data.item, spell_input_data.quantity)
+	inventory_data.remove_amount_spell_input(spell_input_data.quantity - remainder)
+	update_all_inventories()
+
+@rpc("any_peer", "call_local", "reliable")
+func transfer_in_input(inv_index: int):
+	var slot = player_inventory.inventory_data.slot_data_table[inv_index]
+	if slot.item is Spell:
+		transfer_in_spell_input(inv_index)
+	else:
+		super.transfer_in_input(inv_index)
+		
+@rpc("any_peer", "call_local", "reliable")
 func transfer_out_spell_input_to_index(inv_index: int):
 	var inv_slot = SlotData.new()
 	inv_slot.item = player_inventory.inventory_data.slot_data_table[inv_index].item
@@ -53,37 +65,5 @@ func transfer_out_spell_input_to_index(inv_index: int):
 		inventory_data.remove_amount_spell_input(input_slot.quantity - remainder)
 	update_all_inventories()
 	
-func drag_drop():
-	var start_is_spell_input = false
-	var target_is_spell_input = false
-	var start_index: int = -1
-	var target_index: int = -1
-	
-	if start_index < 0 and spell_input.is_selected:
-		start_index = 0
-		start_is_spell_input = true
-	if target_index < 0 and spell_input.is_drag_drop_target:
-		target_index = 0
-		target_is_spell_input = true
-		
-	#Search the player inventory
-	for child in player_inventory.item_grid.get_children():
-		if start_index < 0 and child.is_selected:
-			start_index = child.get_index()
-		if target_index < 0 and child.is_drag_drop_target:
-			target_index = child.get_index()
-	
-	##Transfer in to input
-	if not start_is_spell_input and target_is_spell_input and start_index >= 0:
-		player_inventory.item_grid.get_child(start_index).is_selected = false
-		spell_input.is_drag_drop_target = false
-		transfer_in_spell_input.rpc(start_index)
-		return
-	
-	##Transfer out from input
-	if start_is_spell_input and not target_is_spell_input and target_index >= 0:
-		input.get_child(start_index).is_selected = false
-		player_inventory.item_grid.get_child(target_index).is_drag_drop_target = false
-		transfer_out_spell_input_to_index.rpc(target_index)
-		return
-	super.drag_drop()
+func connect_spell_input():
+	spell_input.transfer.connect(transfer_out_spell_input)

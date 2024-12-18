@@ -11,17 +11,17 @@ func _ready() -> void:
 ## Only executed on host
 func check_if_init_done():
 	if multiplayer.is_server():
-		Globals.item_added.connect(_connect_inventory)
+		InventoryManager.item_added.connect(_connect_inventory)
 ## Create own inventory instance to check if it is empty and add the items
 func _connect_inventory(inventory: Inventory):
 	if inventory.id == name:
-		Globals.inventory_updated.connect(_inventory_updated)
-		Globals.item_removed.connect(_item_removed)
-		Globals.item_added.disconnect(_connect_inventory)
+		InventoryManager.inventory_updated.connect(_inventory_updated)
+		InventoryManager.item_removed.connect(_item_removed)
+		InventoryManager.item_added.disconnect(_connect_inventory)
 
 func _inventory_updated(inventory: Inventory):
 	if inventory.id == name and inventory.inventory_data.get_items().size() == 0:
-		Globals.close_inventories_with_id.rpc(inventory.id)
+		InventoryManager.close_inventories_with_id.rpc(inventory.id)
 		Deconstructor.deconstruct(name, get_parent().name)
 
 func _item_removed(inventory: Inventory):

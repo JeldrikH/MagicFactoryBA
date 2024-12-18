@@ -9,7 +9,7 @@ func fill_grid():
 		child.queue_free()
 	for i in inventory_data.slot_data_table.size():
 		var slot = slot_node.instantiate()
-		slot.slot_type = Globals.DragDropLocation.CONTAINER
+		slot.slot_type = InventoryManager.DragDropLocation.CONTAINER
 		slot.set_slot_data(inventory_data.slot_data_table[i])
 		item_grid.add_child(slot, true)
 		slot.index = i
@@ -31,7 +31,7 @@ func transfer_out(container_index: int):
 	player_inventory.inventory_data.add_item(slot.item, slot.quantity)
 	inventory_data.remove_amount(container_index, slot.quantity - remainder)
 	update_all_inventories()
-	Globals.item_removed.emit(self)
+	InventoryManager.item_removed.emit(self)
 
 #Transfers from inventory index to container slot index. swaps if the slot is occupied or stacks if possible
 @rpc("any_peer", "call_local", "reliable")
@@ -60,14 +60,19 @@ func transfer_out_index(inv_index: int, container_index: int):
 	else:
 		inventory_data.remove_amount(container_index, container_slot.quantity - remainder)
 	update_all_inventories()
-	Globals.item_removed.emit(self)
+	InventoryManager.item_removed.emit(self)
 	
 #Reconnects signals after updating the inventory
 func connect_signals():
 	super.connect_signals()
 	for child in player_inventory.item_grid.get_children():
-		if not child.is_connected("transfer", transfer_in):
+		if not child.is_connected("transfer", transfer_in.rpc):
 			child.transfer.connect(transfer_in.rpc)
 	for child in item_grid.get_children():
-		if not child.is_connected("transfer", transfer_out):
+		if not child.is_connected("transfer", transfer_out.rpc):
 			child.transfer.connect(transfer_out.rpc)
+
+func disconnect_signals():
+	for child in player_inventory.item_grid.get_children():
+		if child.is_connected("transfer", transfer_in.rpc):
+			child.transfer.disconnect(transfer_in.rpc)

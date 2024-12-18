@@ -14,9 +14,8 @@ func _fill_grid(inventory_size: Array[int]):
 		slot_data_table.append(SlotData.new())
 		
 ##Saves the current state of the inventory with the specified ID
-func save_inventory_data(inventory_id: String, save_folder_path: String = "res://Resources/Inventories/Containers"):
-	if inventory_id != "":
-		ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
+func save_inventory_data(inventory_id: String, save_folder_path: String = "res://Resources/Inventories/Containers/"):
+	ResourceSaver.save(self, save_folder_path + inventory_id + ".tres")
 	
 ##Adds the set amount of slots to the inventory
 func add_slots(amount: int):

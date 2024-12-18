@@ -4,3 +4,11 @@
 
 [node name="Outside" type="Node2D"]
 script = ExtResource("1_6sttu")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/player.tscn")
+spawn_path = NodePath("..")
+
+[node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/Buildings/cauldron.tscn", "res://Scenes/Main/Buildings/remainder_container.tscn")
+spawn_path = NodePath("..")

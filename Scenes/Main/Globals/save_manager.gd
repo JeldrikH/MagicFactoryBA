@@ -5,18 +5,17 @@ var save_folder = "user://savegame/"
 
 var players: Dictionary = {}
 
-func _ready()-> void:
-	if multiplayer.is_server():
-		timer = Timer.new()
-		add_child(timer)
-		timer.wait_time = save_interval
-		timer.connect("timeout", _autosave)
-		timer.start()
+func start_autosave():
+	timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = save_interval
+	timer.connect("timeout", _autosave)
+	timer.start()
 	
 ## Load scene from save by path
 func load_scene(scene_name: StringName):
 	scene_name = scene_name.to_snake_case()
-	if multiplayer.is_server():
+	if MultiplayerManager.is_host:
 		if not FileAccess.file_exists(save_folder + scene_name + ".save"):
 			return
 

@@ -14,11 +14,12 @@ class_name Slot
 var tooltip: RichTextLabel
 var tooltip_content: String
 
-var slot_type: Globals.DragDropLocation
+var slot_type: InventoryManager.DragDropLocation
 
-signal drag_drop_start(start: Globals.DragDropLocation, index: int)
-signal drag_drop_result(result: Globals.DragDropLocation, index: int)
+signal drag_drop_start(start: InventoryManager.DragDropLocation, index: int)
+signal drag_drop_result(result: InventoryManager.DragDropLocation, index: int)
 signal transfer(index: int)
+signal split_stack(index: int)
 
 #Sets the Background Color of the Item Slot
 func _ready() -> void:
@@ -67,13 +68,13 @@ func toggle_selected():
 func _on_mouse_entered() -> void:
 	self["theme_override_styles/panel"].bg_color = color_hovered
 	is_hovered = true
-	Globals.mouse_over_slot = true
+	InventoryManager.mouse_over_slot = true
 	activate_tooltip()
 	
 func _on_mouse_exited() -> void:
 	self["theme_override_styles/panel"].bg_color = color_default
 	is_hovered = false
-	Globals.mouse_over_slot = false
+	InventoryManager.mouse_over_slot = false
 	deactivate_tooltip()
 	
 func _on_delay_timeout() -> void:
@@ -100,7 +101,7 @@ func tooltip_follow_cursor():
 		tooltip.position = get_viewport().get_mouse_position() + Vector2(20,0)
 	
 func read_inputs():
-	if Input.is_action_just_pressed("TRANSFER_ITEM") and contains_item:
+	if Input.is_action_just_pressed("TRANSFER_ITEM") and contains_item and not is_hotbar_slot:
 		transfer.emit(index)
 		return
 		
@@ -110,18 +111,21 @@ func read_inputs():
 	
 	if Input.is_action_just_released("CLICK") and not is_hotbar_slot:
 		drag_drop_result.emit(slot_type, index)
+		
+	if Input.is_action_just_pressed("RIGHT_CLICK") and not is_hotbar_slot:
+		split_stack.emit(index)
 
 ## Is item dragged out of the inventory?
 func check_for_item_deleting():
-	if contains_item and is_selected and Input.is_action_just_released("CLICK") and not Globals.mouse_inside_inventory and not is_hotbar_slot:
-		drag_drop_result.emit(Globals.DragDropLocation.OUTSIDE, -1)
+	if contains_item and is_selected and Input.is_action_just_released("CLICK") and not InventoryManager.mouse_inside_inventory and not is_hotbar_slot:
+		drag_drop_result.emit(InventoryManager.DragDropLocation.OUTSIDE, -1)
 		#get_tree().call_group("delete_prompt", "open_prompt", get_parent(), index) # old keeping for backup debug
 
 func check_for_drag_drop_cancel():
 	if (contains_item 
 	and is_selected 
 	and Input.is_action_just_released("CLICK") 
-	and Globals.mouse_inside_inventory 
-	and not Globals.mouse_over_slot 
+	and InventoryManager.mouse_inside_inventory 
+	and not InventoryManager.mouse_over_slot 
 	and not is_hotbar_slot):
-		drag_drop_result.emit(Globals.DragDropLocation.CANCEL, -1)
+		drag_drop_result.emit(InventoryManager.DragDropLocation.CANCEL, -1)

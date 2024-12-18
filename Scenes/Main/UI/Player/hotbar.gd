@@ -75,8 +75,8 @@ func selection_left():
 
 
 func _on_mouse_entered() -> void:
-	Globals.mouse_inside_inventory = true
+	InventoryManager.mouse_inside_inventory = true
 
 func _on_mouse_exited() -> void:
 	if not Rect2(Vector2(), size).has_point(get_local_mouse_position()):
-		Globals.mouse_inside_inventory = false
+		InventoryManager.mouse_inside_inventory = false
