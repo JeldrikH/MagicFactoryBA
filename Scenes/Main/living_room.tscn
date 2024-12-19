@@ -36,6 +36,7 @@ radius = 170.35
 
 [node name="LivingRoom" type="Node2D"]
 script = ExtResource("1_mur7o")
+is_building_allowed = true
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/Buildings/cauldron.tscn", "res://Scenes/Main/Buildings/remainder_container.tscn")
@@ -80,7 +81,7 @@ scale = Vector2(0.846281, 0.933454)
 metadata/_edit_lock_ = true
 
 [node name="WallCollision" type="CollisionPolygon2D" parent="LivingRoom/Wall"]
-polygon = PackedVector2Array(1040, 405, 860, 429, 842, 416, 838, 377, 758, 377, 757, 389, 420, 392, 409, 377, 294, 376, 274, 387, 273, 416, 84, 548, 59, 546, 57, 565, 47.3654, 576.905, 50.872, 644.846, 1187, 644, 1186, 580, 1227, 701, 50, 730, -88, 730, -15, 0, 336, 0, 1146, 1, 1188, 0, 1188, 561, 1188, 581, 1158, 580, 1144, 569, 1148, 490, 1126, 477, 1125, 341, 1042, 336)
+polygon = PackedVector2Array(1040, 405, 860, 429, 842, 416, 838, 377, 758, 377, 757, 389, 420, 392, 409, 377, 294, 376, 274, 387, 273, 416, 84, 548, 59, 546, 57, 565, 47.3654, 576.905, 78.4864, 628.627, 1148, 646.16, 1157.65, 580.412, 1186.58, 581.727, 1190.96, 646.16, 48.2419, 647.475, 50.4335, 15.4097, 337.099, 12.3414, 1145.81, 11.4648, 1184.38, 8.39652, 1188, 561, 1188, 581, 1158, 580, 1144, 569, 1148, 490, 1126, 477, 1125, 341, 1042, 336)
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Area2D" parent="LivingRoom"]
@@ -111,8 +112,9 @@ script = ExtResource("9_t083u")
 metadata/_edit_lock_ = true
 
 [node name="InteractionShape" type="CollisionShape2D" parent="Cauldron/InteractionRange"]
-position = Vector2(-7.12719, 60.307)
+position = Vector2(24.1228, -47.6974)
 shape = SubResource("CircleShape2D_weoqq")
+metadata/_edit_lock_ = true
 
 [node name="BrewTimer" type="Timer" parent="Cauldron"]
 wait_time = 3.0
@@ -124,9 +126,9 @@ script = ExtResource("9_t083u")
 [node name="StorageInteractionShape" type="CollisionPolygon2D" parent="StorageInteraction"]
 position = Vector2(1213, 190)
 scale = Vector2(2.6958, 2.44405)
-polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342.464, -331.256, 373.969, -252.986, 341.646, -194.005, 263.497, -260.776, -30.6868)
+polygon = PackedVector2Array(-450.33, -68.7384, -453.669, 342.464, -380.963, 342.464, -297.129, 382.971, -222.197, 323.234, -206.618, 265.134, -260.776, -30.6868)
 
-[node name="EnterRoomPosition" type="Node2D" parent="."]
+[node name="LivingRoomFromOutside" type="Node2D" parent="."]
 position = Vector2(2178, 1057)
 
 [connection signal="body_entered" from="Table/InteractionRange" to="Table" method="_on_interaction_range_body_entered"]

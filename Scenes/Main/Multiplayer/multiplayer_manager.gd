@@ -9,14 +9,13 @@ var _players_spawn_node = "LivingRoom"
 var is_host = false
 var is_client = false
 
+
 func manage_multiplayer():
-	SceneManager.open_scene("LivingRoom")
 	if is_host:
 		host()
 	elif is_client:
 		join()
 	
-		
 func host():
 	SaveManager.start_autosave()
 	
@@ -37,25 +36,23 @@ func join():
 	
 	multiplayer.multiplayer_peer = client_peer
 	
-	
+		
 func _add_player_to_game(p_id: int):
 	print("Player %s joined the game!"% p_id)
 	var player: Player = SaveManager.players.get(str(p_id))
 	
 	if !player:
 		player = create_new_player(p_id, _players_spawn_node)
-		
-	SceneManager.open_scene.rpc_id(p_id, player.current_scene)
+	
+	SceneManager.open_scene(player.current_scene)
 	var parent: Node2D = get_node("/root/Main/%s" % player.current_scene)
 	player.is_online = true
 	parent.add_child(player, true)
-	SceneManager.show_player_scene.rpc_id(p_id)
 	
 # Only creates player instance, still needs to be added to scene tree
 func create_new_player(p_id: int, parent: StringName)-> Player:
 	var player = player_scene.instantiate()
-	SaveManager.players.get_or_add(str(p_id))
-	SaveManager.players[str(p_id)] = player
+	SaveManager.players.get_or_add(str(p_id), player)
 	player.player_id = p_id
 	player.name = str(p_id)
 	player.current_scene = parent

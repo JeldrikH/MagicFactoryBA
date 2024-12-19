@@ -6,6 +6,10 @@
 script = ExtResource("1_t1kvt")
 metadata/_edit_use_anchors_ = true
 
+[node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Main/living_room.tscn", "res://Scenes/Main/outside.tscn")
+spawn_path = NodePath("..")
+
 [node name="MainMenu" type="CanvasLayer" parent="."]
 
 [node name="MenuPanel" type="Panel" parent="MainMenu"]

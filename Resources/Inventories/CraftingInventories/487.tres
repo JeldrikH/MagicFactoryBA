@@ -1,0 +1,37 @@
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3]
+
+[ext_resource type="Resource" path="res://Resources/Recipes/suspicious_potion.tres" id="1_83kq0"]
+[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_jfcw0"]
+[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_02rxb"]
+[ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="3_ag6qx"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_5nct2"]
+[ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="4_f1ae3"]
+[ext_resource type="Resource" path="res://Resources/Items/automatic_brewing.tres" id="7_cbd2i"]
+
+[sub_resource type="Resource" id="Resource_7aiyw"]
+script = ExtResource("1_jfcw0")
+required_amount = 2
+item = ExtResource("3_ag6qx")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_hiqsw"]
+script = ExtResource("1_jfcw0")
+required_amount = 1
+item = ExtResource("4_f1ae3")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_svovl"]
+script = ExtResource("1_jfcw0")
+required_amount = 0
+item = ExtResource("7_cbd2i")
+quantity = 0
+
+[resource]
+script = ExtResource("3_02rxb")
+spell_input = SubResource("Resource_svovl")
+use_count = 0
+input = Array[ExtResource("1_jfcw0")]([SubResource("Resource_7aiyw")])
+output = Array[ExtResource("1_jfcw0")]([SubResource("Resource_hiqsw")])
+type = &"brewing"
+active_recipe = ExtResource("1_83kq0")
+slot_data_table = Array[ExtResource("4_5nct2")]([])

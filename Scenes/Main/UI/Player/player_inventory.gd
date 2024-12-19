@@ -16,6 +16,7 @@ var player_id: int:
 func _ready() -> void:
 	super._ready()
 	visible = false
+	player_inventory = self
 	connect_slot_signals(self)
 
 		

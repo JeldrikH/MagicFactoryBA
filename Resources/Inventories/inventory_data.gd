@@ -106,9 +106,13 @@ func split_stack_half(index: int):
 ##moves the item to the target index,[br]
 ##swaps the items if there is another one on the target index
 func move_item(start_index: int, target_index: int):
-	var target_stack = slot_data_table[target_index]
+	if start_index == target_index:
+		return
+		
 	if _stack(start_index, target_index):
 		return
+		
+	var target_stack = slot_data_table[target_index]
 	slot_data_table[target_index] = slot_data_table[start_index]
 	slot_data_table[start_index] = target_stack
 

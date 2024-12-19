@@ -52,12 +52,13 @@ func build(p_building: StringName, parent: String, build_position: Vector2, scen
 	building_instance.build()
 	var parent_node = get_tree().get_current_scene().get_node(parent)
 	parent_node.add_child(building_instance, true)
+	SaveManager.save_scene(parent)
 	
 	
 ##makes the building instance follow the cursor
 func visual_follow_cursor():
 	if building_visual and build_mode:
-		building_visual.position = get_viewport().get_mouse_position()
+		building_visual.position = get_global_mouse_position()
 	
 ##moves the builder to the highest rank to make it visible
 func builder_on_top():

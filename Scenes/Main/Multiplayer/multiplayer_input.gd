@@ -53,7 +53,7 @@ func builder_input():
 		Builder.deactivate_build_mode()
 		
 	if Input.is_action_just_pressed("CLICK") and Builder.build_mode and Builder.is_building_allowed:
-		Builder.build.rpc_id(1, Builder.building, $"..".current_scene, get_viewport().get_mouse_position())
+		Builder.build.rpc_id(1, Builder.building, $"..".current_scene, get_tree().current_scene.get_global_mouse_position())
 
 func deconstructor_input():
 	if (Input.is_action_just_pressed("CLOSE_UI")

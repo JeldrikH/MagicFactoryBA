@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_s5311"]
+[ext_resource type="Script" path="res://Resources/item.gd" id="2_igthi"]
+[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_i6uv0"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_hgxj0"]
+
+[sub_resource type="Resource" id="Resource_sshjp"]
+script = ExtResource("2_igthi")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_2c84w"]
+script = ExtResource("1_s5311")
+required_amount = 0
+item = SubResource("Resource_sshjp")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_2b82f"]
+script = ExtResource("2_igthi")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_s5otl"]
+script = ExtResource("1_s5311")
+required_amount = 0
+item = SubResource("Resource_2b82f")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_4kn0c"]
+script = ExtResource("2_igthi")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_pf15c"]
+script = ExtResource("1_s5311")
+required_amount = 0
+item = SubResource("Resource_4kn0c")
+quantity = 0
+
+[resource]
+script = ExtResource("3_i6uv0")
+spell_input = SubResource("Resource_pf15c")
+use_count = 0
+input = Array[ExtResource("1_s5311")]([SubResource("Resource_2c84w")])
+output = Array[ExtResource("1_s5311")]([SubResource("Resource_s5otl")])
+type = &"brewing"
+slot_data_table = Array[ExtResource("4_hgxj0")]([])

@@ -156,10 +156,10 @@ func _on_back_pressed() -> void:
 	recipe_panel.visible = false
 
 ##Returns the given item list to the players inventory
-@rpc("authority", "call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func return_items_to_player_inventory(player_id: int):
 	var item_list = inventory_data.get_items()
-	var p_items = SaveManager.players.get(str(player_id)).inventory.player_inventory
+	var p_items = SaveManager.players.get(str(player_id)).inventory
 	p_items.add_item_list(item_list)
 
 

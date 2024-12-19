@@ -1,8 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const SPEED = 400.0
 
 var is_sprinting: bool = false
 var is_online = false
@@ -23,13 +22,20 @@ var current_scene: String
 		
 		
 func _ready():
-	create_player_inventory(player_id)
+	inventory = get_node_or_null("/root/Main/PlayerInventories/%s" % name)
+	if not inventory:
+		create_player_inventory(player_id)
+	scene_entered()
+		
+func scene_entered():
 	interaction_stack = InteractionStack.new()
-	inventory.player_owner = self
 	current_scene = get_parent().name
-	if get_multiplayer_authority() == multiplayer.get_unique_id():
+	if player_id == multiplayer.get_unique_id():
 		Builder.is_building_allowed = get_parent().is_building_allowed
-	
+		$Camera2D.enabled = get_parent().is_camera_enabled
+	if multiplayer.is_server():
+		SceneManager.show_player_scene.rpc.call_deferred(SceneManager.scenes_in_tree.keys())
+		
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		apply_movement_from_input(delta)
@@ -63,6 +69,7 @@ func create_player_inventory(id: int):
 	get_node("/root/Main/PlayerInventories").add_child(inventory, true)
 	inventory.name = str(id)
 	inventory.player_id = id
+	inventory.player_owner = self
 	
 func save()-> Dictionary:
 	var save_dict = {
