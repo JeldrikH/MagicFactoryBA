@@ -1,7 +1,7 @@
 extends CraftingInventory
 class_name AutomaticCraftingInventory
 
-@export var spell_input: Control
+@export var spell_input: CraftingSlot
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +27,11 @@ func configure_spell_input():
 			var item = load("res://Resources/Items/automatic_brewing.tres")
 			inventory_data.spell_input.item  = item
 	
-
+func get_slots()-> Array:
+	var slots = super.get_slots()
+	slots.append(spell_input)
+	return slots
+	
 @rpc("any_peer", "call_local", "reliable")
 func transfer_in_spell_input(inv_index: int):
 	var slot = player_inventory.inventory_data.slot_data_table[inv_index]
@@ -67,3 +71,16 @@ func transfer_out_spell_input_to_index(inv_index: int):
 	
 func connect_spell_input():
 	spell_input.transfer.connect(transfer_out_spell_input)
+
+func delete_confirmed(index: int, slot_type: InventoryManager.DragDropLocation):
+	if slot_type == InventoryManager.DragDropLocation.SPELLSLOT:
+		delete_item_spell_input.rpc()
+		update()
+		return
+	super.delete_confirmed(index, slot_type)
+
+## Deletes the item at the index
+@rpc("any_peer", "call_local", "reliable")
+func delete_item_spell_input():
+	inventory_data.delete_item_spell_input()
+	update()

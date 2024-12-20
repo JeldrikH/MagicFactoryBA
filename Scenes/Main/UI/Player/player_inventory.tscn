@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxwt4kg2qa5ud"]
+[gd_scene load_steps=3 format=3 uid="uid://cxwt4kg2qa5ud"]
 
 [ext_resource type="Script" path="res://Scenes/Main/UI/Player/player_inventory.gd" id="1_ldld7"]
+[ext_resource type="PackedScene" uid="uid://ddw5b5cgcn5ul" path="res://Scenes/Main/UI/Inventory/delete_item.tscn" id="2_v28ix"]
 
 [node name="PlayerInventory" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories", "ui"]]
 clip_contents = true
@@ -14,19 +15,30 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_ldld7")
-item_grid = NodePath("InventoryContainer/PlayerItems")
+item_grid = NodePath("InventoryMargin/InventoryContainer/PlayerItems")
 metadata/_edit_use_anchors_ = true
 
 [node name="InventorySpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/UI/Inventory/brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/automatic_brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/container.tscn", "res://Scenes/Main/UI/Inventory/spell_crafting_inventory.tscn", "res://Scenes/Main/UI/Inventory/remainder_container.tscn")
-spawn_path = NodePath("../InventoryContainer")
+spawn_path = NodePath("../InventoryMargin/InventoryContainer")
 
-[node name="InventoryContainer" type="HBoxContainer" parent="."]
+[node name="InventoryMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="InventoryContainer" type="HBoxContainer" parent="InventoryMargin"]
 clip_contents = true
 layout_mode = 2
 
-[node name="PlayerItems" type="GridContainer" parent="InventoryContainer"]
+[node name="PlayerItems" type="GridContainer" parent="InventoryMargin/InventoryContainer"]
 layout_mode = 2
 columns = 12
 
-[connection signal="child_entered_tree" from="InventoryContainer" to="." method="_on_inventory_container_child_entered_tree"]
+[node name="DeleteItem" parent="." instance=ExtResource("2_v28ix")]
+layout_mode = 2
+
+[connection signal="child_entered_tree" from="InventoryMargin/InventoryContainer" to="." method="_on_inventory_container_child_entered_tree"]
+[connection signal="delete_confirmed" from="DeleteItem" to="." method="delete_confirmed"]

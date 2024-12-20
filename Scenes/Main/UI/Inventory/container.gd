@@ -62,6 +62,10 @@ func transfer_out_index(inv_index: int, container_index: int):
 	update_all_inventories()
 	InventoryManager.item_removed.emit(self)
 	
+
+func delete_confirmed(index: int, _slot_type: InventoryManager.DragDropLocation):
+	delete_item.rpc(index)
+			
 #Reconnects signals after updating the inventory
 func connect_signals():
 	super.connect_signals()

@@ -39,7 +39,7 @@ func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = []
 	if scene_args.size() > 0 and external_inventory.has_method("scene_parameters"):
 		external_inventory = external_inventory.scene_parameters(scene_args)
 	external_inventory.name = external_inventory.id
-	$InventoryContainer.add_child(external_inventory, true)
+	$InventoryMargin/InventoryContainer.add_child(external_inventory, true)
 	connect_slot_signals(external_inventory)
 	return external_inventory
 	
@@ -57,50 +57,60 @@ func connect_slot_signals(inventory: Inventory):
 			slot.drag_drop_start.connect(drag_drop)
 		if not slot.is_connected("drag_drop_result", drag_drop_result):
 			slot.drag_drop_result.connect(drag_drop_result)
-
+			
+func delete_confirmed(inventory: Inventory, index: int, slot_type: InventoryManager.DragDropLocation):
+	if inventory == self:
+		delete_item.rpc(index)
+	if inventory == external_inventory:
+		external_inventory.delete_confirmed(index, slot_type)
 	
 func drag_drop(start: InventoryManager.DragDropLocation, index: int):
 	var result = await drag_drop_result_signal
 	var target_index = result[1]
 	result = result[0]
-	
+	var location = InventoryManager.DragDropLocation
 	# Handle item deletion
-	if result == InventoryManager.DragDropLocation.OUTSIDE:
-		return
+	if result == location.OUTSIDE:
+		match start:
+			location.INTERNAL:
+				$DeleteItem.open_prompt(self, index, start)
+			_:
+				$DeleteItem.open_prompt(external_inventory, index, start)
+			
 	
 	# Check how Drag Drop was performed
 	match start:
-		InventoryManager.DragDropLocation.INTERNAL when result == InventoryManager.DragDropLocation.INTERNAL:
+		location.INTERNAL when result == location.INTERNAL:
 			move_item.rpc(index, target_index)
 			
-		InventoryManager.DragDropLocation.INTERNAL when result == InventoryManager.DragDropLocation.CONTAINER:
+		location.INTERNAL when result == location.CONTAINER:
 			external_inventory.transfer_in_index.rpc(index, target_index)
 			
-		InventoryManager.DragDropLocation.INTERNAL when result == InventoryManager.DragDropLocation.INPUT:
+		location.INTERNAL when result == location.INPUT:
 			external_inventory.transfer_in_input.rpc(index)
 			
-		InventoryManager.DragDropLocation.INTERNAL when result == InventoryManager.DragDropLocation.OUTPUT:
+		location.INTERNAL when result == location.OUTPUT:
 			pass # no insertion to output slot
 			
-		InventoryManager.DragDropLocation.INTERNAL when result == InventoryManager.DragDropLocation.SPELLSLOT:
+		location.INTERNAL when result == location.SPELLSLOT:
 			external_inventory.transfer_in_spell_input.rpc(index)
 			
 		
-		InventoryManager.DragDropLocation.CONTAINER when result == InventoryManager.DragDropLocation.INTERNAL:
+		location.CONTAINER when result == location.INTERNAL:
 			external_inventory.transfer_out_index.rpc(target_index, index)
 			
-		InventoryManager.DragDropLocation.CONTAINER when result == InventoryManager.DragDropLocation.CONTAINER:
+		location.CONTAINER when result == location.CONTAINER:
 			external_inventory.move_item.rpc(index, target_index)
 			
 			
-		InventoryManager.DragDropLocation.INPUT when result == InventoryManager.DragDropLocation.INTERNAL:
+		location.INPUT when result == location.INTERNAL:
 			external_inventory.transfer_out_input_to_index.rpc(target_index, index)
 			
-		InventoryManager.DragDropLocation.OUTPUT when result == InventoryManager.DragDropLocation.INTERNAL:
+		location.OUTPUT when result == location.INTERNAL:
 			external_inventory.transfer_out_output_to_index.rpc(target_index, index)
 			
-		InventoryManager.DragDropLocation.SPELLSLOT when result == InventoryManager.DragDropLocation.INTERNAL:
-			external_inventory.transfer_out_spell_input_to_index.rpc(target_index, index)
+		location.SPELLSLOT when result == location.INTERNAL:
+			external_inventory.transfer_out_spell_input_to_index.rpc(target_index)
 		_:
 			update_all_inventories()
 
@@ -118,4 +128,4 @@ func link_item_to_hotbar(item: Item, hotbar_index: int):
 func _on_inventory_container_child_entered_tree(node: Node) -> void:
 	if node is Inventory:
 		node.player_inventory = self
-		$InventoryContainer.move_child(node,0)
+		$InventoryMargin/InventoryContainer.move_child(node,0)

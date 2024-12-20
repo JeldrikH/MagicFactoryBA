@@ -54,3 +54,6 @@ func craft():
 		spell_input.quantity -= 1
 		use_count = spell_input.item.use_count
 	use_count -= 1
+
+func delete_item_spell_input():
+	spell_input.quantity = 0

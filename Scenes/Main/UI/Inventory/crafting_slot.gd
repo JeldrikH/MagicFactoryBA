@@ -1,4 +1,5 @@
 extends Slot
+class_name CraftingSlot
 
 #Sets the Background Color of the Item Slot
 func _ready() -> void:

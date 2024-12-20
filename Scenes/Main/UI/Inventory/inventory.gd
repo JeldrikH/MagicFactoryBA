@@ -189,10 +189,6 @@ func connect_signals():
 func connect_slot(slot: Slot):
 	slot.split_stack.connect(split_stack_half)
 		
-func delete_confirmed(inventory: Inventory, index: int):
-	if inventory == self:
-		delete_item.rpc(index)
-		update()
 
 func _on_mouse_entered() -> void:
 	InventoryManager.mouse_inside_inventory = true

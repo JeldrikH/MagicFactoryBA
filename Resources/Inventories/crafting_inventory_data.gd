@@ -124,6 +124,14 @@ func clear_output()-> Array[SlotData]:
 		output[i] = CraftingSlotData.new()
 	return cleared_output
 
+##deletes item at given index
+func delete_item_input(index: int):
+	input[index].quantity = 0
+	
+##deletes item at given index
+func delete_item_output(index: int):
+	output[index].quantity = 0
+	
 func _load_recipes():
 	recipe_list = []
 	var recipe: Recipe

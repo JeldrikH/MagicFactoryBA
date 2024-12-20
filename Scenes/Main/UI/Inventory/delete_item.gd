@@ -1,15 +1,25 @@
 extends PanelContainer
 var deletion_index: int
 var inventory: Inventory
+var slot_type: InventoryManager.DragDropLocation
+
+signal delete_confirmed(inventory: Inventory, index: int, slot_type: InventoryManager.DragDropLocation)
 
 func _on_confirm_pressed() -> void:
-	get_tree().call_group("inventories", "delete_confirmed", inventory, deletion_index)
-	visible = false
+	delete_confirmed.emit(inventory, deletion_index, slot_type)
+	void_data()
+	hide()
 
 func _on_cancel_pressed() -> void:
-	visible = false
+	void_data()
+	hide()
 
-func open_prompt(p_inventory: Inventory, p_deletion_index: int):
+func open_prompt(p_inventory: Inventory, p_deletion_index: int, p_slot_type: InventoryManager.DragDropLocation):
 	deletion_index = p_deletion_index
 	inventory = p_inventory
-	visible = true
+	slot_type = p_slot_type
+	show()
+
+func void_data():
+	deletion_index = -1
+	inventory = null

@@ -187,6 +187,32 @@ func remove_stack(index: int):
 	inventory_data.remove_stack(index)
 	update_all_inventories()
 
+## Deletes the item at the index
+@rpc("any_peer", "call_local", "reliable")
+func delete_item_input(index: int):
+	if index >= inventory_data.input.size() or index < 0:
+		print("invalid index on deleting")
+		return
+	inventory_data.delete_item_input(index)
+	update()
+	
+## Deletes the item at the index
+@rpc("any_peer", "call_local", "reliable")
+func delete_item_output(index: int):
+	if index >= inventory_data.output.size() or index < 0:
+		print("invalid index on deleting")
+		return
+	inventory_data.delete_item_output(index)
+	update()
+	
+	
+func delete_confirmed(index: int, slot_type: InventoryManager.DragDropLocation):
+	if slot_type == InventoryManager.DragDropLocation.INPUT:
+		delete_item_input.rpc(index)
+	elif slot_type == InventoryManager.DragDropLocation.OUTPUT:
+		delete_item_output.rpc(index)
+	update()
+			
 func connect_signals():
 	for child in player_inventory.item_grid.get_children():
 		if not child.is_connected("transfer", transfer_in_input.rpc):
@@ -198,13 +224,15 @@ func connect_signals():
 	if not is_connected("mouse_exited", _on_mouse_exited):
 		mouse_exited.connect(_on_mouse_exited)
 
+
 func connect_input_slot(slot: Slot):
 	slot.transfer.connect(transfer_out_input.rpc)
+	super.connect_slot(slot)
 	
 func connect_output_slot(slot: Slot):
-	slot.transfer.connect(transfer_out_output.rpc)
-	
+	slot.transfer.connect(transfer_out_output.rpc)	
 	super.connect_slot(slot)
+	
 func disconnect_signals():
 	for child in player_inventory.item_grid.get_children():
 		if child.is_connected("transfer", transfer_in_input.rpc):
