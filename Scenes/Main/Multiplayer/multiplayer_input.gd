@@ -48,7 +48,10 @@ func _input(_event):
 func builder_input():
 	if Input.is_action_just_pressed("OPEN_BUILDER") and Builder.is_building_allowed:
 		$"../PlayerUI/BuildingUI".open()
-	
+	if Input.is_action_pressed("BUILDER_DEACTIVATE_GRID_SNAP") and Builder.build_mode:
+		BuildingGrid.deactivate_grid()
+	if Input.is_action_just_released("BUILDER_DEACTIVATE_GRID_SNAP") and Builder.build_mode and not BuildingGrid.grid_activated:
+		BuildingGrid.instantiate_grid()
 	if Input.is_action_just_pressed("CLOSE_UI") and Builder.build_mode:
 		Builder.deactivate_build_mode()
 		

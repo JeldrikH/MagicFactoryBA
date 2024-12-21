@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_jbbai"]
+[ext_resource type="Script" path="res://Resources/item.gd" id="2_6x10a"]
+[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_qa13w"]
+[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_odacr"]
+
+[sub_resource type="Resource" id="Resource_sqpuv"]
+script = ExtResource("2_6x10a")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_lmfey"]
+script = ExtResource("1_jbbai")
+required_amount = 0
+item = SubResource("Resource_sqpuv")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_7si8m"]
+script = ExtResource("2_6x10a")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_n1n2s"]
+script = ExtResource("1_jbbai")
+required_amount = 0
+item = SubResource("Resource_7si8m")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_e3dn4"]
+script = ExtResource("2_6x10a")
+id = &""
+name = ""
+description = ""
+stackable = true
+
+[sub_resource type="Resource" id="Resource_5s3wi"]
+script = ExtResource("1_jbbai")
+required_amount = 0
+item = SubResource("Resource_e3dn4")
+quantity = 0
+
+[resource]
+script = ExtResource("3_qa13w")
+spell_input = SubResource("Resource_5s3wi")
+use_count = 0
+input = Array[ExtResource("1_jbbai")]([SubResource("Resource_lmfey")])
+output = Array[ExtResource("1_jbbai")]([SubResource("Resource_n1n2s")])
+type = &"brewing"
+slot_data_table = Array[ExtResource("4_odacr")]([])

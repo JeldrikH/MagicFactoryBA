@@ -4,6 +4,8 @@ class_name AreaScene
 @export var is_building_allowed = false
 @export var is_camera_enabled = false
 
+@export var building_grid: Node2D
+
 func _ready() -> void:
 	hide()
 	SaveManager.load_scene(name)
@@ -19,7 +21,7 @@ func sort_children_by_y_pos():
 	var sorted_children = get_children()
 	var children_to_exclude = []
 	for child in sorted_children:
-		if not "position" in child or child is TileMapLayer:
+		if not "position" in child or child is TileMapLayer or child == building_grid:
 			children_to_exclude.append(child)
 			
 	for child in children_to_exclude:
@@ -48,7 +50,10 @@ func _player_occlusion():
 			continue
 			
 		for child in get_children():
-			if "position" in child and is_instance_valid(player) and not child is TileMapLayer:
+			if ("position" in child 
+			and is_instance_valid(player) 
+			and not child is TileMapLayer 
+			and child != building_grid):
 				move_player.rpc(player.name, child.name)
 
 @rpc("any_peer", "call_local", "unreliable")

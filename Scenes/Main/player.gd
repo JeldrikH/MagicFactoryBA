@@ -32,6 +32,7 @@ func scene_entered():
 	current_scene = get_parent().name
 	if player_id == multiplayer.get_unique_id():
 		Builder.is_building_allowed = get_parent().is_building_allowed
+		BuildingGrid.current_scene = get_parent()
 		$Camera2D.enabled = get_parent().is_camera_enabled
 	if multiplayer.is_server():
 		SceneManager.show_player_scene.rpc.call_deferred(SceneManager.scenes_in_tree.keys())

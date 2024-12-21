@@ -36,7 +36,6 @@ radius = 170.35
 
 [node name="LivingRoom" type="Node2D"]
 script = ExtResource("1_mur7o")
-is_building_allowed = true
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Scenes/Main/Buildings/cauldron.tscn", "res://Scenes/Main/Buildings/remainder_container.tscn")

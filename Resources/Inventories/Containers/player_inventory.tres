@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=109 format=3]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=115 format=3]
 
 [ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_qubm3"]
 [ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_pvot6"]
@@ -11,27 +11,41 @@
 [sub_resource type="Resource" id="Resource_54b8c"]
 script = ExtResource("2_pvot6")
 item = ExtResource("4_m4iy6")
-quantity = 500
+quantity = 444
 
 [sub_resource type="Resource" id="Resource_ia7uw"]
 script = ExtResource("2_pvot6")
 item = ExtResource("5_da50y")
-quantity = 266
+quantity = 354
+
+[sub_resource type="Resource" id="Resource_1tefy"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
 
 [sub_resource type="Resource" id="Resource_lx4j8"]
 script = ExtResource("2_pvot6")
-item = ExtResource("4_m4iy6")
-quantity = 250
+item = SubResource("Resource_1tefy")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_qpyie"]
 script = ExtResource("2_pvot6")
 item = ExtResource("5_da50y")
 quantity = 500
 
+[sub_resource type="Resource" id="Resource_adgb6"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
+
 [sub_resource type="Resource" id="Resource_rfb4o"]
 script = ExtResource("2_pvot6")
-item = ExtResource("5_da50y")
-quantity = 31
+item = SubResource("Resource_adgb6")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_nkeq0"]
 script = ExtResource("2_pvot6")
@@ -85,7 +99,7 @@ script = ExtResource("2_pvot6")
 item = SubResource("Resource_s61xq")
 quantity = 0
 
-[sub_resource type="Resource" id="Resource_8q81c"]
+[sub_resource type="Resource" id="Resource_c3ke4"]
 script = ExtResource("4_8sfr4")
 id = &""
 name = ""
@@ -94,7 +108,7 @@ stackable = true
 
 [sub_resource type="Resource" id="Resource_teih4"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_8q81c")
+item = SubResource("Resource_c3ke4")
 quantity = 0
 
 [sub_resource type="Resource" id="Resource_rn3ju"]
@@ -184,19 +198,12 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_a4m83")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_d5sot"]
-script = ExtResource("4_8sfr4")
-id = &""
-name = ""
-description = ""
-stackable = true
-
 [sub_resource type="Resource" id="Resource_6e021"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_d5sot")
-quantity = 0
+item = ExtResource("5_da50y")
+quantity = 1
 
-[sub_resource type="Resource" id="Resource_lvjv7"]
+[sub_resource type="Resource" id="Resource_latpm"]
 script = ExtResource("4_8sfr4")
 id = &""
 name = ""
@@ -205,22 +212,15 @@ stackable = true
 
 [sub_resource type="Resource" id="Resource_xl8v2"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_lvjv7")
+item = SubResource("Resource_latpm")
 quantity = 0
-
-[sub_resource type="Resource" id="Resource_p4xnj"]
-script = ExtResource("4_8sfr4")
-id = &""
-name = ""
-description = ""
-stackable = true
 
 [sub_resource type="Resource" id="Resource_mufna"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_p4xnj")
-quantity = 0
+item = ExtResource("3_a4m83")
+quantity = 28
 
-[sub_resource type="Resource" id="Resource_tks3q"]
+[sub_resource type="Resource" id="Resource_w761h"]
 script = ExtResource("4_8sfr4")
 id = &""
 name = ""
@@ -229,7 +229,7 @@ stackable = true
 
 [sub_resource type="Resource" id="Resource_31frr"]
 script = ExtResource("2_pvot6")
-item = SubResource("Resource_tks3q")
+item = SubResource("Resource_w761h")
 quantity = 0
 
 [sub_resource type="Resource" id="Resource_5ks5q"]
@@ -307,20 +307,41 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_a4m83")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_j0ejj"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
+
 [sub_resource type="Resource" id="Resource_04deq"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 3
+item = SubResource("Resource_j0ejj")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_wwnqh"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
 
 [sub_resource type="Resource" id="Resource_xiyiq"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 1
+item = SubResource("Resource_wwnqh")
+quantity = 0
+
+[sub_resource type="Resource" id="Resource_yfxmv"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
 
 [sub_resource type="Resource" id="Resource_eirp7"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 1
+item = SubResource("Resource_yfxmv")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_4tbpr"]
 script = ExtResource("2_pvot6")
@@ -367,10 +388,17 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_a4m83")
 quantity = 2
 
+[sub_resource type="Resource" id="Resource_e6nol"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
+
 [sub_resource type="Resource" id="Resource_kqv3w"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 1
+item = SubResource("Resource_e6nol")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_5wv87"]
 script = ExtResource("2_pvot6")
@@ -427,10 +455,17 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_a4m83")
 quantity = 1
 
+[sub_resource type="Resource" id="Resource_358ed"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
+
 [sub_resource type="Resource" id="Resource_8bghv"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 1
+item = SubResource("Resource_358ed")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_bo0pr"]
 script = ExtResource("2_pvot6")
@@ -487,10 +522,17 @@ script = ExtResource("2_pvot6")
 item = ExtResource("3_a4m83")
 quantity = 2
 
+[sub_resource type="Resource" id="Resource_uc2h8"]
+script = ExtResource("4_8sfr4")
+id = &""
+name = ""
+description = ""
+stackable = true
+
 [sub_resource type="Resource" id="Resource_lkrpn"]
 script = ExtResource("2_pvot6")
-item = ExtResource("3_a4m83")
-quantity = 1
+item = SubResource("Resource_uc2h8")
+quantity = 0
 
 [sub_resource type="Resource" id="Resource_aovlh"]
 script = ExtResource("2_pvot6")

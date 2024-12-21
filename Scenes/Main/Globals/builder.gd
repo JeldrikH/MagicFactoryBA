@@ -22,6 +22,7 @@ func activate_build_mode(p_building: StringName):
 	builder_on_top()
 	show_visual(p_building)
 	building = p_building
+	BuildingGrid.instantiate_grid()
 	
 	build_mode = true
 	if Deconstructor.deconstruct_mode:
@@ -32,6 +33,7 @@ func deactivate_build_mode():
 	if build_mode:
 		build_mode = false
 		building_visual.queue_free()
+		BuildingGrid.deactivate_grid()
 
 func show_visual(p_building: StringName):
 	var temp_building = load("res://Scenes/Main/Buildings/%s.tscn" % p_building).instantiate()
@@ -48,6 +50,8 @@ func build(p_building: StringName, parent: String, build_position: Vector2, scen
 	#apply parameters if required
 	if scene_args.size() > 0 and building_instance.has_method("scene_parameters"):
 		building_instance = building_instance.scene_parameters(scene_args)
+	if BuildingGrid.grid_activated:
+		build_position = BuildingGrid.get_closest_point(build_position)
 	building_instance.position = build_position
 	building_instance.build()
 	var parent_node = get_tree().get_current_scene().get_node(parent)
@@ -58,7 +62,10 @@ func build(p_building: StringName, parent: String, build_position: Vector2, scen
 ##makes the building instance follow the cursor
 func visual_follow_cursor():
 	if building_visual and build_mode:
-		building_visual.position = get_global_mouse_position()
+		var pos = get_global_mouse_position()
+		if BuildingGrid.grid_activated:
+			pos = BuildingGrid.get_closest_point(pos)
+		building_visual.position = pos
 	
 ##moves the builder to the highest rank to make it visible
 func builder_on_top():
