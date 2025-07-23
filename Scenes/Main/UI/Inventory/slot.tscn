@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dir5gb0jhc5o8"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/slot.gd" id="1_1fh77"]
+[ext_resource type="Script" uid="uid://bi7jlj62cbw3v" path="res://Scenes/Main/UI/Inventory/slot.gd" id="1_1fh77"]
 [ext_resource type="Texture2D" uid="uid://c68slhs4d8fd3" path="res://Sprites/UI/Inventory/Inventory_select.png" id="2_45b4d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tat67"]

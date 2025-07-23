@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://do8a3tc4idngh"]
 
-[ext_resource type="Script" path="res://Resources/item.gd" id="1_8u7ft"]
+[ext_resource type="Script" uid="uid://da5y0iphmkoim" path="res://Resources/item.gd" id="1_8u7ft"]
 [ext_resource type="Texture2D" uid="uid://vy2yce3qdl88" path="res://Sprites/Items/suspicious_potion.png" id="1_nhmjb"]
 
 [resource]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b7msecpuh6qds"]
 
 [ext_resource type="Texture2D" uid="uid://cwo0c1thjwxep" path="res://Sprites/Items/frog_leg.png" id="1_2hgsc"]
-[ext_resource type="Script" path="res://Resources/item.gd" id="2_vbnkg"]
+[ext_resource type="Script" uid="uid://da5y0iphmkoim" path="res://Resources/item.gd" id="2_vbnkg"]
 
 [resource]
 script = ExtResource("2_vbnkg")

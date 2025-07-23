@@ -11,7 +11,7 @@ class_name Building
 @export_enum("Containers", "CraftingInventories") var inventory_resource_folder: String
 
 var id: int
-
+var current_scene_instance: Node2D
 var inventory_scene: PackedScene
 var is_hovered = false
 
@@ -20,6 +20,8 @@ func _ready() -> void:
 	input_pickable = true
 	setup_building_synchronization()
 	connect_signals()
+	current_scene_instance = _find_current_scene_instance()
+	_add_to_occlusion_node()
 
 func _process(_delta: float) -> void:
 	input_handler()
@@ -86,3 +88,15 @@ func save()-> Dictionary:
 		"name" : name
 	}
 	return save_dict
+	
+func _find_current_scene_instance() -> Node2D:
+	var node = self.get_parent()
+	while node:
+		if node.is_in_group("scenes"):
+			return node
+		node = node.get_parent()
+	return null
+	
+func _add_to_occlusion_node():
+	if current_scene_instance.has_node("OcclusionObjects"):
+		self.reparent.call_deferred(current_scene_instance.find_child("OcclusionObjects"))

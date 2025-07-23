@@ -9,73 +9,20 @@ class_name AreaScene
 func _ready() -> void:
 	hide()
 	SaveManager.load_scene(name)
-	sort_children_by_y_pos()
 	child_entered_tree.connect(_on_child_entered_tree)
+	add_to_group("scenes")
 
 
-func _process(_delta: float) -> void:
-	_player_occlusion()
-
-#bubblesort to sort node children by Y position
-func sort_children_by_y_pos():
-	var sorted_children = get_children()
-	var children_to_exclude = []
-	for child in sorted_children:
-		if not "position" in child or child is TileMapLayer or child == building_grid:
-			children_to_exclude.append(child)
-			
-	for child in children_to_exclude:
-		sorted_children.erase(child)
-	
-	var i = sorted_children.size() - 1
-	while i >= 1:
-		var j = 0
-		while j < i:
-			if sorted_children[j].position[1] > sorted_children[j+1].position[1]:
-				move_child(sorted_children[j], sorted_children[j+1].get_index())
-				var temp = sorted_children[j+1]
-				sorted_children[j+1] = sorted_children[j]
-				sorted_children[j] = temp
-			j += 1
-		i -= 1
-		
-## objects need to be sorted by Y position for this to work.
-func _player_occlusion():
-	## Skip if player is not in scene
-	if !multiplayer.is_server():
-		return
-	for player in SaveManager.players.values():
-		
-		if not player.current_scene == name or not player.is_online:
-			continue
-			
-		for child in get_children():
-			if ("position" in child 
-			and is_instance_valid(player) 
-			and not child is TileMapLayer 
-			and child != building_grid):
-				move_player.rpc(player.name, child.name)
-
-@rpc("any_peer", "call_local", "unreliable")
-func move_player(player_name: String, node_name: String):
-	var player = get_node(player_name)
-	var node = get_node(node_name)
-	if player and node:
-		if player.position[1] > node.position[1] and player.get_index() < node.get_index():
-			move_child(player, node.get_index())
-		elif player.position[1] < node.position[1] and player.get_index() > node.get_index():
-			move_child(player, node.get_index()) 
-		
 @rpc("any_peer", "call_local", "reliable")
-func player_changes_scene(player_id: int, previous_area: StringName, next_area: StringName):
+func player_changes_scene(player_id: int, next_area: PackedScene):
 	var player = SaveManager.players.get(str(player_id))
-	SceneManager.open_scene(next_area)
-	var parent = get_node("/root/Main/%s" % next_area)
+	SceneManager.open_packed_scene(next_area)
+	var next_area_name = SceneManager.get_scene_name(next_area).to_pascal_case()
+	var parent = get_node("/root/Main/%s" % next_area_name)
 	player.reparent.call_deferred(parent)
 	player.scene_entered.call_deferred()
 	player.ready.emit.call_deferred()
-	tp_player_to_area_entrance(player_id, "%sFrom%s" % [next_area, previous_area])
-	SceneManager.show_player_scene.rpc(SceneManager.scenes_in_tree.keys())
+	tp_player_to_area_entrance(player_id, "%sFrom%s" % [next_area, self.name])
 	
 func tp_player_to_area_entrance(player_id: int, entrance_name: StringName):
 	var player: Player = SaveManager.players.get(str(player_id))
@@ -86,7 +33,5 @@ func tp_player_to_area_entrance(player_id: int, entrance_name: StringName):
 			player.position = get_node("/root/Main/Outside/%s" % entrance_name).get_global_position()
 			
 func _on_child_entered_tree(node: Node):
-	sort_children_by_y_pos.call_deferred()
-	
 	if node is Building:
 		Builder.building_created.emit(node)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddw5b5cgcn5ul"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/delete_item.gd" id="1_60jym"]
+[ext_resource type="Script" uid="uid://cliv7202wvo7k" path="res://Scenes/Main/UI/Inventory/delete_item.gd" id="1_60jym"]
 
 [node name="DeleteItem" type="PanelContainer" groups=["delete_prompt", "ui"]]
 auto_translate_mode = 1

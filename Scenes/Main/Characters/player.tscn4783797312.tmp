@@ -1,0 +1,168 @@
+[gd_scene load_steps=23 format=3 uid="uid://bu2h6lb40hrmf"]
+
+[ext_resource type="Script" uid="uid://cnnecim0tex54" path="res://Scenes/Main/Characters/player.gd" id="1_4onid"]
+[ext_resource type="Script" uid="uid://cr38uf5jg0i4l" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
+[ext_resource type="Texture2D" uid="uid://brst4arfsxkdh" path="res://Sprites/UI/destructor_overlay.png" id="5_6amfr"]
+[ext_resource type="PackedScene" uid="uid://bcy7uicsxnrad" path="res://Scenes/Main/UI/building_ui.tscn" id="5_e3nkf"]
+[ext_resource type="Script" uid="uid://b0avhe73bu30n" path="res://Scenes/Main/UI/Player/deconstructor_overlay.gd" id="6_256iv"]
+[ext_resource type="Texture2D" uid="uid://debqhjhtd5yje" path="res://Sprites/Objects/Character/idle.png" id="6_m2qcm"]
+[ext_resource type="Texture2D" uid="uid://biffvk3n0f4gp" path="res://Sprites/Objects/Character/walking_0.png" id="7_uaxcs"]
+[ext_resource type="Texture2D" uid="uid://c08b8sv8ek364" path="res://Sprites/Objects/Character/walking_1.png" id="8_ae81u"]
+[ext_resource type="Texture2D" uid="uid://c7edoaijmg5q" path="res://Sprites/Objects/Character/walking_2.png" id="9_vsq0i"]
+[ext_resource type="Texture2D" uid="uid://cotsvffbk3h4m" path="res://Sprites/Objects/Character/walking_3.png" id="10_ec3wd"]
+[ext_resource type="Texture2D" uid="uid://yq5n78w6n54l" path="res://Sprites/Objects/Character/walking_4.png" id="11_6w3iv"]
+[ext_resource type="Texture2D" uid="uid://re5xptgias8v" path="res://Sprites/Objects/Character/walking_5.png" id="12_mfgkh"]
+[ext_resource type="Texture2D" uid="uid://ce4qccul8usmm" path="res://Sprites/Objects/Character/walking_6.png" id="13_nbq27"]
+[ext_resource type="Texture2D" uid="uid://wlc36bkl61m6" path="res://Sprites/Objects/Character/walking_7.png" id="14_e0b8o"]
+[ext_resource type="Texture2D" uid="uid://c8uh8f08lpsrv" path="res://Sprites/Objects/Character/walking_8.png" id="15_lvxmn"]
+[ext_resource type="Texture2D" uid="uid://bp8erbqrvsdtr" path="res://Sprites/Objects/Character/walking_9.png" id="16_fqbih"]
+[ext_resource type="Script" uid="uid://chmd1a3kv6awr" path="res://Scenes/Main/Characters/char_animation.gd" id="17_uaxcs"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_stasp"]
+properties/0/path = NodePath(".:player_id")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:xAxis")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:yAxis")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vdvek"]
+properties/0/path = NodePath("InputSynchronizer:xAxis")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("InputSynchronizer:yAxis")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("InputSynchronizer:is_sprinting")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wwn50"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_m2qcm")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_uaxcs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ae81u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vsq0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ec3wd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6w3iv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mfgkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_nbq27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_e0b8o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_lvxmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_fqbih")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_trfj7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_voga3"]
+_data = {
+&"RESET": SubResource("Animation_trfj7")
+}
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+script = ExtResource("1_4onid")
+metadata/_edit_lock_ = true
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_stasp")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vdvek")
+script = ExtResource("2_4g8rx")
+
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+
+[node name="BuildingUI" parent="PlayerUI" instance=ExtResource("5_e3nkf")]
+visible = false
+
+[node name="DeconstructorOverlay" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 3
+anchor_right = 1.00312
+anchor_bottom = 0.997222
+mouse_filter = 2
+script = ExtResource("6_256iv")
+metadata/_edit_use_anchors_ = true
+
+[node name="DeconstructorOverlay" type="Sprite2D" parent="PlayerUI/DeconstructorOverlay"]
+position = Vector2(1280, 720)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("5_6amfr")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -738)
+sprite_frames = SubResource("SpriteFrames_wwn50")
+animation = &"Idle"
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_voga3")
+}
+script = ExtResource("17_uaxcs")
+
+[node name="PlayerFootCollision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, -3.5, 50, -3.5, 62, 1.5, 62, 10.5, 17, 10.5, -15, 13.5, -53, 13.5, -64, 6.5, -63, 0.5)
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+position = Vector2(1, -581.75)
+
+[node name="HitboxPolygon" type="CollisionPolygon2D" parent="PlayerHitbox"]
+position = Vector2(0, -156.25)
+polygon = PackedVector2Array(62.9, -768, -33.1, -768, -47.3, -766, -48.4, -766, -81.6, -750.9, -82, -754.3, -82, -763.7, -85.3, -768, -89.8, -768, -107.5, -746.4, -117.8, -749, -121.2, -749, -123.2, -745, -128.8, -745, -134, -739.8, -134, -735.1, -127.5, -729.5, -140.7, -718, -142.4, -718, -143.4, -715.4, -134.2, -707.3, -139.2, -697, -140.5, -697, -147.5, -670, -149.2, -670, -147, -640.9, -147, -639.6, -141.5, -626.4, -142, -624.2, -142, -622.5, -129, -597.5, -129, -595.3, -102, -558.4, -102, -556.2, -73, -525.2, -73, -522.4, -82, -480.2, -82, -479.2, -117.6, -456, -119.8, -456, -150.8, -425, -152.3, -425, -166.2, -395, -167.6, -395, -177.7, -349, -178.9, -349, -186, -256.1, -186, -251, -177, -244.1, -177, -242.4, -165.2, -240, -163.4, -240, -162.5, -237.3, -163.5, -233, -164.9, -233, -166, -211, -166, -193.4, -169.6, -177, -171, -177, -171, -152, -174, -141.3, -174, -139.8, -156.7, -29, -155.8, -29, -150.8, 19, -150, 19, -150, 26.5, -156.4, 43, -157.7, 43, -162.7, 72, -164.1, 72, -163, 101.1, -163, 105, -164.5, 111, -166, 111, -166, 132.4, -158, 151.3, -158, 153.9, -138.8, 171, -133.3, 182, -133, 286.5, -136.4, 296, -138.4, 296, -137, 303.4, -137, 312.7, -156.5, 376, -157.6, 376, -170.7, 436, -171.8, 436, -180, 520.9, -180, 541.7, -182.4, 549, -183.8, 549, -191, 631.9, -191, 641.7, -196.5, 659, -197.8, 659, -205, 715.9, -205, 717.7, -195, 730.6, -195, 732, -172, 747.9, -172, 749.4, -122.8, 768, -25.8, 768, -14.5, 762, -12.1, 762, -7.10001, 756, -5, 756, -5, 725.3, 66, 734.7, 66, 736.4, 82, 733.7, 87, 734.6, 87, 736, 141.4, 736, 148, 733.4, 148, 732.8, 175.1, 731, 176.4, 731, 195.3, 723, 201.6, 723, 217.6, 713, 220.2, 713, 224.1, 706, 226.7, 706, 221, 687.7, 221, 685.2, 211, 674.2, 211, 672.9, 199, 665.8, 199, 664.5, 169.3, 656, 166.5, 656, 116.6, 626, 114, 626, 99, 605.3, 99, 603, 87.7, 594, 81.8, 550.4, 84, 545.4, 84, 543.4, 80.1, 537, 80, 523, 79, 523, 82, 397, 82, 370.4, 84.7, 357, 86.4, 357, 84, 343.6, 84, 342.2, 88, 300.1, 88, 298.9, 75.8, 170, 74.9, 170, 72.7, 132.8, 78, 138.7, 78, 140.3, 93, 147.2, 93, 149.8, 98.3, 148, 101.3, 148, 110, 155.8, 110, 158, 120.7, 158, 133, 149, 139.2, 148, 141.9, 148, 150.9, 137, 152.2, 137, 161.2, 119, 162.6, 119, 166.6, 102, 168, 102, 168, 82.8, 164, 67, 164, 60.5, 157, 46.5, 157, 43.5, 147, 25.5, 147, 23.3, 127, -3, 126.4, -3, 123.4, -12, 122.6, -12, 94, -135, 94, -136.3, 76.5, -191, 75.9, -191, 75, -205.1, 75, -240.4, 77, -243.4, 77, -245, 87.7, -253, 90, -253, 90, -260.2, 86.7, -280.6, 88, -283.6, 88, -286.2, 77, -339.4, 77, -347.2, 66, -392, 66, -396.4, 54, -422.4, 54, -424.9, 41, -436, 41, -437.1, 7.59998, -458, 6.40002, -458, 3.40002, -467, 7, -503.9, 7, -504.5, 9.09998, -505, 10.5, -505, 15, -502.8, 15, -501.3, 38, -497.3, 38, -494.9, 53.4, -502, 56.1, -502, 68.1, -520, 69.5, -520, 83, -563.7, 83, -565, 93.7, -573, 96.1, -573, 103.1, -584, 106.2, -584, 102, -592.5, 102, -594.9, 84.8, -610, 82.6, -619, 83, -625.9, 83, -647.6, 84.3, -648, 86.2, -648, 87.3, -650.1, 84.1, -655, 83, -681.1, 107.8, -677, 114.2, -671, 116.9, -671, 123.9, -679, 127.2, -679, 119.5, -694.4, 120.8, -694, 123.8, -694, 129, -699.2, 129, -703.5, 124, -712.5, 124, -715, 97.4, -735.7, 98.9, -737.2, 111.1, -738, 112.8, -738, 117.8, -743, 119.2, -743, 120.3, -745.2, 117, -749.7, 117, -751.2, 104, -758.3, 104, -759.6)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -581)
+enabled = false
+process_callback = 0
+position_smoothing_enabled = true

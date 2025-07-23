@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://vib7u5r211pg"]
 
-[ext_resource type="Script" path="res://Scenes/Main/Buildings/cauldron.gd" id="1_37nwg"]
+[ext_resource type="Script" uid="uid://dvn00l54cbvs4" path="res://Scenes/Main/Buildings/cauldron.gd" id="1_37nwg"]
 [ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/cauldron.png" id="2_5smis"]
-[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_swtbr"]
+[ext_resource type="Script" uid="uid://pr87k3eake4k" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_swtbr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ej540"]
 radius = 238.302

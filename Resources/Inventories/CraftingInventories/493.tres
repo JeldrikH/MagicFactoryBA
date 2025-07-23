@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3 uid="uid://chbys0wgd82ty"]
 
-[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_2d3iq"]
-[ext_resource type="Resource" path="res://Resources/Recipes/suspicious_potion.tres" id="1_as7rj"]
-[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_4kcpx"]
-[ext_resource type="Resource" path="res://Resources/Items/frog_leg.tres" id="3_dwkns"]
-[ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="4_7h5ar"]
-[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_ax1uo"]
-[ext_resource type="Resource" path="res://Resources/Items/automatic_brewing.tres" id="7_uqxhh"]
+[ext_resource type="Script" uid="uid://c6gt2imwnr8kj" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_2d3iq"]
+[ext_resource type="Resource" uid="uid://ubup1pr8yya3" path="res://Resources/Recipes/suspicious_potion.tres" id="1_as7rj"]
+[ext_resource type="Script" uid="uid://cdw8lo7y4wsda" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_4kcpx"]
+[ext_resource type="Resource" uid="uid://b7msecpuh6qds" path="res://Resources/Items/frog_leg.tres" id="3_dwkns"]
+[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="4_7h5ar"]
+[ext_resource type="Script" uid="uid://bfikx1n3xhnl4" path="res://Resources/Inventories/slot_data.gd" id="4_ax1uo"]
+[ext_resource type="Resource" uid="uid://d768nwiof0o6" path="res://Resources/Items/automatic_brewing.tres" id="7_uqxhh"]
 
 [sub_resource type="Resource" id="Resource_wf7c7"]
 script = ExtResource("1_2d3iq")
@@ -24,7 +24,7 @@ quantity = 0
 script = ExtResource("1_2d3iq")
 required_amount = 0
 item = ExtResource("7_uqxhh")
-quantity = 0
+quantity = 125
 
 [resource]
 script = ExtResource("3_4kcpx")

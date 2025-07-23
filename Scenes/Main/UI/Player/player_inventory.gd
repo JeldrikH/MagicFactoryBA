@@ -1,6 +1,7 @@
 extends Inventory
 class_name PlayerInventory
 
+
 const hotbar_data = preload("res://Resources/Inventories/player_hotbar.tres")
 
 signal drag_drop_result_signal(result: InventoryManager.DragDropLocation, index: int)
@@ -23,7 +24,8 @@ func _ready() -> void:
 func close():
 	if is_instance_valid(external_inventory):
 		external_inventory.disconnect_signals()
-		external_inventory.queue_free()
+		external_inventory.free()
+		external_inventory = null
 	super.close()
 			
 func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
@@ -34,6 +36,8 @@ func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Arra
 	return external_inventory
 	
 func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
+	if external_inventory:
+		close()
 	external_inventory = inventory_scene.instantiate()
 		
 	if scene_args.size() > 0 and external_inventory.has_method("scene_parameters"):

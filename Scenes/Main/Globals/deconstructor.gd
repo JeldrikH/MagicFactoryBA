@@ -32,4 +32,4 @@ func transfer_items(building: Building, player: Player):
 	var building_items = inventory.inventory_data.get_items()
 	inventory.queue_free()
 	if building_items.size() > 0:
-		player.inventory.player_items.add_item_list(building_items)
+		player.inventory.add_item_list(building_items)

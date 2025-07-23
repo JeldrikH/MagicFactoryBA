@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dorqwtemgwqrd"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/recipe_panel.gd" id="1_4de1e"]
+[ext_resource type="Script" uid="uid://c6qkm5ctqlirm" path="res://Scenes/Main/UI/Inventory/recipe_panel.gd" id="1_4de1e"]
 
 [node name="RecipePanel" type="PanelContainer" node_paths=PackedStringArray("recipe_grid") groups=["ui"]]
 script = ExtResource("1_4de1e")

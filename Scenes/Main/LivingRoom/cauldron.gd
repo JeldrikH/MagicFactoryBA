@@ -14,8 +14,8 @@ func _on_brew_timer_timeout() -> void:
 
 
 func _on_interaction_range_player_entered_range(player: Player) -> void:
-	#opens the default brewing inventory data [id = 0]
-	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory, 0, [0])
+	var inventory_id := 0 # Default
+	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory,inventory_id, [inventory_id])
 
 func _on_interaction_range_player_left_range(player: Player) -> void:
-	player.interaction_stack.remove_interaction(inventory, 0)
+	player.interaction_stack.remove_interaction(inventory)

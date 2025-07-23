@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvoexw45upwqd"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/container.gd" id="1_b842p"]
+[ext_resource type="Script" uid="uid://8gt5617153xr" path="res://Scenes/Main/UI/Inventory/container.gd" id="1_b842p"]
 
 [node name="ItemContainer" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories", "ui"]]
 anchors_preset = -1

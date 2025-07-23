@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bvc8rgdnvnahk"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/crafting_inventory.gd" id="1_tjvbt"]
+[ext_resource type="Script" uid="uid://d3yljymprsc1v" path="res://Scenes/Main/UI/Inventory/crafting_inventory.gd" id="1_tjvbt"]
 [ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="4_xf7s2"]
 
 [node name="BrewingInventory" type="PanelContainer" node_paths=PackedStringArray("inventory_grid", "input", "output", "recipe_panel", "recipe_button", "crafting_button") groups=["inventories", "ui"]]

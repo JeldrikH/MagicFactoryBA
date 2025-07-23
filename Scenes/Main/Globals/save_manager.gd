@@ -75,7 +75,9 @@ func save_scene(scene_name: StringName):
 			if !node.has_method("save"):
 				print("persistent node '%s' is missing a save() function, skipped" % node.name)
 				continue
-				
+			# Check if the node is in the saving scene (Debug: maybe split save groups for better efficiency)
+			if node.get_parent().name != scene_name:
+				continue
 			# Call the node's save function.
 			var node_data = node.call("save")
 
@@ -113,7 +115,7 @@ func load_players():
 			var node_data = json.data
 
 			# create the object, add it to the tree and set its position.
-			var player: Player = load("res://Scenes/Main/player.tscn").instantiate()
+			var player: Player = load("res://Scenes/Main/Characters/player.tscn").instantiate()
 			player.position = Vector2(node_data["pos_x"], node_data["pos_y"])
 
 			# set the remaining variables.

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dh6jrte14pleq"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/automatic_crafting_inventory.gd" id="1_kon00"]
+[ext_resource type="Script" uid="uid://bctu7vih4f48" path="res://Scenes/Main/UI/Inventory/automatic_crafting_inventory.gd" id="1_kon00"]
 [ext_resource type="PackedScene" uid="uid://r17y5jtyoouh" path="res://Scenes/Main/UI/Inventory/crafting_slot.tscn" id="2_es8w0"]
 [ext_resource type="PackedScene" uid="uid://dorqwtemgwqrd" path="res://Scenes/Main/UI/Inventory/recipe_panel.tscn" id="3_wg6yc"]
 
@@ -49,27 +49,30 @@ layout_mode = 2
 [node name="Input" type="GridContainer" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.113333
-anchor_top = 0.125683
-anchor_right = 0.723333
-anchor_bottom = 0.420765
+anchor_left = 0.136667
+anchor_top = 0.151184
+anchor_right = 0.796667
+anchor_bottom = 0.446266
 metadata/_edit_use_anchors_ = true
 
 [node name="Output" type="GridContainer" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0966667
-anchor_top = 0.480874
-anchor_right = 0.74
-anchor_bottom = 0.765027
+anchor_left = 0.140005
+anchor_top = 0.440802
+anchor_right = 0.783338
+anchor_bottom = 0.724955
 offset_top = 3.05176e-05
 offset_bottom = -3.05176e-05
 metadata/_edit_use_anchors_ = true
 
 [node name="SpellInput" parent="BrewingGrid/BrewingPanel/BrewingMargin/BrewingInventory" instance=ExtResource("2_es8w0")]
 layout_mode = 0
-offset_right = 90.0
-offset_bottom = 90.0
+anchor_left = 0.280004
+anchor_top = -0.0236785
+anchor_right = 0.580004
+anchor_bottom = 0.140256
+metadata/_edit_use_anchors_ = true
 
 [node name="ButtonLayer" type="Control" parent="BrewingGrid/BrewingPanel"]
 layout_mode = 2
@@ -80,18 +83,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="SelectRecipe" type="Button" parent="BrewingGrid/BrewingPanel/ButtonLayer"]
 layout_mode = 2
-offset_left = 60.0013
-offset_top = 30.0005
-offset_right = 208.001
-offset_bottom = 145.0
+anchor_left = 0.200004
+anchor_top = 0.144233
+anchor_right = 0.693337
+anchor_bottom = 0.697116
 text = "Select Recipe"
+metadata/_edit_use_anchors_ = true
 
 [node name="Crafting" type="Button" parent="BrewingGrid/BrewingPanel/ButtonLayer"]
 layout_mode = 0
-offset_left = 83.0013
-offset_top = 571.0
-offset_right = 160.001
-offset_bottom = 646.0
+offset_left = 108.001
+offset_top = 640.0
+offset_right = 185.001
+offset_bottom = 715.0
 text = "Brew"
 
 [node name="RecipePanel" parent="." instance=ExtResource("3_wg6yc")]

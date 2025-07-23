@@ -11,8 +11,10 @@ func fill_grid():
 		var slot = slot_node.instantiate()
 		slot.slot_type = InventoryManager.DragDropLocation.CONTAINER
 		slot.set_slot_data(inventory_data.slot_data_table[i])
-		item_grid.add_child(slot, true)
 		slot.index = i
+		item_grid.add_child(slot, true)
+		connect_slot(slot)
+		
 		
 #Transfers a stack from player inventory into the first available slot
 @rpc("any_peer", "call_local", "reliable")

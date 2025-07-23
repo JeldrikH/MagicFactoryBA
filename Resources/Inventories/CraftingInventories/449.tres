@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3]
+[gd_resource type="Resource" script_class="AutomaticCraftingInventoryData" load_steps=11 format=3 uid="uid://di0yv83a8y3fp"]
 
-[ext_resource type="Script" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_ep67f"]
-[ext_resource type="Script" path="res://Resources/item.gd" id="2_etn2l"]
-[ext_resource type="Script" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_1wuws"]
-[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="4_ojydw"]
+[ext_resource type="Script" uid="uid://c6gt2imwnr8kj" path="res://Resources/Inventories/crafting_slot_data.gd" id="1_ep67f"]
+[ext_resource type="Script" uid="uid://da5y0iphmkoim" path="res://Resources/item.gd" id="2_etn2l"]
+[ext_resource type="Script" uid="uid://cdw8lo7y4wsda" path="res://Resources/Inventories/automatic_crafting_inventory_data.gd" id="3_1wuws"]
+[ext_resource type="Script" uid="uid://bfikx1n3xhnl4" path="res://Resources/Inventories/slot_data.gd" id="4_ojydw"]
 
 [sub_resource type="Resource" id="Resource_2hece"]
 script = ExtResource("2_etn2l")

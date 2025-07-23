@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c71whvq6gs3hp"]
 
-[ext_resource type="Script" path="res://Scenes/Main/Buildings/remainder_container.gd" id="1_x3n3v"]
-[ext_resource type="Script" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_4pwjy"]
+[ext_resource type="Script" uid="uid://bl2odl3dbgo4e" path="res://Scenes/Main/Buildings/remainder_container.gd" id="1_x3n3v"]
+[ext_resource type="Script" uid="uid://pr87k3eake4k" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_4pwjy"]
 [ext_resource type="Texture2D" uid="uid://b4lje5r2cl7b2" path="res://Sprites/Objects/Buildings/chest.png" id="2_b71jf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o8n84"]

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="HotbarData" load_steps=24 format=3 uid="uid://b7jurkgcx1wib"]
 
-[ext_resource type="Script" path="res://Resources/Inventories/hotbar_data.gd" id="1_y4vlx"]
-[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_5ax5u"]
-[ext_resource type="Script" path="res://Resources/item.gd" id="3_4ouge"]
+[ext_resource type="Script" uid="uid://bav30da7f5bug" path="res://Resources/Inventories/hotbar_data.gd" id="1_y4vlx"]
+[ext_resource type="Script" uid="uid://bfikx1n3xhnl4" path="res://Resources/Inventories/slot_data.gd" id="2_5ax5u"]
+[ext_resource type="Script" uid="uid://da5y0iphmkoim" path="res://Resources/item.gd" id="3_4ouge"]
 
 [sub_resource type="Resource" id="Resource_4map6"]
 script = ExtResource("3_4ouge")

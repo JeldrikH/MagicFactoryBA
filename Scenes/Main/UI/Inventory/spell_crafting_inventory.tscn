@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://0pyet321cbxo"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/crafting_inventory.gd" id="1_hk64n"]
+[ext_resource type="Script" uid="uid://d3yljymprsc1v" path="res://Scenes/Main/UI/Inventory/crafting_inventory.gd" id="1_hk64n"]
 
 [node name="SpellCraftingInventory" type="PanelContainer" groups=["inventories", "ui"]]
 custom_minimum_size = Vector2(1128, 768)

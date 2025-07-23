@@ -50,9 +50,10 @@ func fill_grid():
 		var slot = slot_node.instantiate()
 		slot.slot_type = InventoryManager.DragDropLocation.INTERNAL
 		slot.set_slot_data(inventory_data.slot_data_table[i])
+		slot.index = i
 		item_grid.add_child(slot, true)
 		connect_slot(slot)
-		slot.index = i
+		
 		
 func get_slots()-> Array:
 	return item_grid.get_children()

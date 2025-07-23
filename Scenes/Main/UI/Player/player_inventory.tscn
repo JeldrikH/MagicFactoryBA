@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxwt4kg2qa5ud"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Player/player_inventory.gd" id="1_ldld7"]
+[ext_resource type="Script" uid="uid://cu5cui0ohd2ik" path="res://Scenes/Main/UI/Player/player_inventory.gd" id="1_ldld7"]
 [ext_resource type="PackedScene" uid="uid://ddw5b5cgcn5ul" path="res://Scenes/Main/UI/Inventory/delete_item.tscn" id="2_v28ix"]
 
 [node name="PlayerInventory" type="PanelContainer" node_paths=PackedStringArray("item_grid") groups=["inventories", "ui"]]
@@ -19,7 +19,7 @@ item_grid = NodePath("InventoryMargin/InventoryContainer/PlayerItems")
 metadata/_edit_use_anchors_ = true
 
 [node name="InventorySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/Main/UI/Inventory/brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/automatic_brewing_inventory.tscn", "res://Scenes/Main/UI/Inventory/container.tscn", "res://Scenes/Main/UI/Inventory/spell_crafting_inventory.tscn", "res://Scenes/Main/UI/Inventory/remainder_container.tscn")
+_spawnable_scenes = PackedStringArray("uid://bvc8rgdnvnahk", "uid://dh6jrte14pleq", "uid://bvoexw45upwqd", "uid://0pyet321cbxo", "uid://cul4466p5wp3i")
 spawn_path = NodePath("../InventoryMargin/InventoryContainer")
 
 [node name="InventoryMargin" type="MarginContainer" parent="."]

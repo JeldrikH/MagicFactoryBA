@@ -3,6 +3,7 @@ extends MultiplayerSynchronizer
 var xAxis
 var yAxis
 var is_sprinting: bool = false
+var player : Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -10,7 +11,8 @@ func _ready() -> void:
 		set_process(false)
 		set_physics_process(false)
 		set_process_input(false)
-		
+	
+	player = get_parent()
 	xAxis = Input.get_axis("MOVE_LEFT", "MOVE_RIGHT")
 	yAxis = Input.get_axis("MOVE_UP","MOVE_DOWN")
 	
@@ -33,13 +35,17 @@ func _input(_event):
 			
 	# Inventory
 	if Input.is_action_just_pressed("INVENTORY"):
-		$"..".inventory.open.call_deferred()
+		player.inventory.open.call_deferred()
 	
 	# Interactions
-	if Input.is_action_just_pressed("INTERACT") and $"..".interaction_stack.interaction_available:
-		var interaction = $"..".interaction_stack.get_interaction()
-		if interaction.interaction_type == Interaction.interaction_types.OPEN_INVENTORY:
-			$"..".inventory.open_with_external_inventory.call_deferred(interaction.value, interaction.args)
+	if Input.is_action_just_pressed("INTERACT") and player.interaction_stack.interaction_available:
+		var interaction = player.interaction_stack.get_interaction()
+		match interaction.interaction_type:
+			Interaction.interaction_types.OPEN_INVENTORY:
+				player.inventory.open_with_external_inventory.call_deferred(interaction.value, interaction.args)
+			Interaction.interaction_types.CHANGE_LOCATION:
+				player.current_scene_instance.player_changes_scene.rpc_id(1, multiplayer.get_unique_id(), interaction.scene)
+				
 	
 	builder_input()
 	deconstructor_input()

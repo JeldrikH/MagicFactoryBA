@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt3l4ii6cvtkf"]
+
+[ext_resource type="Texture2D" uid="uid://bihmmt0xirfq5" path="res://Sprites/Objects/Buildings/House.png" id="1_5pa78"]
+[ext_resource type="Script" uid="uid://pr87k3eake4k" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_fy8hw"]
+
+[sub_resource type="GDScript" id="GDScript_fy8hw"]
+script/source = "extends StaticBody2D
+
+var living_room := preload(\"res://Scenes/Main/LivingRoom/living_room.tscn\")
+
+func _on_door_interaction_player_entered_range(player: Player) -> void:
+	player.interaction_stack.add_interaction(Interaction.interaction_types.CHANGE_LOCATION, living_room)
+
+func _on_door_interaction_player_left_range(player: Player) -> void:
+	player.interaction_stack.remove_interaction(living_room)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fy8hw"]
+radius = 179.41
+
+[node name="House" type="StaticBody2D"]
+script = SubResource("GDScript_fy8hw")
+
+[node name="HouseSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -220)
+texture = ExtResource("1_5pa78")
+
+[node name="DoorInteractionRange" type="Area2D" parent="."]
+position = Vector2(124, -24)
+script = ExtResource("2_fy8hw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorInteractionRange"]
+shape = SubResource("CircleShape2D_fy8hw")
+metadata/_edit_lock_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -220)
+polygon = PackedVector2Array(351, 128, -4, 328, 82, 386, 162, 331, 177, 345, 174, 373, 81, 444, -175, 336, -370, 222, 80, -45, 466, 183, 451, 218, 309, 285, 285, 262, 429, 178)
+
+[connection signal="player_entered_range" from="DoorInteractionRange" to="." method="_on_door_interaction_player_entered_range"]
+[connection signal="player_left_range" from="DoorInteractionRange" to="." method="_on_door_interaction_player_left_range"]

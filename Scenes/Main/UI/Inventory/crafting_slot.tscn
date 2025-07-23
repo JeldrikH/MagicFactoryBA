@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://r17y5jtyoouh"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/Inventory/crafting_slot.gd" id="1_da0w5"]
+[ext_resource type="Script" uid="uid://0ck0ca0aitsm" path="res://Scenes/Main/UI/Inventory/crafting_slot.gd" id="1_da0w5"]
 
 [node name="CraftingSlot" type="PanelContainer"]
 script = ExtResource("1_da0w5")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InventoryData" load_steps=5 format=3 uid="uid://dqur3by61vs50"]
+
+[ext_resource type="Script" uid="uid://86dqmuax1gt1" path="res://Resources/Inventories/inventory_data.gd" id="1_2wqi0"]
+[ext_resource type="Script" uid="uid://bfikx1n3xhnl4" path="res://Resources/Inventories/slot_data.gd" id="2_bxtr8"]
+[ext_resource type="Resource" uid="uid://d768nwiof0o6" path="res://Resources/Items/automatic_brewing.tres" id="3_weyo7"]
+
+[sub_resource type="Resource" id="Resource_lggdm"]
+script = ExtResource("2_bxtr8")
+item = ExtResource("3_weyo7")
+quantity = 63
+
+[resource]
+script = ExtResource("1_2wqi0")
+slot_data_table = Array[ExtResource("2_bxtr8")]([SubResource("Resource_lggdm")])

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcy7uicsxnrad"]
 
-[ext_resource type="Script" path="res://Scenes/Main/UI/building_ui.gd" id="1_lgclg"]
+[ext_resource type="Script" uid="uid://dguh310gn8rqw" path="res://Scenes/Main/UI/building_ui.gd" id="1_lgclg"]
 
 [node name="BuildingUI" type="PanelContainer" groups=["ui"]]
 anchors_preset = -1
