@@ -53,7 +53,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_idypn"]
 texture = ExtResource("1_8wiog")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -68,7 +68,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mq4j7"]
 texture = ExtResource("2_hgvrn")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -83,7 +83,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hbpaf"]
 texture = ExtResource("3_td266")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -98,7 +98,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ob60e"]
 texture = ExtResource("4_y3p08")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -113,7 +113,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qf7an"]
 texture = ExtResource("5_h33e5")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -129,7 +129,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_31svr"]
 texture = ExtResource("6_qbash")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -144,7 +144,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mvdp0"]
 texture = ExtResource("7_xrpjg")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -159,7 +159,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ifr5o"]
 texture = ExtResource("8_32jnm")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -174,7 +174,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_irmgs"]
 texture = ExtResource("9_np87o")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -189,7 +189,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qs2ji"]
 texture = ExtResource("10_2easv")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -204,7 +204,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vurhr"]
 texture = ExtResource("11_ibil1")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -219,7 +219,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x6hft"]
 texture = ExtResource("12_dj2ne")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -234,7 +234,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fwnsi"]
 texture = ExtResource("13_8nb4u")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -249,7 +249,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6l1ct"]
 texture = ExtResource("14_10rx6")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -264,7 +264,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hiqkq"]
 texture = ExtResource("15_eo1m2")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -279,7 +279,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cck3a"]
 texture = ExtResource("16_j1kmu")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -294,7 +294,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l2xc0"]
 texture = ExtResource("17_17hea")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -309,7 +309,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qvs56"]
 texture = ExtResource("18_krt0n")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -324,7 +324,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cgyvm"]
 texture = ExtResource("19_huhbs")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -339,7 +339,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dypsv"]
 texture = ExtResource("20_plgo8")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -354,7 +354,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryb6s"]
 texture = ExtResource("21_ww5dp")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -369,7 +369,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mcx7l"]
 texture = ExtResource("22_v2doi")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -384,7 +384,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4vwm8"]
 texture = ExtResource("23_j7l3w")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -399,7 +399,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_huvwi"]
 texture = ExtResource("24_p4o4k")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -414,7 +414,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tnt11"]
 texture = ExtResource("25_eu6hi")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -430,7 +430,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u85y7"]
 texture = ExtResource("26_wn7fh")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -445,7 +445,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mn7ho"]
 texture = ExtResource("27_k38p1")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -460,7 +460,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5na5c"]
 texture = ExtResource("28_6b67l")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -475,7 +475,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_knrdg"]
 texture = ExtResource("29_eq2qq")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -490,7 +490,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8nf4e"]
 texture = ExtResource("30_e1o8k")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -505,7 +505,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkxpp"]
 texture = ExtResource("31_7q73w")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -520,7 +520,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ai8s3"]
 texture = ExtResource("32_8vqy2")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -535,7 +535,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nfgp2"]
 texture = ExtResource("33_o3tg0")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -550,7 +550,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1g277"]
 texture = ExtResource("34_52t83")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -565,7 +565,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_co1ww"]
 texture = ExtResource("35_0v6wm")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -580,7 +580,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lvcic"]
 texture = ExtResource("36_ita32")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -596,7 +596,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8ifa"]
 texture = ExtResource("37_0rk6x")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -612,7 +612,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gae0n"]
 texture = ExtResource("38_n5hdo")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -627,7 +627,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6mpuf"]
 texture = ExtResource("39_7s8bj")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -642,7 +642,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mnn8a"]
 texture = ExtResource("40_d5tj8")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -657,7 +657,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fkyk2"]
 texture = ExtResource("41_lr6wl")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -672,7 +672,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ewjb6"]
 texture = ExtResource("42_mg2sl")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -687,7 +687,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b5wr0"]
 texture = ExtResource("43_mequu")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -702,7 +702,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6etyh"]
 texture = ExtResource("44_ye7bv")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -717,7 +717,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6p3j1"]
 texture = ExtResource("45_kmc56")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -732,7 +732,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_samla"]
 texture = ExtResource("46_aycuk")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -747,7 +747,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_22ppc"]
 texture = ExtResource("47_gqqcf")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -762,7 +762,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dh4yr"]
 texture = ExtResource("48_047lq")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -777,7 +777,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_py6t6"]
 texture = ExtResource("49_fefr0")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -792,7 +792,7 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_07i6j"]
 texture = ExtResource("50_e8lyd")
-texture_region_size = Vector2i(64, 64)
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -806,7 +806,7 @@ texture_region_size = Vector2i(64, 64)
 0:0/0/terrains_peering_bit/top_right_corner = 0
 
 [resource]
-tile_size = Vector2i(64, 64)
+tile_size = Vector2i(256, 256)
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Grass"
 terrain_set_0/terrain_0/color = Color(0, 0.470193, 0.0202116, 1)

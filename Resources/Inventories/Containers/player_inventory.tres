@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=92 format=3]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=92 format=3 uid="uid://cxy04khttv50r"]
 
-[ext_resource type="Script" path="res://Resources/Inventories/inventory_data.gd" id="1_qubm3"]
-[ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="2_pvot6"]
-[ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="3_a4m83"]
-[ext_resource type="Script" path="res://Resources/item.gd" id="5_m3koi"]
-[ext_resource type="Resource" path="res://Resources/Items/paper.tres" id="6_t8k6w"]
+[ext_resource type="Script" uid="uid://86dqmuax1gt1" path="res://Resources/Inventories/inventory_data.gd" id="1_qubm3"]
+[ext_resource type="Script" uid="uid://bfikx1n3xhnl4" path="res://Resources/Inventories/slot_data.gd" id="2_pvot6"]
+[ext_resource type="Resource" uid="uid://do8a3tc4idngh" path="res://Resources/Items/suspicious_potion.tres" id="3_a4m83"]
+[ext_resource type="Script" uid="uid://da5y0iphmkoim" path="res://Resources/item.gd" id="5_m3koi"]
+[ext_resource type="Resource" uid="uid://y34s5uwr0wrx" path="res://Resources/Items/paper.tres" id="6_t8k6w"]
 
 [sub_resource type="Resource" id="Resource_54b8c"]
 script = ExtResource("2_pvot6")
