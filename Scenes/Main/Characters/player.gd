@@ -70,7 +70,7 @@ func walk_anim():
 		$PlayerSprite.play("Idle")
 		$PlayerAnimation.play("CharacterAnimations/Idle")
 		
-		
+
 func apply_movement_from_input(_delta):
 	xAxis = $InputSynchronizer.xAxis
 	yAxis = $InputSynchronizer.yAxis
@@ -93,7 +93,7 @@ func create_player_inventory(id: int):
 	inventory.name = str(id)
 	inventory.player_id = id
 	inventory.player_owner = self
-	
+
 func save()-> Dictionary:
 	var save_dict = {
 		"player_id" : player_id,

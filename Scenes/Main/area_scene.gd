@@ -22,7 +22,7 @@ func player_changes_scene(player_id: int, next_area: PackedScene):
 	player.reparent.call_deferred(parent)
 	player.scene_entered.call_deferred()
 	player.ready.emit.call_deferred()
-	tp_player_to_area_entrance(player_id, "%sFrom%s" % [next_area, self.name])
+	tp_player_to_area_entrance(player_id, "%sFrom%s" % [next_area_name, self.name])
 	
 func tp_player_to_area_entrance(player_id: int, entrance_name: StringName):
 	var player: Player = SaveManager.players.get(str(player_id))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bu2h6lb40hrmf"]
+[gd_scene load_steps=35 format=3 uid="uid://bu2h6lb40hrmf"]
 
 [ext_resource type="Script" uid="uid://cnnecim0tex54" path="res://Scenes/Main/Characters/player.gd" id="1_4onid"]
 [ext_resource type="Script" uid="uid://cr38uf5jg0i4l" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
@@ -143,6 +143,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_huyov"]
+polygon = PackedVector2Array(-84.4235, 296.031, -59.2061, 328.923, -3.28923, 334.405, 72.363, 326.73, 88.8092, 312.477, 103.062, 287.259, 62.4953, 270.813, 29.6031, 269.717, -14.2533, 276.295, -55.9169, 285.066)
+
 [sub_resource type="Animation" id="Animation_trfj7"]
 length = 0.001
 
@@ -187,7 +190,10 @@ texture = ExtResource("5_6amfr")
 position = Vector2(-2.5, -730)
 scale = Vector2(2.28017, 2.28017)
 sprite_frames = SubResource("SpriteFrames_wwn50")
-animation = &"Idle"
+animation = &"Walking"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="PlayerSprite"]
+occluder = SubResource("OccluderPolygon2D_huyov")
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
 libraries = {
