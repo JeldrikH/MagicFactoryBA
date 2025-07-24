@@ -1,4 +1,4 @@
-extends Node2D
+extends Panel
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,7 +12,8 @@ func load_save() -> void:
 
 
 func _on_load_pressed() -> void:
-	$MainMenu.hide()
+	hide()
+	%HUD.show()
 	MultiplayerManager.is_host = true
 	Identifier.name = "Host"
 	load_save()
@@ -20,7 +21,8 @@ func _on_load_pressed() -> void:
 
 
 func _on_join_pressed() -> void:
-	$MainMenu.hide()
+	hide()
+	%HUD.show()
 	MultiplayerManager.is_client = true
 	Identifier.name = "Client"
 	load_save()

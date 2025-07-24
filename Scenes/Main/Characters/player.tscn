@@ -1,10 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://bu2h6lb40hrmf"]
+[gd_scene load_steps=32 format=3 uid="uid://bu2h6lb40hrmf"]
 
 [ext_resource type="Script" uid="uid://cnnecim0tex54" path="res://Scenes/Main/Characters/player.gd" id="1_4onid"]
 [ext_resource type="Script" uid="uid://cr38uf5jg0i4l" path="res://Scenes/Main/Multiplayer/multiplayer_input.gd" id="2_4g8rx"]
-[ext_resource type="Texture2D" uid="uid://brst4arfsxkdh" path="res://Sprites/UI/destructor_overlay.png" id="5_6amfr"]
-[ext_resource type="PackedScene" uid="uid://bcy7uicsxnrad" path="res://Scenes/Main/UI/building_ui.tscn" id="5_e3nkf"]
-[ext_resource type="Script" uid="uid://b0avhe73bu30n" path="res://Scenes/Main/UI/Player/deconstructor_overlay.gd" id="6_256iv"]
 [ext_resource type="Texture2D" uid="uid://hmhuvnt582ab" path="res://Sprites/Objects/Character/idle.png" id="6_huyov"]
 [ext_resource type="Texture2D" uid="uid://debqhjhtd5yje" path="res://Sprites/Objects/Character/walking_unused/idle.png" id="6_m2qcm"]
 [ext_resource type="Texture2D" uid="uid://biffvk3n0f4gp" path="res://Sprites/Objects/Character/walking_unused/walking_0.png" id="7_uaxcs"]
@@ -166,25 +163,6 @@ replication_config = SubResource("SceneReplicationConfig_stasp")
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_vdvek")
 script = ExtResource("2_4g8rx")
-
-[node name="PlayerUI" type="CanvasLayer" parent="."]
-
-[node name="BuildingUI" parent="PlayerUI" instance=ExtResource("5_e3nkf")]
-visible = false
-
-[node name="DeconstructorOverlay" type="Control" parent="PlayerUI"]
-visible = false
-layout_mode = 3
-anchor_right = 1.00312
-anchor_bottom = 0.997222
-mouse_filter = 2
-script = ExtResource("6_256iv")
-metadata/_edit_use_anchors_ = true
-
-[node name="DeconstructorOverlay" type="Sprite2D" parent="PlayerUI/DeconstructorOverlay"]
-position = Vector2(1280, 720)
-scale = Vector2(1.33333, 1.33333)
-texture = ExtResource("5_6amfr")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-2.5, -730)

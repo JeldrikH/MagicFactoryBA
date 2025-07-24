@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb3o771iookwe"]
+
+[ext_resource type="Script" uid="uid://b0avhe73bu30n" path="res://Scenes/Main/UI/Player/deconstructor_overlay.gd" id="1_s1nv3"]
+[ext_resource type="Texture2D" uid="uid://brst4arfsxkdh" path="res://Sprites/UI/destructor_overlay.png" id="2_rdpxx"]
+
+[node name="DeconstructorOverlay" type="Control"]
+visible = false
+layout_mode = 3
+anchor_right = 1.00312
+anchor_bottom = 0.997222
+mouse_filter = 2
+script = ExtResource("1_s1nv3")
+metadata/_edit_use_anchors_ = true
+
+[node name="DeconstructorOverlay" type="Sprite2D" parent="."]
+position = Vector2(1280, 720)
+scale = Vector2(1.33333, 1.33333)
+texture = ExtResource("2_rdpxx")

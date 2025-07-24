@@ -39,10 +39,11 @@ script = ExtResource("1_7vulj")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://vib7u5r211pg", "uid://c71whvq6gs3hp")
-spawn_path = NodePath("..")
+spawn_path = NodePath("../OcclusionObjects")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("..")
+_spawnable_scenes = PackedStringArray("uid://bu2h6lb40hrmf")
+spawn_path = NodePath("../OcclusionObjects")
 
 [node name="LivingRoom" type="Sprite2D" parent="."]
 position = Vector2(1213, 190)

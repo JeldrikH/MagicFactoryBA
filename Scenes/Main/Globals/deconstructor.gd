@@ -15,16 +15,16 @@ func deactivate_deconstruct_mode():
 	deactivated.emit()
 	
 @rpc("any_peer","call_local","reliable")
-func deconstruct(building_id: String, parent: String):
-	var building = get_node("/root/Main/%s/%s" % [parent, building_id])
+func deconstruct(building_id: String, scene_name: StringName):
+	var building = get_node("/root/Main/%s/OcclusionObjects/%s" % [scene_name, building_id])
 	DirAccess.remove_absolute("res://Resources/Inventories/" + building.inventory_resource_folder + str(building.id) + ".tres")
 	building.queue_free()
-	SaveManager.save_scene(parent)
+	SaveManager.save_scene(scene_name)
 
 func player_deconstruct(building: Building, player: Player):
-	var parent = building.get_parent().name
+	var scene_name = building.current_scene_instance.name
 	transfer_items(building, player)
-	deconstruct.rpc_id(1, building.name, parent)
+	deconstruct.rpc_id(1, building.name, scene_name)
 	Builder.selected_building = null
 
 func transfer_items(building: Building, player: Player):

@@ -42,7 +42,7 @@ func _input(_event):
 		var interaction = player.interaction_stack.get_interaction()
 		match interaction.interaction_type:
 			Interaction.interaction_types.OPEN_INVENTORY:
-				player.inventory.open_with_external_inventory.call_deferred(interaction.value, interaction.args)
+				player.inventory.open_with_external_inventory.call_deferred(interaction.scene, interaction.args)
 			Interaction.interaction_types.CHANGE_LOCATION:
 				player.current_scene_instance.player_changes_scene.rpc_id(1, multiplayer.get_unique_id(), interaction.scene)
 				
@@ -53,7 +53,7 @@ func _input(_event):
 
 func builder_input():
 	if Input.is_action_just_pressed("OPEN_BUILDER") and Builder.is_building_allowed:
-		$"../PlayerUI/BuildingUI".open()
+		get_node("/root/Main/UI/BuildingUI").open()
 	if Input.is_action_pressed("BUILDER_DEACTIVATE_GRID_SNAP") and Builder.build_mode:
 		BuildingGrid.deactivate_grid()
 	if Input.is_action_just_released("BUILDER_DEACTIVATE_GRID_SNAP") and Builder.build_mode and not BuildingGrid.grid_activated:

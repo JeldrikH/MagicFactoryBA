@@ -495,11 +495,12 @@ is_camera_enabled = true
 building_grid = NodePath("BuildingGrid")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("..")
+_spawnable_scenes = PackedStringArray("uid://bu2h6lb40hrmf")
+spawn_path = NodePath("../OcclusionObjects")
 
 [node name="BuildingSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://vib7u5r211pg", "uid://c71whvq6gs3hp")
-spawn_path = NodePath("..")
+spawn_path = NodePath("../OcclusionObjects")
 
 [node name="Floor" type="TileMapLayer" parent="."]
 position = Vector2(-20000, -20000)

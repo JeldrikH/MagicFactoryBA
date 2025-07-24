@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw8xd2jo66cyl"]
+
+[ext_resource type="Script" uid="uid://b7ksvjwqwpeon" path="res://Scenes/Main/UI/hud.gd" id="1_13bpp"]
+[ext_resource type="Texture2D" uid="uid://b4sgqn0m7j88l" path="res://Sprites/UI/UI Icons.png" id="2_ctves"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yls4"]
+atlas = ExtResource("2_ctves")
+region = Rect2(66, 73, 414, 398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qw60k"]
+atlas = ExtResource("2_ctves")
+region = Rect2(544, 73, 415, 398)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6jpk"]
+atlas = ExtResource("2_ctves")
+region = Rect2(544, 551, 415, 403)
+
+[node name="HUD" type="Panel"]
+self_modulate = Color(1, 1, 1, 0.52549)
+offset_left = 2249.0
+offset_top = 1349.0
+offset_right = 2560.0
+offset_bottom = 1440.0
+script = ExtResource("1_13bpp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+anchor_right = 0.994
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="InventoryButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="BBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/InventoryButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryKey" type="TextureRect" parent="MarginContainer/HBoxContainer/InventoryButton/BBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InventroryIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/InventoryButton/BBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_5yls4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BuildingButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/BuildingButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BuildingKey" type="TextureRect" parent="MarginContainer/HBoxContainer/BuildingButton/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BuildingIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/BuildingButton/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_qw60k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DeconstructButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DeconstructButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="DeconstructKey" type="TextureRect" parent="MarginContainer/HBoxContainer/DeconstructButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DeconstructIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/DeconstructButton/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_p6jpk")
+expand_mode = 1
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/BuildingButton" to="." method="_on_building_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/DeconstructButton" to="." method="_on_deconstruct_button_pressed"]
