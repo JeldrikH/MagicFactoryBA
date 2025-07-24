@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="ID" load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://Resources/ID/id.gd" id="1_u6g8h"]
-
-[resource]
-script = ExtResource("1_u6g8h")
-id = 517
