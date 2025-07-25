@@ -7,12 +7,10 @@ class_name Building
 @export var inventory_type: StringName:
 	set(p_inventory_type):
 		inventory_type = p_inventory_type
-		inventory_scene = load("res://Scenes/Main/UI/Inventory/" + inventory_type +".tscn")
 @export_enum("Containers", "CraftingInventories") var inventory_resource_folder: String
 
 var id: int
 var current_scene_instance: Node2D
-var inventory_scene: PackedScene
 var is_hovered = false
 
 # Called when the node enters the scene tree for the first time.
@@ -73,10 +71,10 @@ func _on_mouse_exited():
 
 func _on_interaction_range_player_entered_range(player: Player) -> void:
 	#opens the default brewing inventory data [id = 0]
-	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory_scene, id, [id])
+	player.interaction_stack.add_interaction(Interaction.interaction_types.OPEN_INVENTORY, inventory_type, id, [id])
 
 func _on_interaction_range_player_left_range(player: Player) -> void:
-	player.interaction_stack.remove_interaction(inventory_scene, id)
+	player.interaction_stack.remove_interaction(inventory_type, id)
 	
 func save()-> Dictionary:
 	var save_dict = {

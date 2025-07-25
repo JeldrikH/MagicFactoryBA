@@ -40,6 +40,10 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ai_assistant_hub/plugin.cfg")
+
 [global_group]
 
 inventories="group of all inventories"
@@ -227,6 +231,13 @@ locale/translations=PackedStringArray("res://Translations/items.de.translation",
 [physics]
 
 common/physics_interpolation=true
+
+[plugins]
+
+ai_assistant_hub/base_url="http://127.0.0.1:11434"
+ai_assistant_hub/llm_api="ollama_api"
+ai_assistant_hub/preferences/thinking_target=0
+ai_assistant_hub/preferences/always_scroll_to_bottom=false
 
 [rendering]
 

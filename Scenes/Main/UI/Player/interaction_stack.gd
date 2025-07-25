@@ -6,13 +6,13 @@ var interaction_available = false
 var interactions: Array[Interaction] = []
 
 ## Adds a new interaction to the top of the stack
-func add_interaction(p_interaction_type: int, p_scene: PackedScene, p_interaction_id: int= 0, p_interaction_args: Array = []):
+func add_interaction(p_interaction_type: int, p_scene: StringName, p_interaction_id: int= 0, p_interaction_args: Array = []):
 	var interaction = Interaction.new(p_interaction_type, p_scene, p_interaction_id,  p_interaction_args)
 	interactions.append(interaction)
 	interaction_available = true
 
 ## Removes a specified interaction from the stack (not necessarily the top)
-func remove_interaction(p_scene: PackedScene, p_interaction_id: int = 0):
+func remove_interaction(p_scene: StringName, p_interaction_id: int = 0):
 	for i in interactions.size():
 		if interactions[i].scene == p_scene and interactions[i].interaction_id == p_interaction_id:
 			interactions.remove_at(i)

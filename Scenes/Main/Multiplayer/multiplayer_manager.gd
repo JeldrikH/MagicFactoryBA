@@ -47,7 +47,7 @@ func _add_player_to_game(p_id: int):
 		player = create_new_player(p_id, _players_spawn_node)
 	
 	SceneManager.open_scene_by_name(player.current_scene)
-	var parent: Node2D = get_node("/root/Main/%s" % player.current_scene)
+	var parent: Node2D = get_node("/root/Main/%s/OcclusionObjects" % player.current_scene)
 	player.is_online = true
 	parent.add_child(player, true)
 	
@@ -58,7 +58,7 @@ func create_new_player(p_id: int, parent: StringName)-> Player:
 	player.player_id = p_id
 	player.name = str(p_id)
 	player.current_scene = parent
-	player.position = get_tree().get_nodes_in_group("spawns").get(0).position
+	player.position = get_tree().get_nodes_in_group("spawns").get(0).position #Debug maybe better solution?
 	return player
 		
 func _remove_player_from_game(p_id: int):

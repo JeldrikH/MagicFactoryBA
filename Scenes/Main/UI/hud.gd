@@ -39,7 +39,7 @@ func _on_inventory_button_pressed() -> void:
 
 
 func _on_building_button_pressed() -> void:
-	if not InventoryManager.is_ui_opened:
+	if not InventoryManager.is_ui_opened and Builder.is_building_allowed:
 		$"../BuildingUI".open()
 	else:
 		$"../BuildingUI".close()

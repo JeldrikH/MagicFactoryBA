@@ -12,21 +12,9 @@ func open_scene_by_name(scene: StringName):
 		scene_instance.name = scene.to_pascal_case()
 		scenes_in_tree.get_or_add(scene, scene_instance)
 		get_tree().get_current_scene().add_child(scene_instance, true)
-	scene_instance.hide()
+		scene_instance.hide()
 	return scene_instance
 	
-@rpc("any_peer", "call_local", "reliable")
-func open_packed_scene(packed_scene: PackedScene):
-	# Check if scene is already open
-	var scene_instance = scenes_in_tree.get(packed_scene)
-	if !scene_instance: # not open
-		scene_instance = packed_scene.instantiate()
-		scene_instance.name = get_scene_name(packed_scene).to_pascal_case()
-		print(packed_scene.resource_name)
-		scenes_in_tree.get_or_add(scene_instance.name, scene_instance)
-		get_tree().get_current_scene().add_child(scene_instance, true)
-	scene_instance.hide()
-	return scene_instance
 	
 @rpc("authority", "call_local", "reliable")
 func close_scene(scene: StringName):

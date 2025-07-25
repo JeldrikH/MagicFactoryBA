@@ -8,7 +8,6 @@ var is_online = false
 
 var xAxis = 0
 var yAxis = 0
-
 ## Stack of currently available interactions
 var interaction_stack: InteractionStack
 var inventory: Inventory
@@ -30,18 +29,14 @@ func _ready():
 		
 func scene_entered():
 	interaction_stack = InteractionStack.new()
-	#Hide previous scene
-	if current_scene_instance:
-		current_scene_instance.hide()
-	#Setup new scene
 	current_scene_instance = _find_current_scene_instance()
 	current_scene = current_scene_instance.name
-	_add_to_occlusion_node()
 	if player_id == multiplayer.get_unique_id():
+		get_tree().call_group("scenes", "hide")
 		current_scene_instance.show()
-		Builder.is_building_allowed = get_parent().is_building_allowed
-		BuildingGrid.current_scene = get_parent()
-		$Camera2D.enabled = get_parent().is_camera_enabled
+		Builder.is_building_allowed = current_scene_instance.is_building_allowed
+		BuildingGrid.current_scene = current_scene_instance
+		$Camera2D.enabled = current_scene_instance.is_camera_enabled
 		
 func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
@@ -110,7 +105,3 @@ func _find_current_scene_instance() -> Node2D:
 			return node
 		node = node.get_parent()
 	return null
-
-func _add_to_occlusion_node():
-	if current_scene_instance.has_node("OcclusionObjects"):
-		self.reparent.call_deferred(current_scene_instance.find_child("OcclusionObjects"))

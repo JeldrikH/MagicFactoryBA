@@ -28,9 +28,10 @@ func close():
 		external_inventory = null
 	super.close()
 			
-func open_with_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
+func open_with_external_inventory(inventory_scene: StringName, scene_args: Array = [])-> PanelContainer:
 	if not InventoryManager.is_ui_opened:
-		add_external_inventory(inventory_scene, scene_args)
+		var packed_scene = load("res://Scenes/Main/UI/Inventory/" + inventory_scene +".tscn")
+		add_external_inventory(packed_scene, scene_args)
 		external_inventory.show()
 	open()
 	return external_inventory

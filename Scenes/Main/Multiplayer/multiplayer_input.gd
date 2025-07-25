@@ -44,7 +44,7 @@ func _input(_event):
 			Interaction.interaction_types.OPEN_INVENTORY:
 				player.inventory.open_with_external_inventory.call_deferred(interaction.scene, interaction.args)
 			Interaction.interaction_types.CHANGE_LOCATION:
-				player.current_scene_instance.player_changes_scene.rpc_id(1, multiplayer.get_unique_id(), interaction.scene)
+				player.current_scene_instance.player_changes_scene.rpc_id(1,multiplayer.get_unique_id(), interaction.scene)
 				
 	
 	builder_input()
