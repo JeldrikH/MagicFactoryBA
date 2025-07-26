@@ -12,23 +12,20 @@ func update_keys():
 	
 
 func _inventory_key():
-	var key_icon = _get_key_icon("INVENTORY")
+	var key = %UI.get_key("INVENTORY")
+	var key_icon = load("res://Sprites/UI/Keys/%s-Key.png" % key)
 	%InventoryKey.texture = key_icon
 	
 	
 func _building_key():
-	var key_icon = _get_key_icon("OPEN_BUILDER")
+	var key = %UI.get_key("OPEN_BUILDER")
+	var key_icon = load("res://Sprites/UI/Keys/%s-Key.png" % key)
 	%BuildingKey.texture = key_icon
 
 func _deconstruct_key():
-	var key_icon = _get_key_icon("DECONSTRUCT")
+	var key = %UI.get_key("DECONSTRUCT")
+	var key_icon = load("res://Sprites/UI/Keys/%s-Key.png" % key)
 	%DeconstructKey.texture = key_icon
-	
-
-func _get_key_icon(action_name: StringName) -> CompressedTexture2D:
-	var input_events = InputMap.action_get_events(action_name)
-	var key: String = OS.get_keycode_string(input_events[0].physical_keycode)
-	return load("res://Sprites/UI/Keys/%s-Key.png" % key)
 
 	
 func _on_inventory_button_pressed() -> void:

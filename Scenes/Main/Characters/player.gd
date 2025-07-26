@@ -8,6 +8,7 @@ var is_online = false
 
 var xAxis = 0
 var yAxis = 0
+var interaction_label_visible := false
 ## Stack of currently available interactions
 var interaction_stack: InteractionStack
 var inventory: Inventory
@@ -42,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		apply_movement_from_input(delta)
 	_apply_animations(delta)
+	_show_interaction_label()
 	
 
 func _apply_animations(_delta):
@@ -105,3 +107,11 @@ func _find_current_scene_instance() -> Node2D:
 			return node
 		node = node.get_parent()
 	return null
+
+func _show_interaction_label():
+	if interaction_stack.interaction_available and not interaction_label_visible:
+		interaction_label_visible = true
+		get_tree().call_group("ui", "show_interaction")
+	elif not interaction_stack.interaction_available and interaction_label_visible:
+		interaction_label_visible = false
+		get_tree().call_group("ui", "hide_interaction")

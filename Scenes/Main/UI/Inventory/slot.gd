@@ -10,7 +10,7 @@ class_name Slot
 @export var is_hotbar_slot = false
 @export var contains_item = false
 
-@export var tooltip_delay = 1
+@export var tooltip_delay = 0.1
 var tooltip: RichTextLabel
 var tooltip_content: String
 

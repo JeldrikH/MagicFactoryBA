@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfq2qgfn658my"
-path="res://.godot/imported/grass, cartoon, texture.png-e535cb7bad645567a3743c1cc245cab0.ctex"
+uid="uid://10xhyltkraqm"
+path="res://.godot/imported/uk.png-cc839ea8f04d526452e4d83929dce70e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/grass, cartoon, texture.png"
-dest_files=["res://.godot/imported/grass, cartoon, texture.png-e535cb7bad645567a3743c1cc245cab0.ctex"]
+source_file="res://Sprites/UI/uk.png"
+dest_files=["res://.godot/imported/uk.png-cc839ea8f04d526452e4d83929dce70e.ctex"]
 
 [params]
 

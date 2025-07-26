@@ -7,7 +7,7 @@
 script = ExtResource("1_eeego")
 use_count = 0
 id = "automatic_brewing"
-name = "Automatic Brewing"
+name = "AUTOMATIC_BREWING_NAME"
 icon = ExtResource("1_t28fg")
-description = "Allows to brew spells in a cauldron"
+description = "AUTOMATIC_BREWING_DESCRIPTION"
 stackable = true

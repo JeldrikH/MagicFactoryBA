@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://byn3ew2h6ybu2"]
+[gd_scene load_steps=13 format=3 uid="uid://byn3ew2h6ybu2"]
 
 [ext_resource type="Script" uid="uid://dwwnrc47xs3p2" path="res://Scenes/Main/LivingRoom/living_room.gd" id="1_7vulj"]
 [ext_resource type="Script" uid="uid://bilosec402sin" path="res://Scenes/Main/LivingRoom/table.gd" id="2_i5ayr"]
 [ext_resource type="Texture2D" uid="uid://bv4l8ald5semb" path="res://Sprites/Objects/table.png" id="3_4umm3"]
+[ext_resource type="Texture2D" uid="uid://qxh4w8r6ji42" path="res://Sprites/Objects/Buildings/door_frame.png" id="3_i5ayr"]
 [ext_resource type="Texture2D" uid="uid://dldkm8qagbeo3" path="res://Sprites/Objects/living_room.png" id="4_5w34m"]
 [ext_resource type="Script" uid="uid://cg6adxv4hq02f" path="res://Scenes/Main/LivingRoom/cauldron.gd" id="5_8gl61"]
 [ext_resource type="Texture2D" uid="uid://d33aykunpyfmk" path="res://Sprites/Objects/Buildings/cauldron_full.png" id="6_vhslw"]
@@ -49,17 +50,19 @@ scale = Vector2(0.846281, 0.933454)
 metadata/_edit_lock_ = true
 
 [node name="WallCollision" type="CollisionPolygon2D" parent="LivingRoom/Wall"]
-polygon = PackedVector2Array(1040, 405, 860, 429, 842, 416, 838, 377, 758, 377, 757, 389, 420, 392, 409, 377, 294, 376, 274, 387, 273, 416, 84, 548, 59, 546, 57, 565, 47.3654, 576.905, 78.4864, 628.627, 1148, 646.16, 1157.65, 580.412, 1186.58, 581.727, 1190.96, 646.16, 48.2419, 647.475, 50.4335, 15.4097, 337.099, 12.3414, 1145.81, 11.4648, 1184.38, 8.39652, 1188, 561, 1188, 581, 1158, 580, 1144, 569, 1148, 490, 1126, 477, 1123.9, 423.053, 1038.42, 379.22)
+visible = false
+polygon = PackedVector2Array(1040, 405, 860, 429, 842, 416, 838, 377, 758, 377, 757, 389, 420, 392, 409, 377, 294, 376, 274, 387, 273, 416, 84, 548, 59, 546, 57, 565, 47.3654, 576.905, 78.4864, 628.627, 1125.65, 645.722, 1184.82, 640.901, 1187.89, 582.603, 1190.96, 646.16, 48.2419, 647.475, 50.4335, 15.4097, 337.099, 12.3414, 1145.81, 11.4648, 1184.38, 8.39652, 1188, 561, 1188, 581, 1186.58, 582.603, 1146.25, 571.645, 1142.3, 492.308, 1124.77, 477.843, 1126.09, 463.379, 1175.18, 458.995, 1175.18, 405.081, 1128.72, 404.205)
 metadata/_edit_lock_ = true
 
 [node name="Door" type="Area2D" parent="LivingRoom"]
+visible = false
 position = Vector2(360.932, 356.376)
 collision_mask = 2
 
 [node name="DoorCollision" type="CollisionPolygon2D" parent="LivingRoom/Door"]
 position = Vector2(-364.27, -351.875)
 scale = Vector2(1, 1.00689)
-polygon = PackedVector2Array(388.011, 224.218, 387.64, 286.001, 461.829, 328.144, 458.12, 227.082)
+polygon = PackedVector2Array(390.978, 279.167, 284.145, 296.64, 359.077, 384.82, 467.022, 380.35, 502.262, 351.092, 503.004, 280.386)
 
 [node name="StorageInteraction" type="Area2D" parent="."]
 collision_mask = 3
@@ -79,6 +82,12 @@ position = Vector2(1834, 1111)
 
 [node name="OcclusionObjects" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="DoorFrame" type="Sprite2D" parent="OcclusionObjects"]
+position = Vector2(2523, 1053)
+scale = Vector2(2.6958, 2.44405)
+texture = ExtResource("3_i5ayr")
+offset = Vector2(0, -178.005)
 
 [node name="Cauldron" type="Area2D" parent="OcclusionObjects"]
 position = Vector2(108, 1224)

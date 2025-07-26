@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnx7newq0fwot"
-path="res://.godot/imported/ComfyUI_00270_.png-2ed2162364421509ffe75a60cb246aec.ctex"
+uid="uid://mwui2clm34y"
+path="res://.godot/imported/ger.png-5212ad42142ab18b1130d526323895cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/ComfyUI_00270_.png"
-dest_files=["res://.godot/imported/ComfyUI_00270_.png-2ed2162364421509ffe75a60cb246aec.ctex"]
+source_file="res://Sprites/UI/ger.png"
+dest_files=["res://.godot/imported/ger.png-5212ad42142ab18b1130d526323895cb.ctex"]
 
 [params]
 

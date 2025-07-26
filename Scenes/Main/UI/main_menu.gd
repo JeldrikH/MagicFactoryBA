@@ -1,11 +1,6 @@
 extends Panel
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	TranslationServer.set_locale("en")
-
-
 func load_save() -> void:
 	MultiplayerManager.manage_multiplayer()
 	
@@ -27,3 +22,11 @@ func _on_join_pressed() -> void:
 	Identifier.name = "Client"
 	load_save()
 	
+
+
+func _on_en_pressed() -> void:
+	TranslationServer.set_locale("en")
+
+
+func _on_ger_pressed() -> void:
+	TranslationServer.set_locale("de")

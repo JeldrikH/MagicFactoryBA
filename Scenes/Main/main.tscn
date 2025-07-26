@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmenvclj8bknw"]
+[gd_scene load_steps=7 format=3 uid="uid://dmenvclj8bknw"]
 
+[ext_resource type="Script" uid="uid://db87dpem3ude3" path="res://Scenes/Main/ui.gd" id="1_p6jpk"]
 [ext_resource type="PackedScene" uid="uid://cw8xd2jo66cyl" path="res://Scenes/Main/UI/hud.tscn" id="2_p6jpk"]
 [ext_resource type="PackedScene" uid="uid://ufhs0qa8jdtn" path="res://Scenes/Main/UI/main_menu.tscn" id="3_2a143"]
 [ext_resource type="PackedScene" uid="uid://bcy7uicsxnrad" path="res://Scenes/Main/UI/building_ui.tscn" id="4_5yls4"]
 [ext_resource type="PackedScene" uid="uid://cb3o771iookwe" path="res://Scenes/Main/UI/deconstructor_overlay.tscn" id="5_xlvfx"]
+[ext_resource type="Script" uid="uid://c7vo8br71vqhm" path="res://Scenes/Main/interaction_label.gd" id="6_2a143"]
 
 [node name="Main" type="Node2D"]
 metadata/_edit_use_anchors_ = true
@@ -15,6 +17,8 @@ spawn_path = NodePath("..")
 [node name="PlayerInventories" type="CanvasLayer" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="." groups=["ui"]]
+unique_name_in_owner = true
+script = ExtResource("1_p6jpk")
 
 [node name="HUD" parent="UI" instance=ExtResource("2_p6jpk")]
 unique_name_in_owner = true
@@ -26,3 +30,23 @@ unique_name_in_owner = true
 visible = false
 
 [node name="DeconstructorOverlay" parent="UI" instance=ExtResource("5_xlvfx")]
+
+[node name="InteractionLabel" type="RichTextLabel" parent="UI"]
+unique_name_in_owner = true
+clip_contents = false
+anchors_preset = -1
+anchor_left = 0.492188
+anchor_top = 0.763889
+anchor_right = 0.507813
+anchor_bottom = 0.791667
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 3
+script = ExtResource("6_2a143")
+metadata/_edit_use_anchors_ = true
