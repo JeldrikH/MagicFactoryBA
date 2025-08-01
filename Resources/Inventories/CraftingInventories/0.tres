@@ -7,13 +7,13 @@
 [ext_resource type="Resource" path="res://Resources/Items/suspicious_potion.tres" id="4_m7wib"]
 [ext_resource type="Script" path="res://Resources/Inventories/slot_data.gd" id="6_w5xw2"]
 
-[sub_resource type="Resource" id="Resource_v57l6"]
+[sub_resource type="Resource" id="Resource_dsd0i"]
 script = ExtResource("1_dmtna")
 required_amount = 2
 item = ExtResource("3_g1leg")
 quantity = 0
 
-[sub_resource type="Resource" id="Resource_lsf5a"]
+[sub_resource type="Resource" id="Resource_5q1eg"]
 script = ExtResource("1_dmtna")
 required_amount = 1
 item = ExtResource("4_m7wib")
@@ -21,8 +21,8 @@ quantity = 0
 
 [resource]
 script = ExtResource("3_fi5d7")
-input = Array[ExtResource("1_dmtna")]([SubResource("Resource_v57l6")])
-output = Array[ExtResource("1_dmtna")]([SubResource("Resource_lsf5a")])
+input = Array[ExtResource("1_dmtna")]([SubResource("Resource_dsd0i")])
+output = Array[ExtResource("1_dmtna")]([SubResource("Resource_5q1eg")])
 type = &"brewing"
 active_recipe = ExtResource("1_wt7b2")
 slot_data_table = Array[ExtResource("6_w5xw2")]([])

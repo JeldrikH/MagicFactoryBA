@@ -11,7 +11,7 @@ var external_inventory: Inventory
 var player_id: int:
 	set(id):
 		player_id = id
-		$InventorySpawner.set_multiplayer_authority(id)
+		$InventorySpawner.set_multiplayer_authority(player_id)
 		handle_multiplayer_inventory()
 		
 func _ready() -> void:
@@ -28,18 +28,17 @@ func close():
 		external_inventory = null
 	super.close()
 			
-func open_with_external_inventory(inventory_scene: StringName, scene_args: Array = [])-> PanelContainer:
+func open_with_external_inventory(inventory_type: StringName, scene_args: Array = [])-> PanelContainer:
 	if not InventoryManager.is_ui_opened:
-		var packed_scene = load("res://Scenes/Main/UI/Inventory/" + inventory_scene +".tscn")
-		add_external_inventory(packed_scene, scene_args)
+		add_external_inventory(inventory_type, scene_args)
 		external_inventory.show()
 	open()
 	return external_inventory
 	
-func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = [])-> PanelContainer:
+func add_external_inventory(inventory_type: StringName, scene_args: Array = [])-> PanelContainer:
 	if external_inventory:
 		close()
-	external_inventory = inventory_scene.instantiate()
+	external_inventory = load("res://Scenes/Main/UI/Inventory/%s.tscn" %inventory_type).instantiate()
 		
 	if scene_args.size() > 0 and external_inventory.has_method("scene_parameters"):
 		external_inventory = external_inventory.scene_parameters(scene_args)
@@ -48,7 +47,7 @@ func add_external_inventory(inventory_scene: PackedScene, scene_args: Array = []
 	connect_slot_signals(external_inventory)
 	return external_inventory
 	
-	#debug change later to dynamic inventory
+	#TODO change later to dynamic inventory
 func handle_multiplayer_inventory():
 	if player_id != 1:
 		item_grid.name = "PlayerItems2"

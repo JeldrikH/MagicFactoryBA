@@ -10,18 +10,21 @@ var is_host = false
 var is_client = false
 
 
-func manage_multiplayer():
+func manage_multiplayer() -> Error:
 	if is_host:
-		host()
-	elif is_client:
-		join()
+		return host()
+	if is_client:
+		return join()
+	return Error.ERR_CANT_CREATE
 	
-func host():
+func host() -> Error:
 	SaveManager.start_autosave()
 	
 	var server_peer = ENetMultiplayerPeer.new()
-	server_peer.create_server(SERVER_PORT)
-	
+	var err = server_peer.create_server(SERVER_PORT)
+	if err:
+		return err
+		
 	multiplayer.multiplayer_peer = server_peer
 	
 	multiplayer.peer_connected.connect(_add_player_to_game)
@@ -29,13 +32,16 @@ func host():
 	SaveManager.load_players()
 	
 	_add_player_to_game(1)
+	return Error.OK
 	
 func join():
 	var client_peer = ENetMultiplayerPeer.new()
-	client_peer.create_client(SERVER_IP, SERVER_PORT)
-	
+	var err = client_peer.create_client(SERVER_IP, SERVER_PORT)
+	if err:
+		return err
+		
 	multiplayer.multiplayer_peer = client_peer
-	
+	return Error.OK
 		
 func _add_player_to_game(p_id: int):
 	print("Player %s joined the game!"% p_id)
@@ -58,7 +64,7 @@ func create_new_player(p_id: int, parent: StringName)-> Player:
 	player.player_id = p_id
 	player.name = str(p_id)
 	player.current_scene = parent
-	player.position = get_tree().get_nodes_in_group("spawns").get(0).position #Debug maybe better solution?
+	player.position = get_tree().get_nodes_in_group("spawns").get(0).position #TODO maybe better solution?
 	return player
 		
 func _remove_player_from_game(p_id: int):

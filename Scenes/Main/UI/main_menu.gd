@@ -1,27 +1,30 @@
 extends Panel
 
 
-func load_save() -> void:
-	MultiplayerManager.manage_multiplayer()
+func load_save() -> Error:
+	return MultiplayerManager.manage_multiplayer()
+	
 	
 
 
 func _on_load_pressed() -> void:
-	hide()
-	%HUD.show()
 	MultiplayerManager.is_host = true
+	MultiplayerManager.is_client = false
 	Identifier.name = "Host"
-	load_save()
-	
+	var err = load_save()
+	if !err:
+		hide()
+		%HUD.show()
 
 
 func _on_join_pressed() -> void:
-	hide()
-	%HUD.show()
+	MultiplayerManager.is_host = false
 	MultiplayerManager.is_client = true
 	Identifier.name = "Client"
-	load_save()
-	
+	var err = load_save()
+	if !err:
+		hide()
+		%HUD.show()
 
 
 func _on_en_pressed() -> void:

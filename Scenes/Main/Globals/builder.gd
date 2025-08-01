@@ -55,7 +55,7 @@ func build(p_building: StringName, parent: String, build_position: Vector2, scen
 	building_instance.position = build_position
 	building_instance.build()
 	var parent_node = get_tree().get_current_scene().get_node(parent)
-	parent_node.add_child(building_instance, true)
+	parent_node.find_child("OcclusionObjects").add_child(building_instance, true)
 	SaveManager.save_scene(parent)
 	
 	

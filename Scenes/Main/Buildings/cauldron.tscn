@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://vib7u5r211pg"]
+[gd_scene load_steps=6 format=3 uid="uid://vib7u5r211pg"]
 
 [ext_resource type="Script" uid="uid://dvn00l54cbvs4" path="res://Scenes/Main/Buildings/cauldron.gd" id="1_37nwg"]
 [ext_resource type="Texture2D" uid="uid://larehmxkm3y3" path="res://Sprites/Objects/Buildings/cauldron.png" id="2_5smis"]
 [ext_resource type="Script" uid="uid://pr87k3eake4k" path="res://Scenes/Main/Buildings/building_interaction.gd" id="2_swtbr"]
+[ext_resource type="PackedScene" uid="uid://bqcrmy8qikxqm" path="res://Scenes/save_module.tscn" id="4_oiy50"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ej540"]
 radius = 238.302
 
-[node name="Cauldron" type="StaticBody2D" node_paths=PackedStringArray("building_sprite", "interaction_range", "hitbox") groups=["persist"]]
+[node name="Cauldron" type="StaticBody2D" node_paths=PackedStringArray("building_sprite", "interaction_range", "hitbox")]
 collision_layer = 4
 collision_mask = 5
 input_pickable = true
@@ -37,3 +38,5 @@ polygon = PackedVector2Array(-10, -330.1, -10, -329, -58.1, -327, -73.1, -327, -
 [node name="HitboxShape" type="CollisionPolygon2D" parent="Hitbox"]
 scale = Vector2(0.553711, 0.553711)
 polygon = PackedVector2Array(-179.5, -317, -238, -317, -241.6, -316, -245.2, -316, -257.2, -307, -259.4, -307, -273.4, -291, -274.7, -291, -288.7, -265, -290, -265, -301, -229, -302.2, -229, -308.2, -198, -309.3, -198, -318.5, -113.1, -318.5, -104.5, -323.6, -103, -327.4, -103, -338.4, -90, -338.5, -22, -328.5, -10.3, -328.5, -8.60001, -318.9, -5, -312.4, -5, -306.5, 70.2, -306.5, 82.1, -293.3, 191, -298.5, 210.7, -298.5, 229.4, -294.5, 240.4, -294.5, 243.6, -281.6, 263, -275.5, 303.3, -275.5, 307.8, -267.5, 316.7, -194.2, 317, -186.5, 304.6, -186.5, 298.6, -183.1, 298, -150.6, 298, -142.6, 289, -141, 289, -134.7, 269, 140, 269, 143.5, 284, 143.5, 287.8, 150.5, 294.8, 150.5, 296.9, 182.5, 298, 188, 298, 188.5, 300, 188.5, 307.8, 197.5, 316.8, 273.2, 317, 277.8, 307, 279.2, 307, 286.5, 262.2, 286.5, 258.6, 291.5, 252, 292.9, 252, 299.9, 232, 301.5, 232, 301.5, 210.6, 292.5, 188.4, 292.5, 187.2, 310.5, 7.10001, 310.5, -3.5, 323.6, -7, 326.3, -7, 335.3, -16, 336.9, -16, 338.5, -20.8, 338.5, -90.8, 323.3, -105, 317.3, -105, 310.5, -179.2, 310.5, -187.2, 298.5, -238, 298.5, -242.4, 282.5, -278.4, 282.5, -280.7, 272.5, -292.7, 272.5, -294.9, 253.5, -311, 253.5, -312.4, 241.9, -317, 181.4, -317, 167.8, -305, 166.2, -305, 163.2, -298, 44.9, -298, 41.5, -307.5, 41.5, -310.1, 31.1, -317, -33.6, -317, -38.2, -313, -39.8, -313, -46.3, -298, -161.5, -297.1, -166.5, -305.5, -166.5, -308)
+
+[node name="SaveModule" parent="." instance=ExtResource("4_oiy50")]

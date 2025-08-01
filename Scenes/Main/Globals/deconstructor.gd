@@ -22,13 +22,13 @@ func deconstruct(building_id: String, scene_name: StringName):
 	SaveManager.save_scene(scene_name)
 
 func player_deconstruct(building: Building, player: Player):
-	var scene_name = building.current_scene_instance.name
+	var scene_name = building.get_node("SaveModule").current_scene_instance.name
 	transfer_items(building, player)
 	deconstruct.rpc_id(1, building.name, scene_name)
 	Builder.selected_building = null
 
 func transfer_items(building: Building, player: Player):
-	var inventory = player.inventory.add_external_inventory(building.inventory_scene, [building.id])
+	var inventory = player.inventory.add_external_inventory(building.inventory_type, [building.id])
 	var building_items = inventory.inventory_data.get_items()
 	inventory.queue_free()
 	if building_items.size() > 0:

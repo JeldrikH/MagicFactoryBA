@@ -3,10 +3,10 @@ class_name AreaScene
 
 @export var is_building_allowed = false
 @export var is_camera_enabled = false
-@export var building_grid: Node2D
+var building_grid: Node2D
 
 func _ready() -> void:
-	
+	building_grid = get_node("OcclusionObjects")
 	hide()
 	SaveManager.load_scene(name)
 	child_entered_tree.connect(_on_child_entered_tree)
@@ -47,7 +47,7 @@ func _create_building_spawner():
 	var BuildingSpawner: MultiplayerSpawner = MultiplayerSpawner.new()
 	BuildingSpawner.name = "BuildingSpawner"
 	
-	#Debug make global list and iterate
+	#TODO make global list and iterate
 	BuildingSpawner.add_spawnable_scene("res://Scenes/Main/Buildings/cauldron.tscn") 
 	BuildingSpawner.add_spawnable_scene("res://Scenes/Main/Buildings/remainder_container.tscn")
 	add_child(BuildingSpawner)

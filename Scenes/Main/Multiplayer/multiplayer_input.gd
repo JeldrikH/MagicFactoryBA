@@ -75,7 +75,7 @@ func deconstructor_input():
 	if Input.is_action_just_pressed("CLICK") and Deconstructor.deconstruct_mode and is_instance_valid(Builder.selected_building):
 			Deconstructor.player_deconstruct(Builder.selected_building, get_parent())
 
-##adds the hovered item to the pressed hotbar slot with the corresponding keystroke #debug change to signal
+##adds the hovered item to the pressed hotbar slot with the corresponding keystroke #TODO change to signal
 func add_to_hotbar_with_key():
 	for slot_number in range(0,10):
 		if Input.is_action_just_pressed("SLOT_" + str(slot_number+1)):

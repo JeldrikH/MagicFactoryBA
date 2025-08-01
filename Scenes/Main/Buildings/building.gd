@@ -10,7 +10,6 @@ class_name Building
 @export_enum("Containers", "CraftingInventories") var inventory_resource_folder: String
 
 var id: int
-var current_scene_instance: Node2D
 var is_hovered = false
 
 # Called when the node enters the scene tree for the first time.
@@ -18,8 +17,6 @@ func _ready() -> void:
 	input_pickable = true
 	setup_building_synchronization()
 	connect_signals()
-	current_scene_instance = _find_current_scene_instance()
-	_add_to_occlusion_node()
 
 func _process(_delta: float) -> void:
 	input_handler()
@@ -76,25 +73,3 @@ func _on_interaction_range_player_entered_range(player: Player) -> void:
 func _on_interaction_range_player_left_range(player: Player) -> void:
 	player.interaction_stack.remove_interaction(inventory_type, id)
 	
-func save()-> Dictionary:
-	var save_dict = {
-		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x,
-		"pos_y" : position.y,
-		"id" : id,
-		"name" : name
-	}
-	return save_dict
-	
-func _find_current_scene_instance() -> Node2D:
-	var node = self.get_parent()
-	while node:
-		if node.is_in_group("scenes"):
-			return node
-		node = node.get_parent()
-	return null
-	
-func _add_to_occlusion_node():
-	if current_scene_instance.has_node("OcclusionObjects"):
-		self.reparent.call_deferred(current_scene_instance.find_child("OcclusionObjects"))

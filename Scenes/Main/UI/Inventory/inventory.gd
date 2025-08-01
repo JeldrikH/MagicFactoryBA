@@ -144,7 +144,7 @@ func create_remainder_container(remainder: Array[SlotData]):
 	
 func add_items_to_remainder_container(remainder_container: Building, remainder: Array[SlotData]):
 	if remainder_container is RemainderContainer:
-		var external_inventory = player_owner.inventory.open_with_external_inventory(remainder_container.inventory_scene, [remainder_container.id, remainder.size()])
+		var external_inventory = player_owner.inventory.open_with_external_inventory(remainder_container.inventory_type, [remainder_container.id, remainder.size()])
 		external_inventory.add_item_list.call_deferred(remainder)
 		Builder.building_created.disconnect(add_items_to_remainder_container)
 	

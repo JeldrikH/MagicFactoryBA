@@ -119,7 +119,7 @@ func read_inputs():
 func check_for_item_deleting():
 	if contains_item and is_selected and Input.is_action_just_released("CLICK") and not InventoryManager.mouse_inside_inventory and not is_hotbar_slot:
 		drag_drop_result.emit(InventoryManager.DragDropLocation.OUTSIDE, -1)
-		#get_tree().call_group("delete_prompt", "open_prompt", get_parent(), index) # old keeping for backup debug
+		#get_tree().call_group("delete_prompt", "open_prompt", get_parent(), index) # old keeping for backup TODO
 
 func check_for_drag_drop_cancel():
 	if (contains_item 

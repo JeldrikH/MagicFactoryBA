@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqcrmy8qikxqm"]
+
+[ext_resource type="Script" uid="uid://bge5tf3desj7p" path="res://Scenes/Main/save_module.gd" id="1_a2vi0"]
+
+[node name="SaveModule" type="Node2D" groups=["persist"]]
+script = ExtResource("1_a2vi0")
